@@ -2,14 +2,21 @@
 
 
 div.container{
-	vertical-align: middle;
-	text-align: center;
-	margin: auto;
+	top:5%;
+}
+div.col-sm-4{
+	  	text-align: center;
+	  	right:-32%;
+
 }
 
 .group{ 
-  position:relative; 
   margin-bottom:20px; 
+}
+
+h4{
+	margin-right: 75%;
+	width: 100%;
 }
 .group input 				{
   font-size:18px;
