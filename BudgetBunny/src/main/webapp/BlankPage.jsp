@@ -30,7 +30,7 @@
 		<%@ include file = "BudgetForm.jsp" %>
 	</div>
 
-	<button id="submitSetup">Submit</button>
+	<button class="btn btn-info" id="submitSetup">Submit</button>
 	
 	<script type="text/javascript" src="static/js/jozsef.js"></script>
 	

@@ -41,10 +41,10 @@
 		    	<input name="Amount" placeholder="Amount" type="number"/>
 		    	<label style='visibility: hidden' id="percentType">%</label>
 		    </td>
-		   	<td ><button class='removeButton' id="removeButton">x</button></td>
+		   	<td ><button class='btn btn-info removeButton' id="removeButton"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
 		  </tr>
 		</tbody>
 	</table>
 	
-	<button id="addCategory">Add category</button>
+	<button class="btn btn-info" id="addCategory">Add category</button>
 </div>

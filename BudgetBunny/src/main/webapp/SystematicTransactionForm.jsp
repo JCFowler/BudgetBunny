@@ -38,12 +38,12 @@
 				</select>
 			</td>
 			<td><input name="startDate" type="date"	></td>
-		   	<td ><button class='${type}RemoveButton' id="${type}RemoveButton">x</button></td>
+		   	<td ><button class='btn btn-info ${type}RemoveButton' id="${type}RemoveButton"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
 		  </tr>
 		</tbody>
 	</table>
 	
-	<button id="add${type}">Add ${type}</button>
+	<button class="btn btn-info" id="add${type}">Add ${type}</button>
 
 </div>
 
