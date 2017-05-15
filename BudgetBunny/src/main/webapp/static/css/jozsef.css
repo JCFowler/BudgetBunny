@@ -1,0 +1,32 @@
+@CHARSET "ISO-8859-1";
+
+.table
+{
+    width: 700pt;
+    table-layout: fixed;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#table-container
+{
+	    padding: 5%;
+	    text-align: center;
+}
+
+#close
+{
+	width: 40pt;
+}
+
+#setup-body
+{
+	text-align: center;	
+}
+
+.highlight
+{
+	border-color: red;
+}
+
