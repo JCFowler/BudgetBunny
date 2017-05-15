@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>BudgetBunny</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  
+  <!-- The Servlet tag maps our servlet to a Java Class -->
+  <servlet>
+  	<servlet-name>Test</servlet-name>
+  	<servlet-class>com.revature.test.Test</servlet-class>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <!-- The Servlet-mapping tag maps our servlet to a URL -->
+  <servlet-mapping>
+  	<servlet-name>Test</servlet-name>
+	<url-pattern>/test</url-pattern>
+  </servlet-mapping>
+</web-app>
