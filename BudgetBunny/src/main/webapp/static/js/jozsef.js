@@ -16,6 +16,7 @@ function ajaxCall(data, destUrl)
 	    success: function (html) {
 	    	
 	      //TODO: finish ajax;
+	    	alert("Ajax Success: \n\t" + html);
 	    }
 	  });
 }
@@ -49,10 +50,9 @@ $('#adddeposit').click(function(){
 
 $('.withdrawRemoveButton').click(function()
 {
-	let id = $(this).attr('id').replace('withdrawRemoveButton', '');
-	let row = $('#withdrawTableRow' + id);
+	const id = $(this).attr('id').replace('withdrawRemoveButton', '');
+	const row = $('#withdrawTableRow' + id);
 
-	//TODO
 	row.find('[name="name"]').val('');
 	row.find('[name="cost"]').val('');
 	row.find('[name="startDate"]').val('');
@@ -61,11 +61,9 @@ $('.withdrawRemoveButton').click(function()
 
 $('.depositRemoveButton').click(function()
 {
-	let id = $(this).attr('id').replace('depositRemoveButton', '');
-	let row = $('#depositTableRow' + id);
-	alert(row.attr('id'));
+	const id = $(this).attr('id').replace('depositRemoveButton', '');
+	const row = $('#depositTableRow' + id);
 	
-	//TODO
 	row.find('[name="name"]').val('');
 	row.find('[name="cost"]').val('');
 	row.find('[name="startDate"]').val('');
@@ -84,21 +82,24 @@ function submitSystematicDeposits()
 
 function submitSystematicTransactions(numberPrefix, type)
 {
-	count = 1;
-	arrCount = 0;
-	data = {};
-	validData = true;
+	let count = 1;
+	let arrCount = 0;
+	let data = {};
+	let validData = true;
 	while((nextIncome = $('#' + type + 'TableRow' + count++)).length > 0)
 	{
-		let name = nextIncome.find('[name="name"]');
-		let cost = nextIncome.find('[name="cost"]');
-		let period = nextIncome.find('[name="period"]');
-		let startDate = nextIncome.find('[name="startDate"]');
+		const name = nextIncome.find('[name="name"]');
+		const cost = nextIncome.find('[name="cost"]');
+		const period = nextIncome.find('[name="period"]');
+		const startDate = nextIncome.find('[name="startDate"]');
 		
 		if(name.val().length == 0 && cost.val().length == 0 && startDate.val().length == 0)
 			continue;
 		
-		validData = validData & verifyFutureDate(startDate) & verifyIncomeValue(cost) & verifyNonEmpty(name);
+		const verifyStartDate = verifyNonEmpty(name);
+		const varifyCost = verifyIncomeValue(cost);
+		const verifyName = verifyFutureDate(startDate);
+		validData = validData && verifyStartDate && verifyCost && verifyName;
 		
 		if(validData)
 		{
@@ -190,7 +191,7 @@ $('#addCategory').click(function(){
 });
 
 $('.percentage').click(function(){
-	let id = $(this).attr('id').replace('percentage', '');
+	const id = $(this).attr('id').replace('percentage', '');
 	$('#amountType' + id).text('%');
 	if($(this).is(':checked'))
 	{
@@ -207,9 +208,8 @@ $('.percentage').click(function(){
 
 $('.removeButton').click(function()
 {
-	let id = $(this).attr('id').replace('removeButton', '');
-	let row = $('#categoryTableRow' + id);
-	alert(row.attr('id'));
+	const id = $(this).attr('id').replace('removeButton', '');
+	const row = $('#categoryTableRow' + id);
 	
 	row.find('[name="name"]').val('');
 	row.find('[name="Amount"]').val('');
@@ -224,15 +224,17 @@ function submitBudgetCategories()
 	validData = true;
 	while((nextIncome = $('#categoryTableRow' + count++)).length > 0)
 	{
-		let category = nextIncome.find('#category');
-		let name = nextIncome.find('[name="name"]');
-		let percent = nextIncome.find('#percent');
-		let amount = nextIncome.find('[name="Amount"]');
+		const category = nextIncome.find('#category');
+		const name = nextIncome.find('[name="name"]');
+		const percent = nextIncome.find('#percent');
+		const amount = nextIncome.find('[name="Amount"]');
 		
 		if(name.val().length == 0 && amount.val().length == 0)
 			continue;
 		
-		validData = validData & verifyIncomeValue(amount) & verifyNonEmpty(name);
+		const verifyStartDate = verifyNonEmpty(name);
+		const varifyCost = verifyIncomeValue(amount);
+		validData = validData && verifyStartDate && verifyCost && verifyName;
 		
 		if(validData)
 		{
@@ -261,9 +263,9 @@ function submitBudgetCategories()
 
 $('#submitSetup').click(function()
 {
-	catData = submitBudgetCategories();
-	depData = submitSystematicDeposits();
-	withData = submitSystematicWithdraws();
+	const catData = submitBudgetCategories();
+	const depData = submitSystematicDeposits();
+	const withData = submitSystematicWithdraws();
 	
 	if(depData && withData && catData)
 	{
