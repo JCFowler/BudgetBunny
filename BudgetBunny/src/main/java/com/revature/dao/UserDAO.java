@@ -7,7 +7,8 @@ public interface UserDAO {
 	User save(User u);
 	
 	//R
-	User login(User u);
+	boolean isUsernameTaken(String username);
+	User login(String uName, String pass);
 	User getById(int id);
 //	Bear getById(int i);
 //	Bear loadById(int i);

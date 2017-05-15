@@ -1,5 +1,7 @@
 package com.revature.dao;
 
+import java.util.ArrayList;
+
 import com.revature.bean.Transaction;
 
 public interface TransactionDAO {
@@ -8,6 +10,7 @@ public interface TransactionDAO {
 	
 	//R
 	Transaction getById(int id);
+	ArrayList<Transaction> getAll();
 	
 	//U
 	Transaction update(Transaction t);

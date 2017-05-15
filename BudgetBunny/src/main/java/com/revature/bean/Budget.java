@@ -112,6 +112,13 @@ public class Budget {
 		this.category = category;
 		this.recurringCharge = recurringCharge;
 	}
+	
+	public Budget(int budgetId, double totalBudget, double totalSpent) {
+		super();
+		this.budgetId = budgetId;
+		this.totalBudget = totalBudget;
+		this.totalSpent = totalSpent;
+	}
 	public Budget() {
 		super();
 		// TODO Auto-generated constructor stub

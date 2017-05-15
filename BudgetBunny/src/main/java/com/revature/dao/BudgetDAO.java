@@ -10,6 +10,7 @@ public interface BudgetDAO {
 	Budget getById(int id);
 	
 	//U
+	Budget update(Budget b);
 	
 	//D
 }

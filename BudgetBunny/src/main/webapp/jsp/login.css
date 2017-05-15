@@ -1,0 +1,16 @@
+@CHARSET "ISO-8859-1";
+
+/* Credit to bootsnipp.com for the css for the color graph */
+.colorgraph {
+  height: 5px;
+  border-top: 0;
+  background: #FF9600;
+}
+
+.login h2{
+    color: #A0522D;
+}
+
+h2{
+	text-align: center;
+}
