@@ -27,7 +27,7 @@
 		    <th hidden class='errorMsg period'></th>
 		    <th hidden class='errorMsg'>Today or in the future</th>
 		  </tr>
-		  <tr id="${type}TableRow0" hidden>
+		  <tr id="original${type}TableRow0" count='0' hidden>
 		    <td><input name="name" placeholder="name" type="text"/></td>
 		    <td><input name="cost" placeholder="wage/salary" type="text"/></td> 
 		    <td>	
@@ -38,12 +38,12 @@
 				</select>
 			</td>
 			<td><input name="startDate" type="date"	></td>
-		   	<td ><button class='${type}RemoveButton' id="${type}RemoveButton">x</button></td>
+		   	<td ><button class='btn btn-info RemoveButton' type="${type}" id="${type}RemoveButton"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
 		  </tr>
 		</tbody>
 	</table>
 	
-	<button id="add${type}">Add ${type}</button>
+	<button class="btn btn-info add-systematic" id="add${type}">Add ${type}</button>
 
 </div>
 
