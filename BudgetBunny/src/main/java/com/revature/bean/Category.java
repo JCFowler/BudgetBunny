@@ -6,10 +6,13 @@ import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +20,8 @@ import javax.persistence.Table;
 public class Category {
 	@Id
 	@Column
+	@SequenceGenerator(name="category_seq", sequenceName="category_seq")
+	@GeneratedValue(generator="category_seq", strategy=GenerationType.AUTO)
 	private int catId;
 	private String name;
 	private double budget;
@@ -26,15 +31,29 @@ public class Category {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="budgetid")
 	private Budget bud;
-	
-	public Category(int catId, String name, double budget, double spent, ArrayList<Transaction> transaction) {
+
+	public Category(int catId, String name, double budget, double spent, Collection<Transaction> transaction,
+			Budget bud) {
 		super();
 		this.catId = catId;
 		this.name = name;
 		this.budget = budget;
 		this.spent = spent;
 		this.transaction = transaction;
+		this.bud = bud;
 	}
+
+	public Category(int catId, String name, double budget, double spent, Budget bud) {
+		super();
+		this.catId = catId;
+		this.name = name;
+		this.budget = budget;
+		this.spent = spent;
+		this.bud = bud;
+	}
+
+
+
 	public Category() {
 		super();
 	}

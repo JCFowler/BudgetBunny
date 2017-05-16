@@ -2,6 +2,7 @@ package com.revature.test;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,8 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.revature.bean.Budget;
-import com.revature.bean.User;
+import com.revature.bean.Category;
 import com.revature.dao.BudgetDAOImpl;
+import com.revature.dao.CategoryDAOImpl;
 import com.revature.dao.UserDAOImpl;
 
 public class Test extends HttpServlet{
@@ -20,6 +22,7 @@ public class Test extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private UserDAOImpl ud = new UserDAOImpl();
 	private BudgetDAOImpl bd = new BudgetDAOImpl();
+	private CategoryDAOImpl cd = new CategoryDAOImpl();
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
@@ -64,9 +67,30 @@ public class Test extends HttpServlet{
 		
 //		System.out.println(bd.getById(loggedIn.getBudget().getBudgetId()));
 		
-		Budget b = bd.getById(6);
-		b.setTotalSpent(103);
-		bd.update(b);
+//		Budget b = bd.getById(6);
+//		b.setTotalSpent(103);
+//		bd.update(b);
+		
+//		Budget b = bd.getById(6);
+//		cd.save(new Category(0,"Food", 1000, 0, b));
+//		cd.save(new Category(0,"Car", 1000, 0, b));
+//		cd.save(new Category(0,"Cat", 1000, 0, b));
+//		cd.save(new Category(0,"Games", 1000, 0, b));
+		
+		ArrayList<Category> list = cd.getAll(6);
+		System.out.println(list.size());
+		for(Category cs : list) {
+			System.out.println(cs.getCatId() + cs.getName() + cs.getBudget()+cs.getSpent());
+		}
+		
+//		Category c = cd.getById(1);
+//		System.out.println(c.getCatId() + c.getName() + c.getBudget()+c.getSpent());
+//		c.setName("Video Games");
+//		Category c2 = cd.update(c);
+//		System.out.println(c2.getCatId() + c2.getName() + c2.getBudget()+c2.getSpent());
+//		cd.delete(c);
+		
+		
 		
 		PrintWriter printWriter = resp.getWriter();
 		printWriter.write("<!DOCTYPE html><html><head><meta charset=\"ISO-8859-1\"><title>HelloWorld</title></head><body>");

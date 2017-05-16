@@ -26,9 +26,8 @@ public class BudgetDAOImpl implements BudgetDAO {
 
 	@Override
 	public Budget getById(int id) {
-		Budget b = null;
 		Session su = hu.getSession();
-		b = (Budget) su.get(Budget.class, id);
+		Budget b = (Budget) su.get(Budget.class, id);
 		su.close();
 		return b;
 	}
