@@ -14,18 +14,19 @@
 
 	<table class="table-hover table table-bordered" id="${type}Table")>
 		<tbody id="${type}TableBody">
-		  <tr>
+		  <tr class='header-row'>
 		    <th>Name</th>
 		    <th>Amount</th> 
 		    <th class='period'>Period</th>
 		    <th>Start Date</th>
    		    <th id="close"></th>
 		  </tr>
-		  <tr>
+		  <tr class='header-row'>
 		  	<th hidden class='errorMsg'>Field Cannot Be Empty</th>
 		    <th hidden class='errorMsg'>0 < Amount < 999999999.99</th> 
 		    <th hidden class='errorMsg period'></th>
 		    <th hidden class='errorMsg'>Today or in the future</th>
+		  	<th hidden class='errorMsg'></th>
 		  </tr>
 		  <tr id="original${type}TableRow0" count='0' hidden>
 		    <td><input name="name" placeholder="name" type="text"/></td>

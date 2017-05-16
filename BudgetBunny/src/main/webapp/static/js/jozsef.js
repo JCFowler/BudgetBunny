@@ -76,18 +76,18 @@ $('.RemoveButton').click(function()
 /*
  * Submits negative values systematic transactions.
  */
-function submitSystematicWithdraws()
+function submitSystematicWithdraws(validData)
 {
-	return submitSystematicTransactions("-", "withdraw")
+	return submitSystematicTransactions("-", "withdraw", validData);
 }
 
 
 /*
  * Submits positive value systematic transactions.
  */
-function submitSystematicDeposits()
+function submitSystematicDeposits(validData)
 {
-	return submitSystematicTransactions("", "deposit");
+	return submitSystematicTransactions("", "deposit", validData);
 }
 
 
@@ -95,7 +95,7 @@ function submitSystematicDeposits()
  * Submits systematic transactions, to invert the value submit a negative
  * sign as the numberPrefix value.
  */
-function submitSystematicTransactions(numberPrefix, type)
+function submitSystematicTransactions(numberPrefix, type, validData)
 {
 	if(numberPrefix !== '-')
 		numberPrefix = '';		
@@ -103,7 +103,6 @@ function submitSystematicTransactions(numberPrefix, type)
 	let tableRowCount = 1;
 	let dataCount = 0;
 	let data = {};
-	let validData = true;
 	while((nextIncome = $('#' + type + 'TableRow' + tableRowCount++)).length > 0)
 	{
 		const name = nextIncome.find('[name="name"]');
@@ -112,8 +111,12 @@ function submitSystematicTransactions(numberPrefix, type)
 		const startDate = nextIncome.find('[name="startDate"]');
 		
 		if(name.val().length == 0 && cost.val().length == 0 && startDate.val().length == 0)
+		{
+			turnOffHighLight(name);
+			turnOffHighLight(cost);
+			turnOffHighLight(startDate);			
 			continue;
-		
+		}
 		const verifyStartDate = verifyNonEmpty(name);
 		const verifyCost = verifyIncomeValue(cost);
 		const verifyName = verifyFutureDate(startDate);
@@ -130,16 +133,7 @@ function submitSystematicTransactions(numberPrefix, type)
 			}
 		}
 	}
-	if(validData)
-	{
-		$('.errorMsg').hide();
-		return data;
-	}
-	else
-	{
-		$('.errorMsg').show();
-		return null;
-	}
+	return displayErrorMessage(validData, data);
 }
 
 
@@ -147,12 +141,11 @@ function verifyNonEmpty(name)
 {
 	if(name.val().length == 0)
 	{
-		if(!name.hasClass('highlight'))
-			name.toggleClass('highlight');
+		turnOnHighLight(name);
 		return false;
 	}
-	else if(name.hasClass('highlight'))
-		name.toggleClass('highlight');
+	else 
+		turnOffHighLight(name);
 	return true;
 }
 
@@ -160,12 +153,11 @@ function verifyIncomeValue(cost)
 {
 	if(isNaN(cost.val()) || (cost.val().length == 0 ||cost.val() > 999999999.99 || cost.val() < 0))
 	{
-		if(!cost.hasClass('highlight'))
-			cost.toggleClass('highlight');
+		turnOnHighLight(cost);
 		return false;
 	}
-	else if(cost.hasClass('highlight'))
-		cost.toggleClass('highlight');
+	else 
+		turnOffHighLight(cost);
 	return true;
 }
 
@@ -173,17 +165,26 @@ function verifyFutureDate(startDate)
 {
 	if(startDate.val().length == 0 || Date.parse(startDate.val())-(Date.parse(new Date()) - 1000*60*60*24*1)<0)
 	{
-		if(!startDate.hasClass('highlight'))
-			startDate.toggleClass('highlight');
+		turnOnHighLight(startDate);
 		return false;
 	}
-	else if(startDate.hasClass('highlight'))
-		startDate.toggleClass('highlight');
+	else 
+		turnOffHighLight(startDate);
 	
 	return true;
 }
 
+function turnOnHighLight(element)
+{
+	if(!element.hasClass('highlight'))
+		element.toggleClass('highlight');
+}
 
+function turnOffHighLight(element)
+{
+	if(element.hasClass('highlight'))
+		element.toggleClass('highlight');
+}
 
 
 /*************************** BudgetForm ***********************************/
@@ -239,12 +240,11 @@ $('.removeButton').click(function()
 	row.hide();
 });
 
-function submitBudgetCategories()
+function submitBudgetCategories(validData)
 {
 	count = 1;
 	arrCount = 0;
 	data = {};
-	validData = true;
 	while((nextIncome = $('#categoryTableRow' + count++)).length > 0)
 	{
 		const category = nextIncome.find('#category');
@@ -253,7 +253,11 @@ function submitBudgetCategories()
 		const amount = nextIncome.find('[name="Amount"]');
 		
 		if(name.val().length == 0 && amount.val().length == 0)
+		{
+			turnOffHighLight(name);
+			turnOffHighLight(amount);
 			continue;
+		}
 		
 		const verifyName = verifyNonEmpty(name);
 		const verifyCost = verifyIncomeValue(amount);
@@ -269,6 +273,11 @@ function submitBudgetCategories()
 			}
 		}
 	}
+	return displayErrorMessage(validData, data);
+}
+
+function displayErrorMessage(validData, data)
+{
 	if(validData)
 	{
 		$('.errorMsg').hide();
@@ -286,10 +295,10 @@ function submitBudgetCategories()
 
 $('#submitSetup').click(function()
 {
-	const depData = submitSystematicDeposits();
-	const withData = submitSystematicWithdraws();
+	const depData = submitSystematicDeposits(true);
+	const withData = submitSystematicWithdraws(depData);
 	
-	const catData = submitBudgetCategories();
+	const catData = submitBudgetCategories(withData);
 	
 	if(depData && withData && catData)
 	{

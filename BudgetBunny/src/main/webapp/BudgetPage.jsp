@@ -18,7 +18,7 @@
 		
 		<%@ include file = "BudgetForm.jsp" %>
 
-		<button class="btn btn-info" id="submitSetup">Submit</button>
+		<button class="btn btn-info submission" id="submitSetup">Submit</button>
 	
 	</div>
 
