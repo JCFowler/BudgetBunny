@@ -25,8 +25,19 @@
 	text-align: center;	
 }
 
+#tableHeader
+{
+	border-radius: 50pt;
+    background-color: whitesmoke;
+    padding: 2.5%;
+    margin: 5%;}
+
 .highlight
 {
 	border-color: red;
 }
 
+.percentage
+{
+	width: 80pt;
+}

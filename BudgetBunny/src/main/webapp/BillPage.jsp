@@ -14,21 +14,12 @@
 </head>
 <body id="setup-body">
 
-	<div id='table-container'>
-		<div id="withdrawFormDiv">
-			<c:set var="headerMsg" value="Add Your Income"></c:set>
-			<c:set var="type" value="deposit"></c:set>
-			<%@ include file = "SystematicTransactionForm.jsp" %>
-		</div>
-		
 		<div id="depositFormDiv">
 			<c:set var="headerMsg" value="Add Your Bills"></c:set>
 			<c:set var="type" value="withdraw"></c:set>
 			<%@ include file = "SystematicTransactionForm.jsp" %>
 		</div>
 		
-		<%@ include file = "BudgetForm.jsp" %>
-
 		<button class="btn btn-info" id="submitSetup">Submit</button>
 	
 	</div>
@@ -39,4 +30,3 @@
 	
 </body>
 </html>
-

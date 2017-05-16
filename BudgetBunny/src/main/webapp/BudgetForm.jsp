@@ -15,14 +15,14 @@
 		  <tr>
 		    <th>Category</th>
 		    <th>Name</th>
-		    <th>Percentage</th>
+		    <th class="percentage">Percentage</th>
 		    <th>Amount</th> 
 		    <th id="close"></th>
 		  </tr>
 		  <tr>
 		  	<th hidden class='errorMsg'></th>
 		    <th hidden class='errorMsg'>Field Cannot Be Empty</th> 
-		    <th hidden class='errorMsg'></th>
+		    <th hidden class='percentage errorMsg'></th>
 		    <th hidden class='errorMsg'>0 < Amount < 999999999.99</th>
 		  </tr>
 		  <tr id="categoryTableRow0" hidden>
@@ -38,7 +38,7 @@
 		    <td><input class="percentage" id="percentage" placeholder="" type="checkbox"/></td> 
 		    <td>
 		    	<label id="dollarType">$</label>
-		    	<input name="Amount" placeholder="Amount" type="number"/>
+		    	<input id='amount' name="Amount" placeholder="Amount" type="number"/>
 		    	<label style='visibility: hidden' id="percentType">%</label>
 		    </td>
 		   	<td ><button class='btn btn-info removeButton' id="removeButton"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>

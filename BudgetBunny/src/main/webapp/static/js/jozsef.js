@@ -5,7 +5,12 @@
 
 /*************************** Generic JS ***********************************/
 
-
+/*
+ * Send an ajax call.
+ * 
+ * @param data - Intended to be a Json object.
+ * @param url - url for ajax call;
+ */
 function ajaxCall(data, destUrl)
 {
 	$.ajax({
@@ -26,32 +31,42 @@ function ajaxCall(data, destUrl)
 var withdrawRowCount = 1;
 var depositRowCount = 1;
 
-$('#addwithdraw').click(function(){
-	var hiddenRow = $("#withdrawTableRow0").clone(true);
-	var newName = 'withdrawTableRow' + withdrawRowCount;
-	var newRemoveId = 'withdrawRemoveButton' + withdrawRowCount++;
 
-	hiddenRow.find('#withdrawRemoveButton').attr('id', newRemoveId);
-	hiddenRow.attr('id', newName);
-	$("#withdrawTableBody")[0].append(hiddenRow[0])
-	$('#' + newName).show();
-});
+/*
+ * Creates a new withdraw row to the withdrawTable, with a 
+ * unique row name and remove button id.
+ */
+$('.add-systematic').click(function(){
+	var type = $(this).attr('id').replace('add', '');
 
-$('#adddeposit').click(function(){
-	var hiddenRow = $("#depositTableRow0").clone(true);
-	var newName = 'depositTableRow' + depositRowCount;
-	var newRemoveId = 'depositRemoveButton' + depositRowCount++;
+	var hiddenRow = $("#original" + type + "TableRow0");
+	var newId = parseInt(hiddenRow.attr('count')) + 1;
+
+	hiddenRow.attr('count', newId);
+	var newRow = hiddenRow.clone(true);
 	
-	hiddenRow.find('#depositRemoveButton').attr('id', newRemoveId);
-	hiddenRow.attr('id', newName);
-	$("#depositTableBody")[0].append(hiddenRow[0])
+	var newName = type + 'TableRow' + newId;
+	var newRemoveId = type + 'RemoveButton' + newId;
+
+	newRow.find('#' + type + 'RemoveButton').attr('id', newRemoveId);
+	newRow.attr('id', newName);
+	$("#" + type + "TableBody")[0].append(newRow[0])
 	$('#' + newName).show();
 });
 
-$('.withdrawRemoveButton').click(function()
+
+/*
+ * Removes rows from a given table, the type attribute indicates which table.
+ */
+$('.RemoveButton').click(function()
 {
-	const id = $(this).attr('id').replace('withdrawRemoveButton', '');
-	const row = $('#withdrawTableRow' + id);
+	var type = $(this).attr('type');
+	
+	const id = $(this).attr('id').replace(type + 'RemoveButton', '');
+	alert(type);
+	alert(id);
+	
+	const row = $('#' + type + 'TableRow' + id);
 
 	row.find('[name="name"]').val('');
 	row.find('[name="cost"]').val('');
@@ -59,34 +74,39 @@ $('.withdrawRemoveButton').click(function()
 	row.hide();
 });
 
-$('.depositRemoveButton').click(function()
-{
-	const id = $(this).attr('id').replace('depositRemoveButton', '');
-	const row = $('#depositTableRow' + id);
-	
-	row.find('[name="name"]').val('');
-	row.find('[name="cost"]').val('');
-	row.find('[name="startDate"]').val('');
-	row.hide();
-});
 
+/*
+ * Submits negative values systematic transactions.
+ */
 function submitSystematicWithdraws()
 {
 	return submitSystematicTransactions("-", "withdraw")
 }
+
+
+/*
+ * Submits positive value systematic transactions.
+ */
 function submitSystematicDeposits()
 {
 	return submitSystematicTransactions("", "deposit");
 }
 
 
+/*
+ * Submits systematic transactions, to invert the value submit a negative
+ * sign as the numberPrefix value.
+ */
 function submitSystematicTransactions(numberPrefix, type)
 {
-	let count = 1;
-	let arrCount = 0;
+	if(numberPrefix !== '-')
+		numberPrefix = '';		
+	
+	let tableRowCount = 1;
+	let dataCount = 0;
 	let data = {};
 	let validData = true;
-	while((nextIncome = $('#' + type + 'TableRow' + count++)).length > 0)
+	while((nextIncome = $('#' + type + 'TableRow' + tableRowCount++)).length > 0)
 	{
 		const name = nextIncome.find('[name="name"]');
 		const cost = nextIncome.find('[name="cost"]');
@@ -97,13 +117,13 @@ function submitSystematicTransactions(numberPrefix, type)
 			continue;
 		
 		const verifyStartDate = verifyNonEmpty(name);
-		const varifyCost = verifyIncomeValue(cost);
+		const verifyCost = verifyIncomeValue(cost);
 		const verifyName = verifyFutureDate(startDate);
 		validData = validData && verifyStartDate && verifyCost && verifyName;
 		
 		if(validData)
 		{
-			data[arrCount++] = {
+			data[dataCount++] = {
 					name : name.val(),
 					cost : numberPrefix + cost.val(),
 					period : period.val(),
@@ -123,6 +143,7 @@ function submitSystematicTransactions(numberPrefix, type)
 		return null;
 	}
 }
+
 
 function verifyNonEmpty(name)
 {
@@ -174,13 +195,16 @@ var categoryCount = 1;
 $('#addCategory').click(function(){
 	var hiddenRow = $("#categoryTableRow0").clone(true);
 	var newName = 'categoryTableRow' + categoryCount;
+	
 	hiddenRow.attr('id', newName);
-	var newDollarTypeId = hiddenRow.find('#dollarType').attr('id') + categoryCount;
-	var newCheckBoxId = hiddenRow.find('#percentage').attr('id') + categoryCount;
-	var newPercentTypeId = hiddenRow.find('#percentType').attr('id') + categoryCount;
-	var removeButtonId = hiddenRow.find('#removeButton').attr('id') + categoryCount++;
 	
+	var newDollarTypeId = 'dollarType' + categoryCount;
+	var newCheckBoxId = 'percentage' + categoryCount;
+	var newPercentTypeId = 'percentType' + categoryCount;
+	var removeButtonId = 'removeButton' + categoryCount;
+	var amountId = 'amount' + categoryCount++;
 	
+	hiddenRow.find('#amount').attr('id', amountId);
 	hiddenRow.find('#percentType').attr('id', newPercentTypeId);
 	hiddenRow.find('#dollarType').attr('id', newDollarTypeId);
 	hiddenRow.find('#percentage').attr('id', newCheckBoxId);
@@ -192,16 +216,17 @@ $('#addCategory').click(function(){
 
 $('.percentage').click(function(){
 	const id = $(this).attr('id').replace('percentage', '');
-	$('#amountType' + id).text('%');
 	if($(this).is(':checked'))
 	{
 		$('#percentType' + id).attr('style', 'visibility: visible');
-		$('#dollarType' + id).attr('style', 'visibility: hidden')
+		$('#dollarType' + id).attr('style', 'visibility: hidden');
+		$('#amount' + id).attr('placeholder', 'Percent');
 	}
 	else
 	{
 		$('#percentType' + id).attr('style', 'visibility: hidden');
 		$('#dollarType' + id).attr('style', 'visibility: visible');
+		$('#amount' + id).attr('placeholder', 'Amount');
 	}
 
 });
@@ -232,16 +257,16 @@ function submitBudgetCategories()
 		if(name.val().length == 0 && amount.val().length == 0)
 			continue;
 		
-		const verifyStartDate = verifyNonEmpty(name);
-		const varifyCost = verifyIncomeValue(amount);
-		validData = validData && verifyStartDate && verifyCost && verifyName;
+		const verifyName = verifyNonEmpty(name);
+		const verifyCost = verifyIncomeValue(amount);
+		validData = validData && verifyCost && verifyName;
 		
 		if(validData)
 		{
 			data[arrCount++] = {
 					category : category.val(),
 					name : name.val(),
-					amount : cost.val(),
+					amount : amount.val(),
 					percent : percent.val(),
 			}
 		}
@@ -263,9 +288,10 @@ function submitBudgetCategories()
 
 $('#submitSetup').click(function()
 {
-	const catData = submitBudgetCategories();
 	const depData = submitSystematicDeposits();
 	const withData = submitSystematicWithdraws();
+	
+	const catData = submitBudgetCategories();
 	
 	if(depData && withData && catData)
 	{
