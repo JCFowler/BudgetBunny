@@ -36,8 +36,7 @@ public class UserDAOImpl implements UserDAO {
 		
 		if(size > 0)
 			return true;
-		else
-			return false;
+		return false;
 	}
 
 	@Override

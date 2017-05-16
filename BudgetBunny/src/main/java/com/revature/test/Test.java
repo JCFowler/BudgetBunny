@@ -58,11 +58,15 @@ public class Test extends HttpServlet{
 //		System.out.println("Is Username john1 Taken? " + ud.isUsernameTaken("john1"));
 		
 //		System.out.println(ud.login("john", "password1"));
-		User loggedIn = ud.login("john", "password");
-		System.out.println(loggedIn.getBudget().getBudgetId());
+//		User loggedIn = ud.login("john", "password");
+//		System.out.println(loggedIn.getBudget().getBudgetId());
 //		System.out.println("Userid: " + loggedIn.getUserId() + " and BudgetId: " + loggedIn.getBudget().getBudgetId());
 		
-		System.out.println(bd.getById(loggedIn.getBudget().getBudgetId()));
+//		System.out.println(bd.getById(loggedIn.getBudget().getBudgetId()));
+		
+		Budget b = bd.getById(6);
+		b.setTotalSpent(103);
+		bd.update(b);
 		
 		PrintWriter printWriter = resp.getWriter();
 		printWriter.write("<!DOCTYPE html><html><head><meta charset=\"ISO-8859-1\"><title>HelloWorld</title></head><body>");
