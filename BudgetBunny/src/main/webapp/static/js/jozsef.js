@@ -63,8 +63,6 @@ $('.RemoveButton').click(function()
 	var type = $(this).attr('type');
 	
 	const id = $(this).attr('id').replace(type + 'RemoveButton', '');
-	alert(type);
-	alert(id);
 	
 	const row = $('#' + type + 'TableRow' + id);
 

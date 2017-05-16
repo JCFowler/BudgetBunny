@@ -30,7 +30,13 @@
 	border-radius: 50pt;
     background-color: whitesmoke;
     padding: 2.5%;
-    margin: 5%;}
+    margin: 5%;
+}
+
+.table-hover>tbody>tr:hover
+{
+	background-color: white;
+}
 
 .highlight
 {
@@ -44,5 +50,5 @@
 
 .glyphicon
 {
-	font-size: 3.2em;
+	font-size: 1.2em;
 }
