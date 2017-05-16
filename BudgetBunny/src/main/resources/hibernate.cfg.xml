@@ -12,7 +12,7 @@
 		<property name="hibernate.connection.pool_size">35</property>
 		
 		<!-- Some hibernate configurations -->
-		<property name="show_sql">true</property>
+		<property name="show_sql">false</property>
 		<property name="hibernate.format_sql">true</property>
 		
 		<!-- Tell Hibernate how we are mapping classes -->

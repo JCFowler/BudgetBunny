@@ -26,17 +26,21 @@ public class BudgetDAOImpl implements BudgetDAO {
 
 	@Override
 	public Budget getById(int id) {
-		Budget b = null;
 		Session su = hu.getSession();
-		b = (Budget) su.get(Budget.class, id);
+		Budget b = (Budget) su.get(Budget.class, id);
 		su.close();
 		return b;
 	}
 
 	@Override
 	public Budget update(Budget b) {
-		// TODO Auto-generated method stub
-		return null;
+		Session su = hu.getSession();
+		Transaction tx = su.beginTransaction();
+		su.update(b);
+		log.info("Updated Budgetid: " + b.getBudgetId());
+		tx.commit();
+		su.close();
+		return b;
 	}
 
 }

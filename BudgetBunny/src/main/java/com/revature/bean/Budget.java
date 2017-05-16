@@ -27,6 +27,27 @@ public class Budget {
 	private Collection<Category> category;
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="bud")
 	private Collection<RecurringCharge> recurringCharge;
+	
+	public Budget(int budgetId, double totalBudget, double totalSpent, ArrayList<Category> category,
+			ArrayList<RecurringCharge> recurringCharge) {
+		super();
+		this.budgetId = budgetId;
+		this.totalBudget = totalBudget;
+		this.totalSpent = totalSpent;
+		this.category = category;
+		this.recurringCharge = recurringCharge;
+	}
+	
+	public Budget(int budgetId, double totalBudget, double totalSpent) {
+		super();
+		this.budgetId = budgetId;
+		this.totalBudget = totalBudget;
+		this.totalSpent = totalSpent;
+	}
+	public Budget() {
+		super();
+	}
+	
 	public int getBudgetId() {
 		return budgetId;
 	}
@@ -103,26 +124,4 @@ public class Budget {
 		return "Budget [budgetId=" + budgetId + ", totalBudget=" + totalBudget + ", totalSpent=" + totalSpent
 				+ ", category=" + category + ", recurringCharge=" + recurringCharge + "]";
 	}
-	public Budget(int budgetId, double totalBudget, double totalSpent, ArrayList<Category> category,
-			ArrayList<RecurringCharge> recurringCharge) {
-		super();
-		this.budgetId = budgetId;
-		this.totalBudget = totalBudget;
-		this.totalSpent = totalSpent;
-		this.category = category;
-		this.recurringCharge = recurringCharge;
-	}
-	
-	public Budget(int budgetId, double totalBudget, double totalSpent) {
-		super();
-		this.budgetId = budgetId;
-		this.totalBudget = totalBudget;
-		this.totalSpent = totalSpent;
-	}
-	public Budget() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
 }

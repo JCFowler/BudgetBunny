@@ -36,8 +36,7 @@ public class UserDAOImpl implements UserDAO {
 		
 		if(size > 0)
 			return true;
-		else
-			return false;
+		return false;
 	}
 
 	@Override
@@ -64,9 +63,8 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public User getById(int id) {
-		User u = null;
 		Session su = hu.getSession();
-		u = (User) su.get(User.class, id);
+		User u = (User) su.get(User.class, id);
 		su.close();
 		return u;
 	}

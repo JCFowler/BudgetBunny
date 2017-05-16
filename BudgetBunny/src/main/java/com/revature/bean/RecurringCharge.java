@@ -27,6 +27,21 @@ public class RecurringCharge {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="budgetid")
 	private Budget bud;
+	
+	public RecurringCharge(int chargeId, double cost, int timeInterval, LocalDate startDate,
+			LocalDate lastTransactionDate, TimeUnit timeUnit) {
+		super();
+		this.chargeId = chargeId;
+		this.cost = cost;
+		this.timeInterval = timeInterval;
+		this.startDate = startDate;
+		this.lastTransactionDate = lastTransactionDate;
+		this.timeUnit = timeUnit;
+	}
+	public RecurringCharge() {
+		super();
+	}
+	
 	public int getChargeId() {
 		return chargeId;
 	}
@@ -114,19 +129,5 @@ public class RecurringCharge {
 		return "RecurringCharge [chargeId=" + chargeId + ", cost=" + cost + ", timeInterval=" + timeInterval
 				+ ", startDate=" + startDate + ", lastTransactionDate=" + lastTransactionDate + ", timeUnit=" + timeUnit
 				+ "]";
-	}
-	public RecurringCharge(int chargeId, double cost, int timeInterval, LocalDate startDate,
-			LocalDate lastTransactionDate, TimeUnit timeUnit) {
-		super();
-		this.chargeId = chargeId;
-		this.cost = cost;
-		this.timeInterval = timeInterval;
-		this.startDate = startDate;
-		this.lastTransactionDate = lastTransactionDate;
-		this.timeUnit = timeUnit;
-	}
-	public RecurringCharge() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 }
