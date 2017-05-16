@@ -7,36 +7,28 @@
 <title>Insert title here</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="static/css/jozsef.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fun" %>
+	<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+	
 
 </head>
 <body>
+	<div>
+	<%@page import="com.revature.bean.Category" %>
+	
+	
+	<c:set var="cats" value='<%=new Category[]{new Category(0, "Daily", 500, 200, null), new Category(1, "Weekly", 1000, 200, null), new Category(2, "Monthly", 50, 5, null), new Category(3, "Annually", 200, 190, null)}%>' scope="application" />
 
-Consumer Debt
-<span class="glyphicon glyphicon-credit-card"></span>
-<br>
-Housing
-<span class="glyphicon glyphicon-home"></span>
-<br>
-Savings
-<span class="glyphicon glyphicon-piggy-bank"></span>
-<br>
-Entertainment
-<span class="glyphicon glyphicon-music"></span>
-<br>
-Utilities
-<span class="glyphicon glyphicon-lamp"></span>
-<br>
-Health Care
-<span class="glyphicon glyphicon-heart"></span>
-<br>
-Emergency Fund
-<span  class="glyphicon glyphicon-fire"></span>
-<br>
-Food and Groceries
-<span class="glyphicon glyphicon-cutlery"></span>
-<br>
-Personal Care
-<span class="glyphicon glyphicon-user"></span>
+	
+
+	<c:forEach items='${cats}' var='cat'>
+		<%@ include file = "BudgetDisplay.jsp" %>
+	</c:forEach>
+	</div>
 </body>
 </html>

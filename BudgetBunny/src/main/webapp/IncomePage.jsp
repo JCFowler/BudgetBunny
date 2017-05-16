@@ -21,7 +21,7 @@
 			<%@ include file = "SystematicTransactionForm.jsp" %>
 		</div>
 		
-		<button class="btn btn-info" id="submitSetup">Submit</button>
+		<button class="btn btn-info submission" id="submitSetup">Submit</button>
 	
 	</div>
 

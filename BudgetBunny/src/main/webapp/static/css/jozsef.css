@@ -38,6 +38,17 @@
 	background-color: white;
 }
 
+.table-hover>tbody>tr>th
+{
+	text-align: center;
+    border-color: black;
+}
+
+.header-row
+{
+    pointer-events: none;
+}
+
 .highlight
 {
 	border-color: red;
@@ -51,4 +62,14 @@
 .glyphicon
 {
 	font-size: 1.2em;
+}
+
+.submission
+{
+	font-size: 3em;
+}
+
+#category-display
+{
+	display: inline;
 }
