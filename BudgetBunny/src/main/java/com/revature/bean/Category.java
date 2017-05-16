@@ -26,6 +26,19 @@ public class Category {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="budgetid")
 	private Budget bud;
+	
+	public Category(int catId, String name, double budget, double spent, ArrayList<Transaction> transaction) {
+		super();
+		this.catId = catId;
+		this.name = name;
+		this.budget = budget;
+		this.spent = spent;
+		this.transaction = transaction;
+	}
+	public Category() {
+		super();
+	}
+	
 	public int getCatId() {
 		return catId;
 	}
@@ -102,19 +115,4 @@ public class Category {
 		return "Category [catId=" + catId + ", name=" + name + ", budget=" + budget + ", spent=" + spent
 				+ ", transaction=" + transaction + "]";
 	}
-	
-	public Category(int catId, String name, double budget, double spent, ArrayList<Transaction> transaction) {
-		super();
-		this.catId = catId;
-		this.name = name;
-		this.budget = budget;
-		this.spent = spent;
-		this.transaction = transaction;
-	}
-	public Category() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
 }

@@ -30,6 +30,18 @@ public class Transaction {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="catid")
 	private Category cat;
+	
+	public Transaction(int transactionId, LocalDate date, LocalTime time, double cost) {
+		super();
+		this.transactionId = transactionId;
+		this.date = date;
+		this.time = time;
+		this.cost = cost;
+	}
+	public Transaction() {
+		super();
+	}
+	
 	public int getTransactionId() {
 		return transactionId;
 	}
@@ -96,17 +108,4 @@ public class Transaction {
 		return "Transaction [transactionId=" + transactionId + ", date=" + date + ", time=" + time + ", cost=" + cost
 				+ "]";
 	}
-	public Transaction(int transactionId, LocalDate date, LocalTime time, double cost) {
-		super();
-		this.transactionId = transactionId;
-		this.date = date;
-		this.time = time;
-		this.cost = cost;
-	}
-	public Transaction() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
 }

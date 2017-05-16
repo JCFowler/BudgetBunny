@@ -25,6 +25,19 @@ public class User {
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="budgetid")
 	private Budget budget;
+	
+	public User(int userId, String username, String password, String name, Budget budget) {
+		super();
+		this.userId = userId;
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.budget = budget;
+	}
+	public User() {
+		super();
+	}
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -104,18 +117,4 @@ public class User {
 		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", name=" + name
 				+ ", budget=" + budget + "]";
 	}
-	public User(int userId, String username, String password, String name, Budget budget) {
-		super();
-		this.userId = userId;
-		this.username = username;
-		this.password = password;
-		this.name = name;
-		this.budget = budget;
-	}
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
 }

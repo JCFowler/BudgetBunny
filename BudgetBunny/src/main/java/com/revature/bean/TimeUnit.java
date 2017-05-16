@@ -19,7 +19,6 @@ public class TimeUnit {
 	}
 	public TimeUnit() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public int getUnitId() {
 		return unitId;
