@@ -10,7 +10,7 @@ public interface CategoryDAO {
 	
 	//R
 	Category getById(int id);
-	ArrayList<Category> getAll();
+	ArrayList<Category> getAll(int budgetId);
 	
 	//U
 	Category update(Category c);
