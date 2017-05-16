@@ -35,8 +35,13 @@ public class BudgetDAOImpl implements BudgetDAO {
 
 	@Override
 	public Budget update(Budget b) {
-		// TODO Auto-generated method stub
-		return null;
+		Session su = hu.getSession();
+		Transaction tx = su.beginTransaction();
+		su.update(b);
+		log.info("Updated Budgetid: " + b.getBudgetId());
+		tx.commit();
+		su.close();
+		return b;
 	}
 
 }

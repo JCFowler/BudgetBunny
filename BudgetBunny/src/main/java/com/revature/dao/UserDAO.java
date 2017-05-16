@@ -10,12 +10,8 @@ public interface UserDAO {
 	boolean isUsernameTaken(String username);
 	User login(String uName, String pass);
 	User getById(int id);
-//	Bear getById(int i);
-//	Bear loadById(int i);
 	
 	//U
-//	Bear update(Bear b);
-//	Bear merge(Bear b);
+	
 	//D
-//	void delete(Bear b);
 }
