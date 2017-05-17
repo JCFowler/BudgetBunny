@@ -6,3 +6,15 @@
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fun" %>
 	<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+	
+	<link rel="stylesheet" href="static/css/jozsef.css">
+	
+	
+	<script type="text/javascript" src="static/js/log4javascript.js"></script>
+	<script type="text/javascript">
+		var log = log4javascript.getDefaultLogger();
+		
+		log.info("hello");
+
+        
+	</script>
