@@ -5,9 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping(value="/transaction")
 public class TransactionController {
 	
-	@RequestMapping(value="/transaction", method=RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET)
 	public String getTransactionpage()
 	{
 		return "transaction";

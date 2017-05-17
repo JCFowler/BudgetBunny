@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ErrorPageController {
-	@RequestMapping(value="/erroPage", method=RequestMethod.GET)
+	@RequestMapping(value="/errorPage", method=RequestMethod.GET)
 	public String getErrorPage()
 	{
 		return "errorPage ";
