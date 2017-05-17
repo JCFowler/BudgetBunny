@@ -14,8 +14,6 @@
  */
 function ajaxCall(data, destUrl)
 {
-	log.debug(getFunctionName() + " - on click function called.");
-
 	$.ajax({
 	    type:"POST",
 	    cache:false,
@@ -46,9 +44,7 @@ var depositRowCount = 1;
  * Creates a new withdraw row to the withdrawTable, with a 
  * unique row name and remove button id.
  */
-$('.add-systematic').click(function(){
-	log.debug("add-systematic on click function called.");
-	
+$('.add-systematic').click(function(){	
 	var type = $(this).attr('id').replace('add', '');
 
 	var hiddenRow = $("#original" + type + "TableRow0");
@@ -65,7 +61,6 @@ $('.add-systematic').click(function(){
 	$("#" + type + "TableBody")[0].append(newRow[0])
 	$('#' + newName).show();
 	
-	log.info('Appended new row to ' + type + "TableBody: " + newRow.html())
 });
 
 
@@ -74,7 +69,6 @@ $('.add-systematic').click(function(){
  */
 $('.RemoveButton').click(function()
 {
-	log.debug("RemoveButton on click function called.");
 
 	var type = $(this).attr('type');
 	
@@ -94,8 +88,6 @@ $('.RemoveButton').click(function()
  */
 function submitSystematicWithdraws(validData)
 {	
-	log.debug(getFunctionName() + " - on click function called.");
-
 	return submitSystematicTransactions("-", "withdraw", validData);
 }
 
@@ -105,8 +97,6 @@ function submitSystematicWithdraws(validData)
  */
 function submitSystematicDeposits(validData)
 {
-	log.debug(getFunctionName() + " - on click function called.");
-
 	return submitSystematicTransactions("", "deposit", validData);
 }
 
@@ -117,8 +107,6 @@ function submitSystematicDeposits(validData)
  */
 function submitSystematicTransactions(numberPrefix, type, validData)
 {
-	log.debug(getFunctionName() + " - on click function called.");
-
 	if(numberPrefix !== '-')
 		numberPrefix = '';		
 	
@@ -161,8 +149,6 @@ function submitSystematicTransactions(numberPrefix, type, validData)
 
 function verifyNonEmpty(name)
 {
-	log.debug(getFunctionName() + " - function called with arguments - " + JSON.stringify(arguments));
-
 	if(name.val().length == 0)
 	{
 		turnOnHighLight(name);
@@ -175,8 +161,6 @@ function verifyNonEmpty(name)
 
 function verifyIncomeValue(cost)
 {
-	log.debug(getFunctionName() + " - function called.");
-
 	if(isNaN(cost.val()) || (cost.val().length == 0 ||cost.val() > 999999999.99 || cost.val() < 0))
 	{
 		turnOnHighLight(cost);
@@ -189,8 +173,6 @@ function verifyIncomeValue(cost)
 
 function verifyFutureDate(startDate)
 {
-	log.debug(getFunctionName() + " - function called.");
-
 	if(startDate.val().length == 0 || Date.parse(startDate.val())-(Date.parse(new Date()) - 1000*60*60*24*1)<0)
 	{
 		turnOnHighLight(startDate);
@@ -204,16 +186,12 @@ function verifyFutureDate(startDate)
 
 function turnOnHighLight(element)
 {
-	log.debug(getFunctionName() + " - function called.");
-
 	if(!element.hasClass('highlight'))
 		element.toggleClass('highlight');
 }
 
 function turnOffHighLight(element)
 {
-	log.debug(getFunctionName() + " - function called.");
-
 	if(element.hasClass('highlight'))
 		element.toggleClass('highlight');
 }
@@ -224,8 +202,6 @@ function turnOffHighLight(element)
 var categoryCount = 1;
 
 $('#addCategory').click(function(){
-	log.debug("addCategory - on click function called.");
-
 	var hiddenRow = $("#categoryTableRow0").clone(true);
 	var newName = 'categoryTableRow' + categoryCount;
 	
@@ -248,8 +224,6 @@ $('#addCategory').click(function(){
 });
 
 $('.percentage').click(function(){
-	log.debug("percentage - on click function called.");
-
 	const id = $(this).attr('id').replace('percentage', '');
 	if($(this).is(':checked'))
 	{
@@ -268,8 +242,6 @@ $('.percentage').click(function(){
 
 $('.removeButton').click(function()
 {
-	log.debug("removeButton - function called.");
-
 	const id = $(this).attr('id').replace('removeButton', '');
 	const row = $('#categoryTableRow' + id);
 	
@@ -280,8 +252,6 @@ $('.removeButton').click(function()
 
 function submitBudgetCategories(validData)
 {
-	log.debug(getFunctionName() + " - function called.");
-
 	count = 1;
 	arrCount = 0;
 	data = {};
@@ -318,8 +288,6 @@ function submitBudgetCategories(validData)
 
 function displayErrorMessage(validData, data)
 {
-	log.debug(getFunctionName() + " - function called.");
-
 	if(validData)
 	{
 		$('.errorMsg').hide();
@@ -337,8 +305,6 @@ function displayErrorMessage(validData, data)
 
 $('#submitSetup').click(function()
 {
-	log.debug("submitSetup - on click function called.");
-
 	const depData = submitSystematicDeposits(true);
 	const withData = submitSystematicWithdraws(depData);
 	
@@ -358,8 +324,6 @@ $('#submitSetup').click(function()
 /*************************** BudgetDisplay ***********************************/
 
 $('.category-display').click(function(){
-	log.debug("category-display - on click function called.");
-
 	const name = $(this).find('#name');
 	const budget = $(this).find('#budget');
 	const spent = $(this).find('#spent');
@@ -378,22 +342,16 @@ $('.category-display').click(function(){
 });
 
 $('#add').click(function(){
-	log.debug("add - on click function called.");
-
 	close_div();
 });
 
 
 $('#remove').click(function(){
-	log.debug("add - on click function called.");
-
 	close_div();
 });
 
 function close_div()
 {
-	log.debug(getFunctionName() + " - function called.");
-
 	$("#home-div > *").removeClass("blur-filter");
 	$('#myPopup').hide();
 }
