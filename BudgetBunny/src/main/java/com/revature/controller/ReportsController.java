@@ -10,7 +10,7 @@ public class ReportsController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getReportsPage() {
-		return "reportspage ";
+		return "reportspage";
 	}
 
 }
