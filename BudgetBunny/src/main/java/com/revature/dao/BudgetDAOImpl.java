@@ -1,6 +1,5 @@
 package com.revature.dao;
 
-import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -8,8 +7,8 @@ import com.revature.bean.Budget;
 import com.revature.util.HibernateUtil;
 
 public class BudgetDAOImpl implements BudgetDAO {
-	private static Logger log = Logger.getRootLogger();
 	private HibernateUtil hu = new HibernateUtil();
+	private Session session; 
 	
 	@Override
 	public Budget save(Budget b) {
@@ -20,7 +19,6 @@ public class BudgetDAOImpl implements BudgetDAO {
 		b.setBudgetId(id);
 		tx.commit();
 		su.close();
-		log.info("Created new Budget: " + b.getBudgetId());
 		return b;
 	}
 
@@ -37,10 +35,14 @@ public class BudgetDAOImpl implements BudgetDAO {
 		Session su = hu.getSession();
 		Transaction tx = su.beginTransaction();
 		su.update(b);
-		log.info("Updated Budgetid: " + b.getBudgetId());
 		tx.commit();
 		su.close();
 		return b;
+	}
+
+	@Override
+	public void setSession(Session session) {
+		this.session=session;
 	}
 
 }

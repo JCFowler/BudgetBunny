@@ -2,10 +2,13 @@ package com.revature.dao;
 
 import java.util.ArrayList;
 
+import org.hibernate.Session;
+
 import com.revature.bean.RecurringCharge;
 
 public class RecurringChargeDAOImpl implements RecurringChargeDAO {
-
+	private Session session;
+	
 	@Override
 	public RecurringCharge save(RecurringCharge r) {
 		return null;
@@ -29,6 +32,11 @@ public class RecurringChargeDAOImpl implements RecurringChargeDAO {
 	@Override
 	public boolean delete(RecurringCharge r) {
 		return false;
+	}
+
+	@Override
+	public void setSession(Session session) {
+		this.session = session;
 	}
 
 }
