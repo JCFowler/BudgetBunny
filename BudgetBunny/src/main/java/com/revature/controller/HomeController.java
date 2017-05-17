@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value="/Home")
+@RequestMapping(value="/home")
 public class HomeController
 {
 	@RequestMapping(method=RequestMethod.GET)
 	public String getHomepage()
 	{
-		return "Home";
+		return "home";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public String toHomePage(HttpServletRequest req, HttpSession session)
 	{
-		return "Home";
+		return "home";
 		
 	}
 

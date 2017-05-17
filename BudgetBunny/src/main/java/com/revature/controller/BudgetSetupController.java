@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value="/BudgetSetupPage")
+@RequestMapping(value="/budgetsetuppage")
 public class BudgetSetupController {
 	@RequestMapping(method=RequestMethod.GET)
 	public String getBudgetSetPage()
 	{
-		return "BudgetSetupPage ";
+		return "budgetsetuppage ";
 	}
 	
 }
