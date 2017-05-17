@@ -4,7 +4,7 @@ import com.revature.bean.Budget;
 
 public interface BudgetDAO extends HibernateSession {
 	//C
-	Budget save(Budget b);
+	boolean save(Budget b);
 		
 	//R
 	Budget getById(int id);

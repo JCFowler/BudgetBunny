@@ -1,21 +1,31 @@
 package com.revature.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.bean.Budget;
 import com.revature.bean.User;
+import com.revature.dao.BudgetDAO;
+import com.revature.dao.UserDAO;
 
 @Service
 public class UserService
 {
-	//Service returns null if the person logging in is not John.
-	//Returns John otherwise.
-	public User auth(String name, String pass)
-	{
-		User authUser = null;
-		if("john".equals(name)&&"p4ssw0rd".equals(pass))
-		{
-			//authUser =new User("john", "p4ssword", "John Fowler");
-		}
-		return authUser;
+	@Autowired
+	UserDAO ud;
+	@Autowired
+	BudgetDAO bd;
+	
+	public boolean isUsernameTaken(String username) {
+		return ud.isUsernameTaken(username);
+	}
+	
+	public User login(String uName, String pass) {
+		return ud.login(uName, pass);
+	}
+	
+	public void create(User user) {
+		bd.save(new Budget(0,0,0));
+		ud.save(user);
 	}
 }
