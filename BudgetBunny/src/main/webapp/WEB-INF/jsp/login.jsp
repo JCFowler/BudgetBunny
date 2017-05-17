@@ -18,7 +18,7 @@
 
 <div class="row" style="margin-top:20px">
     <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-    	<form role="form">
+    	<form role="form" action="login" method="POST">
 			<fieldset>
 				<h2>Budget Bunny</h2>
 				<hr class="colorgraph">
@@ -31,10 +31,10 @@
 				<hr class="colorgraph">
 				<div class="row">
 					<div class="col-xs-6 col-sm-6 col-md-6">
-                        <button class="btn btn-lg btn-default btn-block" >Log In</button>
+                        <button type="submit" class="btn btn-lg btn-default btn-block" >Log In</button>
 					</div>
 					<div class="col-xs-6 col-sm-6 col-md-6">
-						<a href="" class="btn btn-lg btn-default btn-block">Create an Account</a>
+						<a href="create" class="btn btn-lg btn-default btn-block">Create an Account</a>
 					</div>
 				</div>
 			</fieldset>
