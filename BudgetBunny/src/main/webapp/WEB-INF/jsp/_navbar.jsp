@@ -26,7 +26,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="BudgetBunny/home.jsp">Logo</a>
+				<a class="navbar-brand" href="BudgetBunny/Home.jsp">Logo</a>
 
 			</div>
 
@@ -34,7 +34,7 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-left">
-					<li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+					<li class="active"><a href="BudgetBunny/Home.jsp">Home <span class="sr-only">(current)</span></a></li>
 					<li><a href="#">Transactions</a></li>
 					<li><a href="#">Reports</a></li>
 				</ul>

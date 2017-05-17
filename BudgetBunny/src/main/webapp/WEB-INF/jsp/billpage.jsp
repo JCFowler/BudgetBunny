@@ -17,7 +17,7 @@
 		<div id="depositFormDiv">
 			<c:set var="headerMsg" value="Add Your Bills"></c:set>
 			<c:set var="type" value="withdraw"></c:set>
-			<%@ include file = "SystematicTransactionForm.jsp" %>
+			<%@ include file = "systematictransactionform.jsp" %>
 		</div>
 		
 		<button class="btn btn-info submission" id="submitSetup">Submit</button>
