@@ -10,7 +10,7 @@ public class BillController {
 	@RequestMapping(method=RequestMethod.GET)
 	public String getBillPage()
 	{
-		return "billpage ";
+		return "billpage";
 	}
 	
 }

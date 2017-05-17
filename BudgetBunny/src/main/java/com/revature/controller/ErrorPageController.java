@@ -10,7 +10,7 @@ public class ErrorPageController {
 	@RequestMapping( method=RequestMethod.GET)
 	public String getErrorPage()
 	{
-		return "errorPage ";
+		return "errorPage";
 	}
 
 	

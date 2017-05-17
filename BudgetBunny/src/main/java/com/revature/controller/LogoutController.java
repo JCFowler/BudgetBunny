@@ -9,7 +9,7 @@ public class LogoutController {
 	@RequestMapping(value="/logoutpage", method=RequestMethod.GET)
 	public String getLogoutPage()
 	{
-		return "logoutpage ";
+		return "logoutpage";
 	}
 	
 }
