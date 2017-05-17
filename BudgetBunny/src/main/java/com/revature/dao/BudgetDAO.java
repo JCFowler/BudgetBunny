@@ -2,7 +2,7 @@ package com.revature.dao;
 
 import com.revature.bean.Budget;
 
-public interface BudgetDAO {
+public interface BudgetDAO extends HibernateSession {
 	//C
 	Budget save(Budget b);
 		

@@ -2,7 +2,7 @@ package com.revature.dao;
 
 import com.revature.bean.User;
 
-public interface UserDAO {
+public interface UserDAO extends HibernateSession{
 	//C
 	User save(User u);
 	
