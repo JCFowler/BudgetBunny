@@ -2,10 +2,13 @@ package com.revature.dao;
 
 import java.util.ArrayList;
 
+import org.hibernate.Session;
+
 import com.revature.bean.Transaction;
 
 public class TransactionDAOImpl implements TransactionDAO {
-
+	private Session session;
+	
 	@Override
 	public Transaction save(Transaction t) {
 		return null;
@@ -29,6 +32,11 @@ public class TransactionDAOImpl implements TransactionDAO {
 	@Override
 	public ArrayList<Transaction> getAll() {
 		return null;
+	}
+
+	@Override
+	public void setSession(Session session) {
+		this.session = session;
 	}
 
 }

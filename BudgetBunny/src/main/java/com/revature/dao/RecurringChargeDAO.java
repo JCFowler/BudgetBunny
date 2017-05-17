@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.revature.bean.RecurringCharge;
 
-public interface RecurringChargeDAO {
+public interface RecurringChargeDAO extends HibernateSession{
 	//C
 	RecurringCharge save(RecurringCharge r);
 	

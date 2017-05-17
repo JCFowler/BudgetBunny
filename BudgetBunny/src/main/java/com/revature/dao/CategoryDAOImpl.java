@@ -13,14 +13,13 @@ import com.revature.util.HibernateUtil;
 
 public class CategoryDAOImpl implements CategoryDAO {
 	private HibernateUtil hu = new HibernateUtil();
-	private Logger log = Logger.getRootLogger();
+	private Session session;
 	
 	@Override
 	public Category save(Category c) {
 		Session su = hu.getSession();
 		Transaction tx = su.beginTransaction();
 		int id = (Integer)su.save(c);
-		log.info("Created new transaction. id: " + id);
 		c.setCatId(id);
 		tx.commit();
 		su.close();
@@ -40,7 +39,6 @@ public class CategoryDAOImpl implements CategoryDAO {
 		Session su = hu.getSession();
 		Transaction tx = su.beginTransaction();
 		su.update(c);
-		log.info("Updated Categoryid: " + c.getCatId());
 		tx.commit();
 		su.close();
 		return c;
@@ -66,6 +64,11 @@ public class CategoryDAOImpl implements CategoryDAO {
 		tx.commit();
 		su.close();
 		return true;
+	}
+
+	@Override
+	public void setSession(Session session) {
+		this.session = session;
 	}
 
 }

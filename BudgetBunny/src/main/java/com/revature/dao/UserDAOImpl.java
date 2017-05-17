@@ -1,7 +1,6 @@
 package com.revature.dao;
 
 
-import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -10,8 +9,8 @@ import com.revature.bean.User;
 import com.revature.util.HibernateUtil;
 
 public class UserDAOImpl implements UserDAO {
-	private static Logger log = Logger.getRootLogger();
 	private HibernateUtil hu = new HibernateUtil();
+	private Session session;
 
 	@Override
 	public User save(User u) {
@@ -21,7 +20,6 @@ public class UserDAOImpl implements UserDAO {
 		
 		tx.commit();
 		su.close();
-		log.info("Created new user: " + u.getName());
 		return u;
 	}
 	
@@ -50,7 +48,6 @@ public class UserDAOImpl implements UserDAO {
 		if(q.list().size() > 0)
 		{
 			User u = (User) q.list().get(0);
-			log.info(u.getUsername() + " has Logged In. User's Budgetid is: " + u.getBudget().getBudgetId());
 			su.close();
 			return u;
 		}
@@ -67,5 +64,10 @@ public class UserDAOImpl implements UserDAO {
 		User u = (User) su.get(User.class, id);
 		su.close();
 		return u;
+	}
+
+	@Override
+	public void setSession(Session session) {
+		this.session = session;
 	}
 }

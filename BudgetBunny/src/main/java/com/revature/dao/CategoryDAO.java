@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.revature.bean.Category;
 
-public interface CategoryDAO {
+public interface CategoryDAO extends HibernateSession{
 	//C
 	Category save(Category c);
 	
