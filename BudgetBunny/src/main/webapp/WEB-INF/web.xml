@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
   <display-name>BudgetBunny</display-name>
-  <welcome-file-list>
+  <!-- <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
   
-  <!-- The Servlet tag maps our servlet to a Java Class -->
+  The Servlet tag maps our servlet to a Java Class
   <servlet>
   	<servlet-name>Test</servlet-name>
   	<servlet-class>com.revature.test.Test</servlet-class>
   	<load-on-startup>1</load-on-startup>
   </servlet>
   
-  <!-- The Servlet-mapping tag maps our servlet to a URL -->
+  The Servlet-mapping tag maps our servlet to a URL
   <servlet-mapping>
   	<servlet-name>Test</servlet-name>
 	<url-pattern>/test</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
+  
+  <servlet>
+		<servlet-name>SpringDispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/beans.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>SpringDispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
 </web-app>
