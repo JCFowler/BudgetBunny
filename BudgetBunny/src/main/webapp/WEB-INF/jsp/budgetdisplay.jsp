@@ -7,4 +7,3 @@
 	<p>(Amount Spent)</p>
 	<h3 class="no-top" id='id' hidden>${cat.catId}</h3>
 </div>
-

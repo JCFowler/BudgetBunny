@@ -3,8 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-		<%@ include file = "jspPieces/imports.jsp" %>
-
+		<%@ include file = "imports.jsp" %>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Insert title here</title>
@@ -14,12 +13,9 @@
 <body id="setup-body">
 
 	<div id='table-container'>
-		<div id="withdrawFormDiv">
-			<c:set var="headerMsg" value="Add Your Income"></c:set>
-			<c:set var="type" value="deposit"></c:set>
-			<%@ include file = "SystematicTransactionForm.jsp" %>
-		</div>
 		
+		<%@ include file = "budgetform.jsp" %>
+
 		<button class="btn btn-info submission" id="submitSetup">Submit</button>
 	
 	</div>

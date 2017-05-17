@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
-		<%@ include file = "jspPieces/imports.jsp" %>
+		<%@ include file = "imports.jsp" %>
 	
 
 </head>
@@ -20,12 +20,12 @@
 	
 
 	<c:forEach items='${cats}' var='cat'>
-		<%@ include file = "jspPieces/BudgetDisplay.jsp" %>
+		<%@ include file = "budgetdisplay.jsp" %>
 	</c:forEach>
 	
 	</div>
 
-		<%@ include file = "jspPieces/NewTransaction.jsp" %>
+		<%@ include file = "newTransaction.jsp" %>
 
 	
 		<script type="text/javascript" src="static/js/jozsef.js"></script>
