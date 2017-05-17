@@ -69,7 +69,65 @@
 	font-size: 3em;
 }
 
+.budget-eq
+{
+	display: inline-block;
+}
+
+.trans-input
+{
+	display: inline-block;
+}
+
+.blur-filter {
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
+}
+
+.trans-div
+{
+    position: absolute;
+    top: 35%;
+    right: 42%;
+    background-color: white;
+    padding: 1%;
+    border-style: ridge;
+	text-align: center;
+}
+
+.close
+{
+    position: absolute;
+    right: 0;
+}
+
+.bar
+{
+	width: 100%;
+	background-color: brown;	
+}
+
+.no-top
+{
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
 #category-display
 {
-	display: inline;
+	display: inline-block;
+    padding: 2.5%;
+    margin: 2.5%;
+    background-color: #5bc0de;
+    border-radius: 10%;
+    text-align: center;
+}
+
+#home-div
+{
+	
+    text-align: center;
 }

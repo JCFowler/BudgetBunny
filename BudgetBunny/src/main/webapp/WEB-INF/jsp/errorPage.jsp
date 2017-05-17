@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Page not found</title>
-<link rel = "stylesheet" type="text/css" href="static/myStyle.css"/>
+<link rel = "stylesheet" type="text/css" href="static/css/myStyle.css"/>
 </head>
 <body>
 <div class="container">

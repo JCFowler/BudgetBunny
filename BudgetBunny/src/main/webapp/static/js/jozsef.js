@@ -5,6 +5,7 @@
 
 /*************************** Generic JS ***********************************/
 
+      
 /*
  * Send an ajax call.
  * 
@@ -26,6 +27,13 @@ function ajaxCall(data, destUrl)
 	  });
 }
 
+function getFunctionName() {
+    var re = /function (.*?)\(/
+    var s = getFunctionName.caller.toString();
+    var m = re.exec( s )
+    return m[1];
+}
+
 /*************************** SystematicTransactionForm ***********************************/
 
 var withdrawRowCount = 1;
@@ -36,7 +44,7 @@ var depositRowCount = 1;
  * Creates a new withdraw row to the withdrawTable, with a 
  * unique row name and remove button id.
  */
-$('.add-systematic').click(function(){
+$('.add-systematic').click(function(){	
 	var type = $(this).attr('id').replace('add', '');
 
 	var hiddenRow = $("#original" + type + "TableRow0");
@@ -52,6 +60,7 @@ $('.add-systematic').click(function(){
 	newRow.attr('id', newName);
 	$("#" + type + "TableBody")[0].append(newRow[0])
 	$('#' + newName).show();
+	
 });
 
 
@@ -60,6 +69,7 @@ $('.add-systematic').click(function(){
  */
 $('.RemoveButton').click(function()
 {
+
 	var type = $(this).attr('type');
 	
 	const id = $(this).attr('id').replace(type + 'RemoveButton', '');
@@ -77,7 +87,7 @@ $('.RemoveButton').click(function()
  * Submits negative values systematic transactions.
  */
 function submitSystematicWithdraws(validData)
-{
+{	
 	return submitSystematicTransactions("-", "withdraw", validData);
 }
 
@@ -309,5 +319,47 @@ $('#submitSetup').click(function()
 	}
 
 });
+
+
+/*************************** BudgetDisplay ***********************************/
+
+$('.category-display').click(function(){
+	const name = $(this).find('#name');
+	const budget = $(this).find('#budget');
+	const spent = $(this).find('#spent');
+	const id = $(this).find('#id');
+	const total = (parseFloat(budget.text().replace('$', '')) - parseFloat(spent.text().replace('$', '')).toFixed(2));
+	
+	$("#home-div > *").addClass("blur-filter");
+	let popUp = $('#myPopup');
+	popUp.find('#name').text(name.text());
+	popUp.find('#budget').text(budget.text());
+	popUp.find('#spent').text(spent.text());
+	popUp.find('#total').text('$' + total);
+	popUp.find('#id').text(id.text());
+	
+	popUp.show(500);
+});
+
+$('#add').click(function(){
+	close_div();
+});
+
+
+$('#remove').click(function(){
+	close_div();
+});
+
+function close_div()
+{
+	$("#home-div > *").removeClass("blur-filter");
+	$('#myPopup').hide();
+}
+
+
+
+
+
+
 
 
