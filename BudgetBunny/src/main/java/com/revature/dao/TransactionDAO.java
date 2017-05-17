@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.revature.bean.Transaction;
 
-public interface TransactionDAO {
+public interface TransactionDAO extends HibernateSession{
 	//C
 	Transaction save(Transaction t);
 	
