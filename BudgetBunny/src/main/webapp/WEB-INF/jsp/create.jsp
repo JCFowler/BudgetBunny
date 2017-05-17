@@ -10,6 +10,8 @@
 </head>
 <body>
 
+	<%@ include file = "_navbar.jsp" %>
+
 <!--https://codepen.io/sevilayha/pen/IdGKH-->
 <div class="container">
 	<div class="row">

@@ -7,11 +7,13 @@
 
 
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Insert title here</title>
+	<title>Budget Setup</title>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 </head>
 <body id="setup-body">
+
+	<%@ include file = "_navbar.jsp" %>
 
 	<div id='table-container'>
 		<div id="withdrawFormDiv">

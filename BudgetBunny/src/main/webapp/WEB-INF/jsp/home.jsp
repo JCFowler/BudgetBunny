@@ -4,13 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Home</title>
 
 		<%@ include file = "imports.jsp" %>
 	
 
 </head>
 <body>
+
+	<%@ include file = "_navbar.jsp" %>
+
 	<div id='home-div'>
 	<%@page import="com.revature.bean.Category" %>
 	
