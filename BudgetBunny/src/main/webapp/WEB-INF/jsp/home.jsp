@@ -27,7 +27,7 @@
 	
 
 	<c:forEach items='${cats}' var='cat'>
-		<%@ include file = "BudgetDisplay.jsp" %>
+		<%@ include file = "budgetdisplay.jsp" %>
 	</c:forEach>
 	</div>
 </body>
