@@ -10,11 +10,3 @@
 	<link rel="stylesheet" href="static/css/jozsef.css">
 	
 	
-	<script type="text/javascript" src="static/js/log4javascript.js"></script>
-	<script type="text/javascript">
-		var log = log4javascript.getDefaultLogger();
-		
-		log.info("hello");
-
-        
-	</script>
