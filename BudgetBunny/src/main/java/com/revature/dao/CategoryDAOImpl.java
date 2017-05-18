@@ -2,9 +2,11 @@ package com.revature.dao;
 
 import java.util.ArrayList;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 
+import com.revature.bean.Budget;
 import com.revature.bean.Category;
 
 @Component
@@ -29,9 +31,11 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Category> getAll() {
-		String hql = "FROM Category";
-		ArrayList<Category> cats = (ArrayList<Category>) session.createQuery(hql).list();
+	public ArrayList<Category> getAll(Budget b ) {
+		String hql = "FROM Category WHERE bud=:id";
+		Query q = session.createQuery(hql);
+		q.setParameter("id", b);
+		ArrayList<Category> cats = (ArrayList<Category>) q.list();
 		return cats; 
 	}
 
