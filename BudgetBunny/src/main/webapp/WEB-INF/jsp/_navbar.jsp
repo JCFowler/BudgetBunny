@@ -27,7 +27,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Name <span class="caret"></span></a>
+						aria-expanded="false">${user.getName() } <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="budgetpage">Edit Budget</a></li>
 							<li><a href="incomepage">Edit Income</a></li>
