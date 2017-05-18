@@ -12,13 +12,13 @@
 </head>
 <body>
 
-	<%@ include file = "_navbar.jsp" %>
-
 	<div id='home-div'>
+	<%@ include file = "_navbar.jsp" %>
+	
 	<%@page import="com.revature.bean.Category" %>
 	
 	
-	<c:set var="cats" value='<%=new Category[]{new Category(0, "Daily", 500, 200, null), new Category(1, "Weekly", 1000, 200, null), new Category(2, "Monthly", 50, 5, null), new Category(3, "Annually", 200, 190, null)}%>' scope="application" />
+	<c:set var="cats" value='<%=new Category[]{new Category(0, "Daily", 500, 200, null), new Category(1, "Weekly", 1000, 200, null), new Category(2, "Monthly", 50, 5, null), new Category(3, "Annually", 200, 190, null), new Category(0, "Daily", 500, 200, null), new Category(1, "Weekly", 1000, 200, null), new Category(2, "Monthly", 50, 5, null), new Category(3, "Annually", 200, 190, null)}%>' scope="application" />
 
 	
 

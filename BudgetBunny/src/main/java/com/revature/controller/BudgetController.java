@@ -10,7 +10,7 @@ public class BudgetController {
 	@RequestMapping(method=RequestMethod.GET)
 	public String getBudgetPage()
 	{
-		return "budgetpage ";
+		return "budgetpage";
 	}
 	
 }
