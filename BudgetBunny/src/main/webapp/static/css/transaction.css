@@ -1,7 +1,32 @@
 @CHARSET "ISO-8859-1";
 
 /* Credit to bootsnipp.com for the css for the color graph */
+
+.container {
+
+}
+
+
 .thead-default{
 	background-color: #f4a442;
 }
+
+.dropdown ul {
+	display:none;
+}
+
+.dropdown:hover ul {
+	display:block;
+}
+
+.table {
+	width: 25%;
+	margin-top:5%;
+
+	border: 50px solid #65a5ce;
+	border-radius: 25px;
+	padding: 25px;
+	height: 25px;
+	border-collapse: separate !important;
+
 }
