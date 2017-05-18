@@ -33,7 +33,7 @@
 							<li><a href="incomepage">Edit Income</a></li>
 							<li><a href="billpage">Edit Bills</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="logout">LOGO</a></li>
+							<li><a href="logout">Logout</a></li>
 						</ul></li>
 				</ul>
 			</div>
