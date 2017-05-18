@@ -24,7 +24,6 @@ public class LoginController
 	@RequestMapping(method=RequestMethod.GET)
 	public String getLogin(ModelMap modelMap)
 	{
-		System.out.println("This is a Get");
 		User emptyUser = new User();
 		modelMap.addAttribute("user", emptyUser);
 		return "login";
@@ -33,15 +32,14 @@ public class LoginController
 	@RequestMapping(method=RequestMethod.POST)
 	public String doLogin(@Valid User user, BindingResult bindingResult, HttpServletRequest req, ModelMap modelMap)
 	{
-		System.out.println("This was a post request.");
 		if(bindingResult.hasErrors())
 		{
 			return "login";
 		}
 		User authUser = userService.login(user.getUsername(), user.getPassword());
-		System.out.println(authUser);
 		if(authUser==null)
 			return "login";
+		req.getSession().setAttribute("user", authUser);
 		modelMap.addAttribute("user", authUser);
 		return "redirect:home";
 	}

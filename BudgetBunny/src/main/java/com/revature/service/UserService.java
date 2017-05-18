@@ -25,7 +25,8 @@ public class UserService
 	}
 	
 	public void create(User user) {
-		bd.save(new Budget(0,0,0));
+		Budget b = bd.save(new Budget(0,0,0));
+		user.setBudget(b);
 		ud.save(user);
 	}
 }
