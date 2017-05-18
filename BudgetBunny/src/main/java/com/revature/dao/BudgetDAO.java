@@ -4,13 +4,13 @@ import com.revature.bean.Budget;
 
 public interface BudgetDAO extends HibernateSession {
 	//C
-	boolean save(Budget b);
+	Budget save(Budget b);
 		
 	//R
 	Budget getById(int id);
 	
 	//U
-	Budget update(Budget b);
+	void update(Budget b);
 	
 	//D
 }
