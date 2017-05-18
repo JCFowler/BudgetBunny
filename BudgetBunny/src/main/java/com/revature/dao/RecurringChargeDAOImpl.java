@@ -3,35 +3,40 @@ package com.revature.dao;
 import java.util.ArrayList;
 
 import org.hibernate.Session;
+import org.springframework.stereotype.Component;
 
 import com.revature.bean.RecurringCharge;
 
+@Component
 public class RecurringChargeDAOImpl implements RecurringChargeDAO {
 	private Session session;
 	
 	@Override
-	public RecurringCharge save(RecurringCharge r) {
-		return null;
-	}
+	public void save(RecurringCharge r) {
+		session.save(r);	}
 	
 	@Override
 	public RecurringCharge getById(int id) {
-		return null;
+		RecurringCharge rc = (RecurringCharge) session.get(RecurringCharge.class, id);
+		return rc;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<RecurringCharge> getALl() {
-		return null;
+	public ArrayList<RecurringCharge> getAll() {
+		String hql = "FROM RecurringCharge";
+		ArrayList<RecurringCharge> rcs = (ArrayList<RecurringCharge>) session.createQuery(hql).list();
+		return rcs; 
 	}
 	
 	@Override
-	public RecurringCharge update(RecurringCharge r) {
-		return null;
+	public void update(RecurringCharge r) {
+		session.update(r);
 	}
 
 	@Override
-	public boolean delete(RecurringCharge r) {
-		return false;
+	public void delete(RecurringCharge r) {
+		session.delete(r);;
 	}
 
 	@Override
