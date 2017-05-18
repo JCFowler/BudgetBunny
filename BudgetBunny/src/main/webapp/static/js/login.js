@@ -17,7 +17,13 @@ function validateLogin() {
     if (x=="" && y=="") {
     	document.getElementById('username').style.borderColor = "red";
     	document.getElementById('password').style.borderColor = "red";
-        text = "Please fill in the blanks.";
+    	document.getElementById('username').style.backgroundColor = "#e2b5b5";
+    	document.getElementById('password').style.backgroundColor = "#e2b5b5";
+        text = "Please fill in the blanks";
+    }
+    
+    else{
+    	text = "User not found"
     }
     document.getElementById("valid").innerHTML = text;
 }

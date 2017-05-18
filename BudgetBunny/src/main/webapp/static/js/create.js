@@ -14,14 +14,28 @@ function validateCreate() {
     z = document.getElementById("name").value;
 
 
-    // If x is Not a Number or less than one or greater than 10
     if (x=="" && y=="" && z=="") {
     	document.getElementById('username').style.borderColor = "red";
     	document.getElementById('password').style.borderColor = "red";
     	document.getElementById('name').style.borderColor = "red";
-        text = "Please fill in the blanks.";
-    } else {
-        text = "Please fill in the blanks.";
+    	document.getElementById('username').style.backgroundColor = "#e2b5b5";
+    	document.getElementById('password').style.backgroundColor = "#e2b5b5";
+    	document.getElementById('name').style.backgroundColor = "#e2b5b5";
+        text = "Please fill in the blanks";}
+         if(x==""){
+        	document.getElementById('username').style.borderColor = "red";
+        	document.getElementById('username').style.backgroundColor = "#e2b5b5";
+            text = "Please fill in the blanks";}
+         if(y==""){
+        	document.getElementById('password').style.borderColor = "red";
+        	document.getElementById('password').style.backgroundColor = "#e2b5b5";
+            text = "Please fill in the blanks";}
+         if(z==""){
+        	document.getElementById('name').style.borderColor = "red";
+        	document.getElementById('name').style.backgroundColor = "#e2b5b5";
+            text = "Please fill in the blanks";}
+        else {
+        text = "Invalid input. User is already in the system";
     }
     document.getElementById("valid").innerHTML = text;
 }

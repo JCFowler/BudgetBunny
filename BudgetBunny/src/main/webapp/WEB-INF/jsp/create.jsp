@@ -31,14 +31,14 @@
 												<input type="text" id="username" name="Username" required="required" placeholder = "Username">
                                                 <span class="highlight"></span>
                                                 <span class="bar"></span>
-                                                
+                                                <br>
 											<div class="group">
 												<input type="password" id="password" name="password" required="required" placeholder="Password"><input type="hidden" name="profile" value="Password" >	
                                                 <span class="highlight"></span>
                                                 <span class="bar"></span>
                                                 
 											</div>
-													<p id="valid">test</p>
+													<p id="valid"></p>
 											<div class="form-group text-center">
 												<div>
 													<button type="submit" id="create" class="btn btn-info">Create Account</button>
@@ -48,8 +48,8 @@
 														 Creating...</label>
 												</div>
 											</div>
-											<div class="text-right">
-												<p class="text-right">Already Registered? <a href="javascript:void(0);" data-toggle="modal" data-target="#login">Login here</a></p>
+											<div class="text">
+												<p class="text">Already Registered? <a href="javascript:void(0);" data-toggle="modal" data-target="#login">Login here</a></p>
 											</div>
 										</form>
 									</div>
