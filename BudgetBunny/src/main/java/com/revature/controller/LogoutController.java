@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class LogoutController {
-	@RequestMapping(value="/LogoutPage", method=RequestMethod.GET)
+	@RequestMapping(value="/logoutpage", method=RequestMethod.GET)
 	public String getLogoutPage()
 	{
-		return "LogoutPage ";
+		return "logoutpage";
 	}
 	
 }

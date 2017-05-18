@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 import com.revature.bean.RecurringCharge;
 
-public interface RecurringChargeDAO {
+public interface RecurringChargeDAO extends HibernateSession{
 	//C
-	RecurringCharge save(RecurringCharge r);
+	void save(RecurringCharge r);
 	
 	//R
 	RecurringCharge getById(int id);
-	ArrayList<RecurringCharge> getALl();
+	ArrayList<RecurringCharge> getAll();
 	
 	//U
-	RecurringCharge update(RecurringCharge r);
+	void update(RecurringCharge r);
 	
 	//D
-	boolean delete(RecurringCharge r);
+	void delete(RecurringCharge r);
 }

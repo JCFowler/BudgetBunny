@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 import com.revature.bean.Transaction;
 
-public interface TransactionDAO {
+public interface TransactionDAO extends HibernateSession{
 	//C
-	Transaction save(Transaction t);
+	void save(Transaction t);
 	
 	//R
 	Transaction getById(int id);
 	ArrayList<Transaction> getAll();
 	
 	//U
-	Transaction update(Transaction t);
+	void update(Transaction t);
 	
 	//D
-	boolean delete(Transaction t);
+	void delete(Transaction t);
 }

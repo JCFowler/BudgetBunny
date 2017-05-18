@@ -5,15 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping(value="/errorPage")
 public class ErrorPageController {
-	@RequestMapping(value="/erroPage", method=RequestMethod.GET)
+	@RequestMapping( method=RequestMethod.GET)
 	public String getErrorPage()
 	{
-		return "errorPage ";
+		return "errorPage";
 	}
-	
-	
-	
-	
+
 	
 }

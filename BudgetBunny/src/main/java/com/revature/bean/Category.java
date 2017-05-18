@@ -88,6 +88,13 @@ public class Category {
 	public void setTransaction(ArrayList<Transaction> transaction) {
 		this.transaction = transaction;
 	}
+	public Budget getBud() {
+		return bud;
+	}
+	public void setBud(Budget bud) {
+		this.bud = bud;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

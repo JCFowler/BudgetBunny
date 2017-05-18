@@ -1,27 +1,22 @@
 package com.revature.dao;
 
-import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Component;
 
 import com.revature.bean.Budget;
 import com.revature.util.HibernateUtil;
 
+@Component
 public class BudgetDAOImpl implements BudgetDAO {
-	private static Logger log = Logger.getRootLogger();
 	private HibernateUtil hu = new HibernateUtil();
+	private Session session; 
 	
 	@Override
-	public Budget save(Budget b) {
-		Session su = hu.getSession();
-		Transaction tx = su.beginTransaction();
-		int id = (Integer) su.save(b);
-		
+	public boolean save(Budget b) {
+		int id = (Integer) session.save(b);
 		b.setBudgetId(id);
-		tx.commit();
-		su.close();
-		log.info("Created new Budget: " + b.getBudgetId());
-		return b;
+		return true;
 	}
 
 	@Override
@@ -37,10 +32,14 @@ public class BudgetDAOImpl implements BudgetDAO {
 		Session su = hu.getSession();
 		Transaction tx = su.beginTransaction();
 		su.update(b);
-		log.info("Updated Budgetid: " + b.getBudgetId());
 		tx.commit();
 		su.close();
 		return b;
+	}
+
+	@Override
+	public void setSession(Session session) {
+		this.session=session;
 	}
 
 }
