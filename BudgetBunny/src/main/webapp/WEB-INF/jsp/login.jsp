@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 
-<script src="static/js/login.js"></script>
 
 <title>Login Page</title>
 </head>
@@ -23,16 +22,16 @@
 				<h2>Budget Bunny</h2>
 				<hr class="colorgraph">
 				<div class="form-group">
-                    <input type="username" name="username" id="username" class="form-control input-lg" placeholder="Username">
+                    <input type="username" name="username" id="username" class="form-control input-lg" placeholder="Username" required="required">
 				</div>
 				<div class="form-group">
-                    <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
+                    <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" required="required">
 				</div>
 				<hr class="colorgraph">
-										<p id="valid"> hahaha fuck</p>
+										<p id="valid"></p>
 				<div class="row">
 					<div class="col-xs-6 col-sm-6 col-md-6">
-                        <button type="submit" class="btn btn-lg btn-default btn-block" >Log In</button>
+                        <button type="submit" id="login" class="btn btn-lg btn-default btn-block" >Log In</button>
 					</div>
 					<div class="col-xs-6 col-sm-6 col-md-6">
 						<a href="create" class="btn btn-lg btn-default btn-block">Create an Account</a>
@@ -41,10 +40,12 @@
 
 			</fieldset>
 		</form>
-
+		</div>
 	</div>
 </div>
 
 
 </body>
 </html>
+
+<script src="static/js/login.js"></script>

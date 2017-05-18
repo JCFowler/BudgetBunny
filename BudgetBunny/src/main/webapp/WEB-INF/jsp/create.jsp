@@ -22,25 +22,26 @@
 										<form name="registerForm" method="post" action="">
 											
                                             <div class="group">
-												<input type="text" name="Name" required="required" placeholder = "Name">
+												<input type="text" id="name" name="Name" required="required" placeholder = "Name">
                                                 <span class="highlight"></span>
                                                 <span class="bar"></span>
                                                 
 											</div>                                            
                                             <div class="group">
-												<input type="text" name="Username" required="required" placeholder = "Username">
+												<input type="text" id="username" name="Username" required="required" placeholder = "Username">
                                                 <span class="highlight"></span>
                                                 <span class="bar"></span>
                                                 
 											<div class="group">
-												<input type="password" name="password" required="required" placeholder="Password"><input type="hidden" name="profile" value="Password" >	
+												<input type="password" id="password" name="password" required="required" placeholder="Password"><input type="hidden" name="profile" value="Password" >	
                                                 <span class="highlight"></span>
                                                 <span class="bar"></span>
                                                 
 											</div>
+													<p id="valid">test</p>
 											<div class="form-group text-center">
 												<div>
-													<button type="submit" class="btn btn-info">Create Account</button>
+													<button type="submit" id="create" class="btn btn-info">Create Account</button>
 												</div>
 												<div class="container-fluid loading hidden">
 													<label><span class="fa fa-refresh fa-spin"></span>
@@ -58,3 +59,4 @@
 
 </body>
 </html>
+<script src="static/js/create.js"></script>
