@@ -39,7 +39,9 @@ public class LoginController
 		if(authUser==null)
 			return "login";
 		req.getSession().setAttribute("user", authUser);
-		modelMap.addAttribute("user", authUser);
-		return "redirect:home";
+		if(authUser.getBudget().getTotalBudget() != 0)
+			return "redirect:budgetsetuppage";
+		else
+			return "redirect:home";
 	}
 }
