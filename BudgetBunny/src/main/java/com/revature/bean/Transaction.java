@@ -66,6 +66,12 @@ public class Transaction {
 	public void setCost(double cost) {
 		this.cost = cost;
 	}
+	public Category getCat() {
+		return cat;
+	}
+	public void setCat(Category cat) {
+		this.cat = cat;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
