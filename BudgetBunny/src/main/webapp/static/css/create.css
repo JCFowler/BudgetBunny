@@ -1,13 +1,21 @@
 @CHARSET "ISO-8859-1";
 
 
+#valid{
+	font-size: 20px;
+	text-align: center;
+	background-color: #e2b5b5;
+	border-radius: 25px;
+	color: #6b1a26;
+	right: 500px;
+}
+
 div.container{
 	top:5%;
 }
 div.col-sm-4{
 	  	text-align: center;
 	  	right:-32%;
-
 }
 
 .group{ 
