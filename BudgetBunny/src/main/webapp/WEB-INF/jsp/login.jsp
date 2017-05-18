@@ -29,7 +29,7 @@
                     <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
 				</div>
 				<hr class="colorgraph">
-										<p id="valid"> hahaha fuck</p>
+										<p id="valid"></p>
 				<div class="row">
 					<div class="col-xs-6 col-sm-6 col-md-6">
                         <button type="submit" class="btn btn-lg btn-default btn-block" >Log In</button>
