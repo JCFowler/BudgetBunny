@@ -46,6 +46,8 @@ function getFunctionName() {
  */
 $('.add-systematic').click(function(){	
 	var type = $(this).attr('id').replace('add', '');
+	
+	$('#' + type + 'Table').show();
 
 	var hiddenRow = $("#original" + type + "TableRow0");
 	var newId = parseInt(hiddenRow.attr('count')) + 1;
@@ -69,7 +71,15 @@ $('.add-systematic').click(function(){
  */
 $('.RemoveButton').click(function()
 {
-
+	let hide = true;
+	let table = $('#' + type + 'Table');
+	table.find('tr');
+	
+	if($('textbox').is(':disabled')){
+		
+		
+	}
+	
 	var type = $(this).attr('type');
 	
 	const id = $(this).attr('id').replace(type + 'RemoveButton', '');
