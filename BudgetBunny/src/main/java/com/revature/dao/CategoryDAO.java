@@ -2,6 +2,7 @@ package com.revature.dao;
 
 import java.util.ArrayList;
 
+import com.revature.bean.Budget;
 import com.revature.bean.Category;
 
 public interface CategoryDAO extends HibernateSession{
@@ -10,7 +11,7 @@ public interface CategoryDAO extends HibernateSession{
 	
 	//R
 	Category getById(int id);
-	ArrayList<Category> getAll();
+	ArrayList<Category> getAll(Budget b);
 	
 	//U
 	void update(Category c);

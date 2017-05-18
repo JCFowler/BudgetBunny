@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.bean.Budget;
 import com.revature.bean.Category;
 import com.revature.dao.CategoryDAO;
 
@@ -22,8 +23,8 @@ public class CategoryService {
 		return cd.getById(id);
 	}
 	
-	public ArrayList<Category> getAll(){
-		return cd.getAll();
+	public ArrayList<Category> getAll(Budget b){
+		return cd.getAll(b);
 	}
 
 	void update(Category c){
