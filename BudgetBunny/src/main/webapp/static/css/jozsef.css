@@ -2,11 +2,27 @@
 
 .table
 {
-    width: 700pt;
-    table-layout: fixed;
-    text-align: center;
-    margin-right: auto;
+
+}
+
+.table {
+	width: 25%;
+	margin-top:5%;
+
+	border: 50px solid #65a5ce;
+	border-radius: 25px;
+	padding: 25px;
+	height: 25px;
+	border-collapse: separate !important;
+	
+	display: none;
+	margin-right: auto;
     margin-left: auto;
+
+}
+
+.thead-default{
+	background-color: #f4a442;
 }
 
 #table-container
@@ -67,6 +83,8 @@
 .submission
 {
 	font-size: 3em;
+    margin: 5%;
+
 }
 
 .budget-eq
@@ -135,52 +153,6 @@
 html, body
 {
 	height: 100%;
-}
-
-.grey-bunny
-{
-	background-size: cover;
-    background-image: url("../images/grey-bunny.png");
-}
-
-.egg-back-1
-{
-    background-image: url("../images/egg_1.png");
-}
-
-.egg-back-2
-{
-    background-image: url("../images/egg_2.png");
-}
-
-.egg-back-3
-{
-    background-image: url("../images/egg_3.png");
-}
-
-.egg-back-4
-{
-    background-image: url("../images/egg_4.png");
-}
-
-.egg-back-5
-{
-    background-image: url("../images/egg_5.png");
-}
-
-.egg-back-6
-{
-	background-image: url("../images/egg_6.png");
-}
-
-.egg-back-7
-{
-    background-image: url("../images/egg_7.png");
-}
-
-.egg-back-8
-{
-    background-image: url("../images/egg_8.png");
 }
 
 .inner-egg

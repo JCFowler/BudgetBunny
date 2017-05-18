@@ -1,6 +1,7 @@
 
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
+		<h4 class="total-budget">TotalBudget $${totalBudget}</h4>
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -22,7 +23,7 @@
 					<li><a href="#">Reports</a></li>
 				</ul>
 			
-			
+				
 			
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
