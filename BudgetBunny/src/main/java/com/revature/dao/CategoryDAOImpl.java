@@ -1,69 +1,47 @@
 package com.revature.dao;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.springframework.stereotype.Component;
 
+import com.revature.bean.Budget;
 import com.revature.bean.Category;
-import com.revature.util.HibernateUtil;
 
+@Component
 public class CategoryDAOImpl implements CategoryDAO {
-	private HibernateUtil hu = new HibernateUtil();
 	private Session session;
 	
 	@Override
-	public Category save(Category c) {
-		Session su = hu.getSession();
-		Transaction tx = su.beginTransaction();
-		int id = (Integer)su.save(c);
-		c.setCatId(id);
-		tx.commit();
-		su.close();
-		return c;
+	public void save(Category c) {
+		session.save(c);
 	}
 	
 	@Override
 	public Category getById(int id) {
-		Session su = hu.getSession();
-		Category c = (Category) su.get(Category.class, id);
-		su.close();
+		Category c = (Category) session.get(Category.class, id);
 		return c;
 	}
 
 	@Override
-	public Category update(Category c) {
-		Session su = hu.getSession();
-		Transaction tx = su.beginTransaction();
-		su.update(c);
-		tx.commit();
-		su.close();
-		return c;
+	public void update(Category c) {
+		session.update(c);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public ArrayList<Category> getAll(Budget b ) {
+		String hql = "FROM Category WHERE bud=:id";
+		Query q = session.createQuery(hql);
+		q.setParameter("id", b);
+		ArrayList<Category> cats = (ArrayList<Category>) q.list();
+		return cats; 
 	}
 
 	@Override
-	public ArrayList<Category> getAll(int budgetId) {
-		Session su = hu.getSession();
-		String hql = "From Category where budgetid=:bId";
-		Query q = (Query) su.createQuery(hql);
-		q.setParameter("bId", budgetId);
-		List<Category> list = q.list();
-		ArrayList<Category> arrayList = new ArrayList<Category>();
-		arrayList.addAll(list);
-		return arrayList;
-	}
-
-	@Override
-	public boolean delete(Category c) {
-		Session su = hu.getSession();
-		Transaction tx = su.beginTransaction();
-		su.delete(c);
-		tx.commit();
-		su.close();
-		return true;
+	public void delete(Category c) {
+		session.delete(c);
 	}
 
 	@Override

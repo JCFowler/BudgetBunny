@@ -2,11 +2,27 @@
 
 .table
 {
-    width: 700pt;
-    table-layout: fixed;
-    text-align: center;
-    margin-right: auto;
+
+}
+
+.table {
+	width: 25%;
+	margin-top:5%;
+
+	border: 50px solid #65a5ce;
+	border-radius: 25px;
+	padding: 25px;
+	height: 25px;
+	border-collapse: separate !important;
+	
+	display: none;
+	margin-right: auto;
     margin-left: auto;
+
+}
+
+.thead-default{
+	background-color: #f4a442;
 }
 
 #table-container
@@ -67,6 +83,8 @@
 .submission
 {
 	font-size: 3em;
+    margin: 5%;
+
 }
 
 .budget-eq
@@ -80,12 +98,12 @@
 }
 
 .blur-filter {
-    -webkit-filter: blur(2px);
-    -moz-filter: blur(2px);
-    -o-filter: blur(2px);
-    -ms-filter: blur(2px);
-    filter: blur(2px);
-}
+    -webkit-filter: brightness(50%);
+    -moz-filter: brightness(50%);
+    -o-filter: brightness(50%);
+    -ms-filter: brightness(50%);
+    filter: brightness(50%);
+    background-color: rgba(105, 104, 104, 0.61);}
 
 .trans-div
 {
@@ -96,12 +114,16 @@
     padding: 1%;
     border-style: ridge;
 	text-align: center;
+	display: block;
+    border-width: 3pt;
+    border-radius: 30pt;
 }
 
 .close
 {
     position: absolute;
-    right: 0;
+    right: 15pt;
+    top: 10pt;
 }
 
 .bar
@@ -112,22 +134,40 @@
 
 .no-top
 {
-	margin-bottom: 0;
-	padding-bottom: 0;
+    margin-top: 0;
+    padding-top: 0;
 }
 
 #category-display
 {
-	display: inline-block;
+    display: inline-block;
     padding: 2.5%;
     margin: 2.5%;
-    background-color: #5bc0de;
+    padding-right: 3%;
+    padding-left: 3%;
     border-radius: 10%;
     text-align: center;
+    background-size: cover;
 }
 
+html, body
+{
+	height: 100%;
+}
+
+.inner-egg
+{
+	background-color: whitesmoke;
+    border-radius: 10pt;
+}
+
+.egg-p
+{
+	margin-top: 4pt;
+	margin-bottom: 0;
+}
 #home-div
 {
-	
     text-align: center;
+    height: 100%
 }

@@ -7,6 +7,6 @@
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fun" %>
 	<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 	
-	<link rel="stylesheet" href="static/css/jozsef.css">
+	<link rel="stylesheet" href="static/css/navbar.css">
 	
 	

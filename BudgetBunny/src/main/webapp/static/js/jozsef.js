@@ -22,11 +22,14 @@ function ajaxCall(data, destUrl)
 	    success: function (html) {
 	    	
 	      //TODO: finish ajax;
-	    	alert("Ajax Success: \n\t" + html);
+//	    	alert("Ajax Success: \n\t" + html);
 	    }
 	  });
 }
 
+/*
+ * Returns the calling functions name.
+ */
 function getFunctionName() {
     var re = /function (.*?)\(/
     var s = getFunctionName.caller.toString();
@@ -36,9 +39,6 @@ function getFunctionName() {
 
 /*************************** SystematicTransactionForm ***********************************/
 
-var withdrawRowCount = 1;
-var depositRowCount = 1;
-
 
 /*
  * Creates a new withdraw row to the withdrawTable, with a 
@@ -46,6 +46,8 @@ var depositRowCount = 1;
  */
 $('.add-systematic').click(function(){	
 	var type = $(this).attr('id').replace('add', '');
+	
+	$('#' + type + 'Table').show();
 
 	var hiddenRow = $("#original" + type + "TableRow0");
 	var newId = parseInt(hiddenRow.attr('count')) + 1;
@@ -69,7 +71,15 @@ $('.add-systematic').click(function(){
  */
 $('.RemoveButton').click(function()
 {
-
+	let hide = true;
+	let table = $('#' + type + 'Table');
+	table.find('tr');
+	
+	if($('textbox').is(':disabled')){
+		
+		
+	}
+	
 	var type = $(this).attr('type');
 	
 	const id = $(this).attr('id').replace(type + 'RemoveButton', '');
@@ -112,7 +122,8 @@ function submitSystematicTransactions(numberPrefix, type, validData)
 	
 	let tableRowCount = 1;
 	let dataCount = 0;
-	let data = {};
+	const data = {};
+	var nextIncome;
 	while((nextIncome = $('#' + type + 'TableRow' + tableRowCount++)).length > 0)
 	{
 		const name = nextIncome.find('[name="name"]');
@@ -205,6 +216,8 @@ $('#addCategory').click(function(){
 	var hiddenRow = $("#categoryTableRow0").clone(true);
 	var newName = 'categoryTableRow' + categoryCount;
 	
+	$('#categoryTable').show();
+
 	hiddenRow.attr('id', newName);
 	
 	var newDollarTypeId = 'dollarType' + categoryCount;
@@ -252,9 +265,9 @@ $('.removeButton').click(function()
 
 function submitBudgetCategories(validData)
 {
-	count = 1;
-	arrCount = 0;
-	data = {};
+	let count = 1;
+	let arrCount = 0;
+	let data = {};
 	while((nextIncome = $('#categoryTableRow' + count++)).length > 0)
 	{
 		const category = nextIncome.find('#category');
@@ -310,11 +323,18 @@ $('#submitSetup').click(function()
 	
 	const catData = submitBudgetCategories(withData);
 	
+	const setupData = {
+			depositData : JSON.stringify(depData),
+			withdrawData : JSON.stringify(withData),
+			categoryData : JSON.stringify(catData)
+	}
+	
 	if(depData && withData && catData)
 	{
-		ajaxCall(catData, '/newBudget');
-		ajaxCall(depData, '/processReOcurring');
-		ajaxCall(depData, '/processReOcurring');
+		ajaxCall(setupData, '/BudgetBunny/budgetsetuppage');
+//		ajaxCall(catData, '/BudgetBunny/budgetsetuppage');
+//		ajaxCall(withData, '/BudgetBunny/budgetsetuppage');
+//		ajaxCall(depData, '/BudgetBunny/budgetsetuppage');
 		//TODO: SwitchPage
 	}
 
@@ -328,31 +348,45 @@ $('.category-display').click(function(){
 	const budget = $(this).find('#budget');
 	const spent = $(this).find('#spent');
 	const id = $(this).find('#id');
-	const total = (parseFloat(budget.text().replace('$', '')) - parseFloat(spent.text().replace('$', '')).toFixed(2));
+	const total = (parseFloat(budget.text().replace('$', '')) - parseFloat(spent.text().replace('$', '')));
 	
-	$("#home-div > *").addClass("blur-filter");
+	//$("#home-div > *").addClass("blur-filter");
+	$("#home-div").addClass("blur-filter");
 	let popUp = $('#myPopup');
 	popUp.find('#name').text(name.text());
 	popUp.find('#budget').text(budget.text());
 	popUp.find('#spent').text(spent.text());
-	popUp.find('#total').text('$' + total);
+	popUp.find('#total').text('$' + total.toFixed(2));
 	popUp.find('#id').text(id.text());
 	
 	popUp.show(500);
 });
 
-$('#add').click(function(){
-	close_div();
+function getEggClass(){
+	let rand = Math.floor((Math.random() * 8) + 1);
+	return 'egg-back-' + rand;
+}
+
+$(document).ready(function(){
+	$('.category-display').each(function(){
+		$(this).addClass(getEggClass());
+	
+		let budget = $(this).find('#budget');
+		budget.text('$' + parseFloat(budget.text().replace('$', '')).toFixed(2));
+
+		let spent = $(this).find('#spent');
+		spent.text('$' + parseFloat(spent.text().replace('$', '')).toFixed(2));	
+	});
 });
 
 
-$('#remove').click(function(){
+$('#purchase').click(function(){
 	close_div();
 });
 
 function close_div()
 {
-	$("#home-div > *").removeClass("blur-filter");
+	$("#home-div").removeClass("blur-filter");
 	$('#myPopup').hide();
 }
 
