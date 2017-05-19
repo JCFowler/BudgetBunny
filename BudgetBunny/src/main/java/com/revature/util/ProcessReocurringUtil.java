@@ -3,18 +3,27 @@ package com.revature.util;
 import java.util.ArrayList;
 
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.revature.bean.RecurringCharge;
+import com.revature.dao.BudgetDAO;
 import com.revature.dao.RecurringChargeDAO;
 import com.revature.dao.RecurringChargeDAOImpl;
 import com.revature.dao.UserDAO;
 import com.revature.dao.UserDAOImpl;
 
+@Component
 @Aspect
 public class ProcessReocurringUtil implements Runnable {
 
 	private static Thread processor;
 	private Long interval;
+	
+	@Autowired
+	UserDAO ud;
+	@Autowired
+	RecurringChargeDAO rcd;
 	
 	private ProcessReocurringUtil()
 	{
@@ -29,14 +38,12 @@ public class ProcessReocurringUtil implements Runnable {
 	
 	@Override
 	public void run() {
-		RecurringChargeDAO rc = new RecurringChargeDAOImpl();
-		UserDAO u = new UserDAOImpl();
-		System.out.println("DAO: " + rc);
-		System.out.println("Processing: " + u);
+		System.out.println("DAO: " + rcd);
+		System.out.println("Processing: " + ud);
 
 //		RecurringCharge c = rc.getById(0);
-		u.login("nope", "yep");
-		ArrayList<RecurringCharge> charges = rc.getAllCharges();
+		ud.login("nope", "yep");
+		ArrayList<RecurringCharge> charges = rcd.getAllCharges();
 		
 				
 		for(RecurringCharge charge : charges)
@@ -65,11 +72,11 @@ public class ProcessReocurringUtil implements Runnable {
 	public static void start()
 	{
 		System.out.println("Starting: ");
-		//if(processor == null)
-		//{
+		if(processor == null)
+		{
 			ProcessReocurringUtil runner = new ProcessReocurringUtil(5l);
 			processor = new Thread(runner);
 			processor.start();
-		//}
+		}
 	}
 }

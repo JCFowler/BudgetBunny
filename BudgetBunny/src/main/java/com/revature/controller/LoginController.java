@@ -21,6 +21,8 @@ import com.revature.util.ProcessReocurringUtil;
 public class LoginController
 {
 	@Autowired
+	private ProcessReocurringUtil processUtil;
+	@Autowired
 	private UserService userService;
 	@Autowired
 	private BudgetService budgetService;
@@ -30,7 +32,8 @@ public class LoginController
 	{
 		User emptyUser = new User();
 		modelMap.addAttribute("user", emptyUser);
-		ProcessReocurringUtil.start();
+		
+		//processUtil.start();
 		return "login";
 	}
 	
@@ -39,9 +42,11 @@ public class LoginController
 	{
 		if(bindingResult.hasErrors())
 		{
+			System.out.println("I have errors!!!!");
 			return "login";
 		}
 		User authUser = userService.login(user.getUsername(), user.getPassword());
+		System.out.println("name: " + user.getUsername() + "\tPassword: " + user.getPassword());
 		if(authUser==null)
 			return "login";
 		else {
