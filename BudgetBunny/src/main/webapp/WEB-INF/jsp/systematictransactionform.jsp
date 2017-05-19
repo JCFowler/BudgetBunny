@@ -8,13 +8,13 @@
 <c:set var="timePeriods" value='<%=new TimeUnit[]{new TimeUnit(0, "Daily"), new TimeUnit(1, "Weekly"), new TimeUnit(2, "Monthly"), new TimeUnit(3, "Annually")}%>' scope="application" />
 <input hidden value="${type}" id="type">
 
-<div id='tableHeader'>
+<div>
 	
 	<h3>${headerMsg}</h3>
 
-	<table class="table-hover table table-bordered" id="${type}Table")>
+	<table class="table table-hover" id="${type}Table")>
 		<tbody id="${type}TableBody">
-		  <tr class='header-row'>
+		  <tr class="thead-default">
 		    <th>Name</th>
 		    <th>Amount</th> 
 		    <th class='period'>Period</th>

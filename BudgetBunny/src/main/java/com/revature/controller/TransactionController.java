@@ -1,8 +1,11 @@
 package com.revature.controller;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
+=======
+>>>>>>> 81232e13cc620518bf95f89bce8df1a67a194c88
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,7 @@ public class TransactionController {
 	{
 		if(req.getSession().getAttribute("user") == null)
 			return "redirect:login";
+<<<<<<< HEAD
 			
 		else {
 				Transaction t = (Transaction) req.getSession().getAttribute("cat");
@@ -31,6 +35,8 @@ public class TransactionController {
 				req.getSession().setAttribute("cats", list);	
 		
 		}
+=======
+>>>>>>> 81232e13cc620518bf95f89bce8df1a67a194c88
 		return "transaction";
 	}
 	

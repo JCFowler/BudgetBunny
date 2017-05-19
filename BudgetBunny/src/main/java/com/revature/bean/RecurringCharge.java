@@ -18,6 +18,7 @@ public class RecurringCharge {
 	@Column
 	private int chargeId;
 	private double cost;
+	private String name;
 	private int timeInterval;
 	private LocalDate startDate;
 	private LocalDate lastTransactionDate;
@@ -129,5 +130,11 @@ public class RecurringCharge {
 		return "RecurringCharge [chargeId=" + chargeId + ", cost=" + cost + ", timeInterval=" + timeInterval
 				+ ", startDate=" + startDate + ", lastTransactionDate=" + lastTransactionDate + ", timeUnit=" + timeUnit
 				+ "]";
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 }

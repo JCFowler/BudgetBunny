@@ -22,7 +22,7 @@ function ajaxCall(data, destUrl)
 	    success: function (html) {
 	    	
 	      //TODO: finish ajax;
-	    	alert("Ajax Success: \n\t" + html);
+//	    	alert("Ajax Success: \n\t" + html);
 	    }
 	  });
 }
@@ -46,6 +46,8 @@ function getFunctionName() {
  */
 $('.add-systematic').click(function(){	
 	var type = $(this).attr('id').replace('add', '');
+	
+	$('#' + type + 'Table').show();
 
 	var hiddenRow = $("#original" + type + "TableRow0");
 	var newId = parseInt(hiddenRow.attr('count')) + 1;
@@ -69,7 +71,15 @@ $('.add-systematic').click(function(){
  */
 $('.RemoveButton').click(function()
 {
-
+	let hide = true;
+	let table = $('#' + type + 'Table');
+	table.find('tr');
+	
+	if($('textbox').is(':disabled')){
+		
+		
+	}
+	
 	var type = $(this).attr('type');
 	
 	const id = $(this).attr('id').replace(type + 'RemoveButton', '');
@@ -311,11 +321,18 @@ $('#submitSetup').click(function()
 	
 	const catData = submitBudgetCategories(withData);
 	
+	const setupData = {
+			depositData : JSON.stringify(depData),
+			withdrawData : JSON.stringify(withData),
+			categoryData : JSON.stringify(catData)
+	}
+	
 	if(depData && withData && catData)
 	{
-		ajaxCall(catData, '/newBudget');
-		ajaxCall(depData, '/processReOcurring');
-		ajaxCall(depData, '/processReOcurring');
+		ajaxCall(setupData, '/BudgetBunny/budgetsetuppage');
+//		ajaxCall(catData, '/BudgetBunny/budgetsetuppage');
+//		ajaxCall(withData, '/BudgetBunny/budgetsetuppage');
+//		ajaxCall(depData, '/BudgetBunny/budgetsetuppage');
 		//TODO: SwitchPage
 	}
 

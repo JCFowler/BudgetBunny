@@ -1,0 +1,53 @@
+.total-budget
+{
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+}
+.grey-bunny
+{
+	background-size: cover;
+    background-image: url("../images/grey-bunny.png");
+}
+
+.egg-back-1
+{
+    background-image: url("../images/egg_1.png");
+}
+
+.egg-back-2
+{
+    background-image: url("../images/egg_2.png");
+}
+
+.egg-back-3
+{
+    background-image: url("../images/egg_3.png");
+}
+
+.egg-back-4
+{
+    background-image: url("../images/egg_4.png");
+}
+
+.egg-back-5
+{
+    background-image: url("../images/egg_5.png");
+}
+
+.egg-back-6
+{
+	background-image: url("../images/egg_6.png");
+}
+
+.egg-back-7
+{
+    background-image: url("../images/egg_7.png");
+}
+
+.egg-back-8
+{
+    background-image: url("../images/egg_8.png");
+}
