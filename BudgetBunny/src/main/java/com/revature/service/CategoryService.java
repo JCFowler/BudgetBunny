@@ -15,6 +15,12 @@ public class CategoryService {
 	@Autowired
 	CategoryDAO cd;
 	
+	public void saveList(ArrayList<Category> cList) {
+		for(Category c : cList) {
+			cd.save(c);
+		}
+	}
+	
 	public void save(Category c){
 		cd.save(c);
 	}

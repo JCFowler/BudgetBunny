@@ -10,7 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.revature.bean.Budget;
 import com.revature.bean.User;
+import com.revature.service.BudgetService;
 import com.revature.service.UserService;
 import com.revature.util.ProcessReocurringUtil;
 
@@ -20,6 +22,8 @@ public class LoginController
 {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private BudgetService budgetService;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String getLogin(ModelMap modelMap)
@@ -40,10 +44,17 @@ public class LoginController
 		User authUser = userService.login(user.getUsername(), user.getPassword());
 		if(authUser==null)
 			return "login";
-		req.getSession().setAttribute("user", authUser);
-		if(authUser.getBudget().getTotalBudget() != 0)
-			return "redirect:budgetsetuppage";
-		else
-			return "redirect:home";
+		else {
+			Budget b = budgetService.get(authUser.getUserId());
+			System.out.println(authUser.getBudget());
+			req.getSession().setAttribute("user", authUser);
+			if(b == null || b.getTotalBudget() == 0)
+				return "redirect:budgetsetuppage";
+			else
+			{
+				req.getSession().setAttribute("budget", b);
+				return "redirect:home";
+			}
+		}
 	}
 }

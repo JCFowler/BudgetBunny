@@ -2,9 +2,11 @@ package com.revature.dao;
 
 import java.util.ArrayList;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 
+import com.revature.bean.Category;
 import com.revature.bean.Transaction;
 
 @Component
@@ -34,9 +36,11 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Transaction> getAll() {
-		String hql = "FROM Transaction";
-		ArrayList<Transaction> trans = (ArrayList<Transaction>) session.createQuery(hql).list();
+	public ArrayList<Transaction> getAll(Category c) {
+		String hql = "FROM Transaction WHERE cat=:id";
+		Query q = session.createQuery(hql);
+		q.setParameter("id", c);
+		ArrayList<Transaction> trans = (ArrayList<Transaction>) q.list();
 		return trans; 
 	}
 

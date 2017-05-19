@@ -9,6 +9,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,12 +17,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.bean.Budget;
 import com.revature.bean.Category;
 import com.revature.bean.RecurringCharge;
+import com.revature.bean.User;
+import com.revature.service.BudgetService;
 
 @Controller
 @RequestMapping(value="/budgetsetuppage")
 public class BudgetSetupController {
+	@Autowired
+	BudgetService budgetService;
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public String getBudgetSetPage(HttpServletRequest req)
 	{
@@ -46,6 +53,7 @@ public class BudgetSetupController {
 		ArrayList<RecurringCharge> bList = new ArrayList<RecurringCharge>();
 		
 		ObjectMapper mapper = new ObjectMapper();
+		User user = (User)req.getSession().getAttribute("user");
 		try {
 			JsonNode cNode = mapper.readTree(category);
 			for(int i=0;i<cNode.size();i++) {
@@ -53,6 +61,7 @@ public class BudgetSetupController {
 				JsonNode cJson = cNode.get(Integer.toString(i));
 				c.setName(cJson.get("name").toString());
 				c.setBudget(cJson.get("amount").asDouble());
+				c.setBud(user.getBudget());
 				cList.add(c);
 			}
 
@@ -63,14 +72,11 @@ public class BudgetSetupController {
 			for(int i=0;i<iNode.size();i++) {
 				RecurringCharge in = new RecurringCharge();
 				JsonNode iJson = iNode.get(Integer.toString(i));
-				System.out.println("here");
-				System.out.println(iJson.get("startDate").toString());
-				System.out.println(LocalDate.parse(iJson.get("startDate").toString(), formatter));
 				in.setName(iJson.get("name").toString());
 				in.setCost(iJson.get("cost").asDouble());
-				in.setStartDate(LocalDate.parse(iJson.get("startDate").toString(), formatter));
-				in.setLastTransactionDate(LocalDate.parse(iJson.get("startDate").toString(), formatter));
-				in.setTimeInterval(iJson.get("period").asInt());
+				in.setBud(user.getBudget());
+//				in.setStartDate(LocalDate.parse(iJson.get("startDate").asText(), formatter));
+//				in.setLastTransactionDate(LocalDate.now());
 				iList.add(in);
 			}
 			
@@ -80,9 +86,9 @@ public class BudgetSetupController {
 				JsonNode bJson = bNode.get(Integer.toString(i));
 				b.setName(bJson.get("name").toString());
 				b.setCost(bJson.get("cost").asDouble());
-				b.setStartDate(LocalDate.parse(bJson.get("startDate").toString(), formatter));
-				b.setLastTransactionDate(LocalDate.parse(bJson.get("startDate").toString(), formatter));
-				b.setTimeInterval(bJson.get("period").asInt());
+				b.setBud(user.getBudget());
+//				b.setStartDate(LocalDate.parse(bJson.get("startDate").asText(), formatter));
+				b.setLastTransactionDate(LocalDate.now());
 				bList.add(b);
 			}
 		} catch (JsonProcessingException e) {
@@ -90,22 +96,12 @@ public class BudgetSetupController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Budget b = (Budget)req.getSession().getAttribute("budget");
+		budgetService.saveAll(iList, bList, cList, b);
 		System.out.println(cList);
 		System.out.println(iList);
 		System.out.println(bList);
-//		System.out.println(cList);
-//		RecurringCharge r = new Gson().fromJson(withdraw, RecurringCharge.class);
-//		RecurringCharge rc = new Gson().fromJson(deposit, RecurringCharge.class);
-//		for(Category c1 : yourList) {
-//			System.out.println(c1);
-//		}
-//		System.out.println(c);
-//		System.out.println(r);
-//		System.out.println(rc);
 		
-		
-		
-		System.out.println("Posting!");
 		return "budgetsetuppage";
 	}
 }

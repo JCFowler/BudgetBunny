@@ -32,7 +32,6 @@ public class HomeController
 				User u = (User) req.getSession().getAttribute("user");
 				List<Category> list = new ArrayList<Category>();
 				list = catService.getAll(u.getBudget());
-				System.out.println("LIST = " + list.size());
 				req.getSession().setAttribute("cats", list);	
 		}
 		return "home";
