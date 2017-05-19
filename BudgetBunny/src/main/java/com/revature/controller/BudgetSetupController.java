@@ -63,13 +63,10 @@ public class BudgetSetupController {
 			for(int i=0;i<iNode.size();i++) {
 				RecurringCharge in = new RecurringCharge();
 				JsonNode iJson = iNode.get(Integer.toString(i));
-				System.out.println("here");
-				System.out.println(iJson.get("startDate").toString());
-				System.out.println(LocalDate.parse(iJson.get("startDate").toString(), formatter));
 				in.setName(iJson.get("name").toString());
 				in.setCost(iJson.get("cost").asDouble());
-				in.setStartDate(LocalDate.parse(iJson.get("startDate").toString(), formatter));
-				in.setLastTransactionDate(LocalDate.parse(iJson.get("startDate").toString(), formatter));
+				in.setStartDate(LocalDate.parse(iJson.get("startDate").asText(), formatter));
+				in.setLastTransactionDate(LocalDate.now());
 				in.setTimeInterval(iJson.get("period").asInt());
 				iList.add(in);
 			}
@@ -80,8 +77,8 @@ public class BudgetSetupController {
 				JsonNode bJson = bNode.get(Integer.toString(i));
 				b.setName(bJson.get("name").toString());
 				b.setCost(bJson.get("cost").asDouble());
-				b.setStartDate(LocalDate.parse(bJson.get("startDate").toString(), formatter));
-				b.setLastTransactionDate(LocalDate.parse(bJson.get("startDate").toString(), formatter));
+				b.setStartDate(LocalDate.parse(bJson.get("startDate").asText(), formatter));
+				b.setLastTransactionDate(LocalDate.now());
 				b.setTimeInterval(bJson.get("period").asInt());
 				bList.add(b);
 			}
