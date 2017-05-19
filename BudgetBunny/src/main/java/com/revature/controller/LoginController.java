@@ -46,7 +46,8 @@ public class LoginController
 			Budget b = budgetService.get(authUser.getUserId());
 			System.out.println(authUser.getBudget());
 			req.getSession().setAttribute("user", authUser);
-			if(b == null || b.getTotalBudget() == 0)
+			System.out.println(authUser.getBudget().getTotalBudget());
+			if(authUser.getBudget().getTotalBudget() == 0)
 				return "redirect:budgetsetuppage";
 			else
 			{
