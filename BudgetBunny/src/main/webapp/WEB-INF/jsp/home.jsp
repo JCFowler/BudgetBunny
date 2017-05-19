@@ -8,6 +8,8 @@
 
 
 <%@ include file="imports.jsp"%>
+<link rel="stylesheet" href="static/css/jozsef.css">
+
 
 </head>
 <body>
