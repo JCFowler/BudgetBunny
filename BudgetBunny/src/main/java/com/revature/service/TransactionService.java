@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.bean.Category;
 import com.revature.bean.Transaction;
 import com.revature.dao.BudgetDAO;
 import com.revature.dao.CategoryDAO;
@@ -36,8 +37,8 @@ public class TransactionService {
 		return td.getById(id);
 	}
 	
-	public ArrayList<Transaction> getAll(){
-		return td.getAll();
+	public ArrayList<Transaction> getAll(Category c){
+		return td.getAll(c);
 	}
 	
 	void update(Transaction t){
