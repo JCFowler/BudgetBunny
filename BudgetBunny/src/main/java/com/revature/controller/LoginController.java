@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.revature.bean.User;
 import com.revature.service.UserService;
+import com.revature.util.ProcessReocurringUtil;
 
 @Controller
 @RequestMapping(value="/login")
@@ -25,6 +26,7 @@ public class LoginController
 	{
 		User emptyUser = new User();
 		modelMap.addAttribute("user", emptyUser);
+		ProcessReocurringUtil.start();
 		return "login";
 	}
 	

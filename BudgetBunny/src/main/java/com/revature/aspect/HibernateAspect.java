@@ -23,6 +23,7 @@ public class HibernateAspect {
 		Session session = hu.getSession();
 		Transaction tx = session.beginTransaction();
 		HibernateSession dao = (HibernateSession) pjp.getThis();
+		System.out.println("Asspect session: " + session);
 		dao.setSession(session);
 		//our return object
 		Object obj = null;

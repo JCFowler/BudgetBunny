@@ -40,6 +40,6 @@ public class LoggingAspect
 	
 	
 	//hook for everything
-	@Pointcut("execution(* com.revature..*(..))")
+	@Pointcut("execution(* com.revature.*..*(..))")
 	public void everything(){}
 }

@@ -10,7 +10,7 @@ public interface RecurringChargeDAO extends HibernateSession{
 	
 	//R
 	RecurringCharge getById(int id);
-	ArrayList<RecurringCharge> getAll();
+	ArrayList<RecurringCharge> getAllCharges();
 	
 	//U
 	void update(RecurringCharge r);

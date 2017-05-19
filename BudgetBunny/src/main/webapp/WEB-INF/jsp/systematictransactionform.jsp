@@ -5,7 +5,7 @@
 <%@page import="com.revature.bean.TimeUnit" %>
 
 
-<c:set var="timePeriods" value='<%=new TimeUnit[]{new TimeUnit(0, "Daily"), new TimeUnit(1, "Weekly"), new TimeUnit(2, "Monthly"), new TimeUnit(3, "Annually")}%>' scope="application" />
+<c:set var="timePeriods" value='<%=new TimeUnit[]{new TimeUnit(0, "Monthly"),new TimeUnit(3, "One Time")}%>' scope="application" />
 <input hidden value="${type}" id="type">
 
 <div>

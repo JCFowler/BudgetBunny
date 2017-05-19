@@ -71,15 +71,7 @@ $('.add-systematic').click(function(){
  */
 $('.RemoveButton').click(function()
 {
-	let hide = true;
 	let table = $('#' + type + 'Table');
-	table.find('tr');
-	
-	if($('textbox').is(':disabled')){
-		
-		
-	}
-	
 	var type = $(this).attr('type');
 	
 	const id = $(this).attr('id').replace(type + 'RemoveButton', '');
@@ -90,6 +82,17 @@ $('.RemoveButton').click(function()
 	row.find('[name="cost"]').val('');
 	row.find('[name="startDate"]').val('');
 	row.hide();
+
+	let hide = true;
+	table.find('tr').each(function(){
+		if($(this).find('th') == undefined && !$(this).is(':disabled'))
+		{
+			hide = false;
+			alert("id: " + $(this).id);
+		}		
+	});
+	if(hide)
+		table.hide();
 });
 
 
@@ -213,9 +216,11 @@ function turnOffHighLight(element)
 var categoryCount = 1;
 
 $('#addCategory').click(function(){
+	$('#categoryTable').show();
+
 	var hiddenRow = $("#categoryTableRow0").clone(true);
 	var newName = 'categoryTableRow' + categoryCount;
-	
+
 	hiddenRow.attr('id', newName);
 	
 	var newDollarTypeId = 'dollarType' + categoryCount;
@@ -231,7 +236,7 @@ $('#addCategory').click(function(){
 	hiddenRow.find('#removeButton').attr('id', removeButtonId);
 	
 	$("#categoryTableBody")[0].append(hiddenRow[0]);
-	$('#' + newName).show();
+	hiddenRow.show();
 });
 
 $('.percentage').click(function(){
@@ -330,9 +335,6 @@ $('#submitSetup').click(function()
 	if(depData && withData && catData)
 	{
 		ajaxCall(setupData, '/BudgetBunny/budgetsetuppage');
-//		ajaxCall(catData, '/BudgetBunny/budgetsetuppage');
-//		ajaxCall(withData, '/BudgetBunny/budgetsetuppage');
-//		ajaxCall(depData, '/BudgetBunny/budgetsetuppage');
 		//TODO: SwitchPage
 	}
 
