@@ -1,5 +1,6 @@
 package com.revature.dao;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +30,15 @@ public class BudgetDAOImpl implements BudgetDAO {
 	@Override
 	public void setSession(Session session) {
 		this.session=session;
+	}
+
+	@Override
+	public Budget getByUserId(int UserId) {
+		String hql = "FROM Budget where userid=:uId";
+		Query q = (Query) session.createQuery(hql);
+		q.setParameter("uId", UserId);
+		
+		return (Budget) q.list().get(0);
 	}
 
 }
