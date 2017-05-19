@@ -216,6 +216,8 @@ $('#addCategory').click(function(){
 	var hiddenRow = $("#categoryTableRow0").clone(true);
 	var newName = 'categoryTableRow' + categoryCount;
 	
+	$('#categoryTable').show();
+
 	hiddenRow.attr('id', newName);
 	
 	var newDollarTypeId = 'dollarType' + categoryCount;

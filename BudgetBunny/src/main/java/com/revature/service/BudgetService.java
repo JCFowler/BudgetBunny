@@ -23,29 +23,27 @@ public class BudgetService {
 	@Autowired
 	RecurringChargeDAO rd;
 	
-	public void saveAll(ArrayList<RecurringCharge> iList, ArrayList<RecurringCharge> bList, ArrayList<Category> cList, Budget b) {
+	public Budget saveAll(ArrayList<RecurringCharge> iList, ArrayList<RecurringCharge> bList, ArrayList<Category> cList, Budget b) {
 		double totalBudget = 0;
 		double totalSpent = 0;
 		for(RecurringCharge r : iList ) {
-			System.out.println("first");
-			System.out.println("Here " + r);
 			totalBudget += totalBudget + r.getCost();
 			rd.save(r);
-			System.out.println("ast");
 		}
 		
-//		for(RecurringCharge r : bList ) {
-//			totalSpent += totalSpent + r.getCost();
-//			rd.save(r);
-//		}
-//
-//		for(Category c : cList) {
-//			cd.save(c);
-//		}
-//		
-//		b.setTotalBudget(totalBudget);
-//		b.setTotalSpent(totalSpent);
-//		bd.update(b);	
+		for(RecurringCharge r : bList ) {
+			totalSpent += totalSpent + r.getCost();
+			rd.save(r);
+		}
+
+		for(Category c : cList) {
+			cd.save(c);
+		}
+		
+		b.setTotalBudget(totalBudget);
+		b.setTotalSpent(totalSpent);
+		bd.update(b);	
+		return b;
 	}
 	
 	public Budget get(int UserId) {
