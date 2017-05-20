@@ -22,7 +22,7 @@ function ajaxCall(data, destUrl)
 	    success: function (html) {
 	    	
 	      //TODO: finish ajax;
-//	    	alert("Ajax Success: \n\t" + html);
+	    	alert("Ajax Success: \n\t" + html);
 	    }
 	  });
 }
@@ -85,11 +85,8 @@ $('.RemoveButton').click(function()
 
 	let hide = true;
 	table.find('tr').each(function(){
-		if($(this).find('th') == undefined && !$(this).is(':disabled'))
-		{
-			hide = false;
-			alert("id: " + $(this).id);
-		}		
+	if($(this).find('th') == undefined && !$(this).is(':disabled'))
+		hide = false;
 	});
 	if(hide)
 		table.hide();
@@ -221,6 +218,8 @@ $('#addCategory').click(function(){
 	var hiddenRow = $("#categoryTableRow0").clone(true);
 	var newName = 'categoryTableRow' + categoryCount;
 
+	$('#categoryTable').show();
+
 	hiddenRow.attr('id', newName);
 	
 	var newDollarTypeId = 'dollarType' + categoryCount;
@@ -343,23 +342,32 @@ $('#submitSetup').click(function()
 
 /*************************** BudgetDisplay ***********************************/
 
+$('#home-div').click(function()
+{
+	if($("#home-div").hasClass("blur-filter"))
+		close_div()	
+});
+
 $('.category-display').click(function(){
-	const name = $(this).find('#name');
-	const budget = $(this).find('#budget');
-	const spent = $(this).find('#spent');
-	const id = $(this).find('#id');
-	const total = (parseFloat(budget.text().replace('$', '')) - parseFloat(spent.text().replace('$', '')));
-	
-	//$("#home-div > *").addClass("blur-filter");
-	$("#home-div").addClass("blur-filter");
-	let popUp = $('#myPopup');
-	popUp.find('#name').text(name.text());
-	popUp.find('#budget').text(budget.text());
-	popUp.find('#spent').text(spent.text());
-	popUp.find('#total').text('$' + total.toFixed(2));
-	popUp.find('#id').text(id.text());
-	
-	popUp.show(500);
+	if(!$("#home-div").hasClass("blur-filter"))
+	{
+		event.stopPropagation();
+		const name = $(this).find('#name');
+		const budget = $(this).find('#budget');
+		const spent = $(this).find('#spent');
+		const id = $(this).find('#id');
+		const total = (parseFloat(budget.text().replace('$', '')) - parseFloat(spent.text().replace('$', '')));
+
+		$("#home-div").addClass("blur-filter");
+		let popUp = $('#myPopup');
+		popUp.find('#name').text(name.text());
+		popUp.find('#budget').text(budget.text());
+		popUp.find('#spent').text(spent.text());
+		popUp.find('#total').text('$' + total.toFixed(2));
+		popUp.find('#id').text(id.text());
+		
+		popUp.show(500);
+	}
 });
 
 function getEggClass(){
@@ -381,13 +389,31 @@ $(document).ready(function(){
 
 
 $('#purchase').click(function(){
-	close_div();
+	let popUp = $('#myPopup');
+	
+	let amount = popUp.find('#amount');
+	if(verifyIncomeValue(amount))
+	{
+		let data = {
+				name: popUp.find('#name').text(),
+				budget: popUp.find('#budget').text(),
+				spent: popUp.find('#spent').text(),
+				id: popUp.find('#id').text(),
+				amount: amount.val()
+		};
+		ajaxCall(data, '/BudgetBunny/addtransaction');
+		close_div();
+	}
+	
 });
 
 function close_div()
 {
 	$("#home-div").removeClass("blur-filter");
 	$('#myPopup').hide();
+	let input = $('#myPopup').find('#amount');
+	turnOffHighLight(input);
+	input.val("");
 }
 
 

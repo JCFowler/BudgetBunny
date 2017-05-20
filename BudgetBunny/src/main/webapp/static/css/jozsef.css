@@ -142,12 +142,13 @@
 {
     display: inline-block;
     padding: 2.5%;
-    margin: 2.5%;
-    padding-right: 3%;
-    padding-left: 3%;
+    margin: 1%;
+    padding-right: 5%;
+    padding-left: 2%;
     border-radius: 10%;
     text-align: center;
-    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 html, body

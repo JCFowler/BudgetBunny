@@ -8,6 +8,8 @@
 
 
 <%@ include file="imports.jsp"%>
+<link rel="stylesheet" href="static/css/jozsef.css">
+
 
 </head>
 <body>
@@ -16,7 +18,6 @@
 		<%@ include file="_navbar.jsp"%>
 
 		<%@page import="com.revature.bean.Category"%>
-
 
 		<c:forEach items='${cats}' var='cat'>
 			<%@ include file="budgetdisplay.jsp"%>

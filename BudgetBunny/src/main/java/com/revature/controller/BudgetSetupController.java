@@ -1,6 +1,7 @@
 package com.revature.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class BudgetSetupController {
 			for(int i=0;i<cNode.size();i++) {
 				Category c = new Category();
 				JsonNode cJson = cNode.get(Integer.toString(i));
-				c.setName(cJson.get("name").toString());
+				c.setName(cJson.get("name").asText());
 				c.setBudget(cJson.get("amount").asDouble());
 				c.setBud(user.getBudget());
 				cList.add(c);
@@ -72,11 +73,11 @@ public class BudgetSetupController {
 			for(int i=0;i<iNode.size();i++) {
 				RecurringCharge in = new RecurringCharge();
 				JsonNode iJson = iNode.get(Integer.toString(i));
-				in.setName(iJson.get("name").toString());
+				in.setName(iJson.get("name").asText());
 				in.setCost(iJson.get("cost").asDouble());
 				in.setBud(user.getBudget());
-//				in.setStartDate(LocalDate.parse(iJson.get("startDate").asText(), formatter));
-//				in.setLastTransactionDate(LocalDate.now());
+				in.setStartDate(Date.valueOf(LocalDate.parse(iJson.get("startDate").asText(), formatter)));
+				in.setLastTransactionDate(Date.valueOf(LocalDate.now()));
 				iList.add(in);
 			}
 			
@@ -84,11 +85,11 @@ public class BudgetSetupController {
 			for(int i=0;i<bNode.size();i++) {
 				RecurringCharge b = new RecurringCharge();
 				JsonNode bJson = bNode.get(Integer.toString(i));
-				b.setName(bJson.get("name").toString());
+				b.setName(bJson.get("name").asText());
 				b.setCost(bJson.get("cost").asDouble());
 				b.setBud(user.getBudget());
-//				b.setStartDate(LocalDate.parse(bJson.get("startDate").asText(), formatter));
-				b.setLastTransactionDate(LocalDate.now());
+				b.setStartDate(Date.valueOf(LocalDate.parse(bJson.get("startDate").asText(), formatter)));
+				b.setLastTransactionDate(Date.valueOf(LocalDate.now()));
 				bList.add(b);
 			}
 		} catch (JsonProcessingException e) {
@@ -96,8 +97,10 @@ public class BudgetSetupController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Budget b = (Budget)req.getSession().getAttribute("budget");
-		budgetService.saveAll(iList, bList, cList, b);
+		Budget updatedBudget = budgetService.saveAll(iList, bList, cList, user.getBudget());
+		user.getBudget().setTotalBudget(updatedBudget.getTotalBudget());
+		user.getBudget().setTotalSpent(updatedBudget.getTotalSpent());
+		req.getSession().setAttribute("user", user);
 		System.out.println(cList);
 		System.out.println(iList);
 		System.out.println(bList);

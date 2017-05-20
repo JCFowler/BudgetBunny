@@ -69,13 +69,12 @@ public class ProcessReocurringUtil implements Runnable {
 		return true;
 	}
 	
-	public static void start()
+	public void start()
 	{
 		System.out.println("Starting: ");
 		if(processor == null)
 		{
-			ProcessReocurringUtil runner = new ProcessReocurringUtil(5l);
-			processor = new Thread(runner);
+			processor = new Thread(this);
 			processor.start();
 		}
 	}

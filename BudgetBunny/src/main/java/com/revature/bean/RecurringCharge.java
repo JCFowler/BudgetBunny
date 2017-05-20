@@ -1,6 +1,7 @@
 package com.revature.bean;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -25,14 +25,14 @@ public class RecurringCharge {
 	private double cost;
 	private String name;
 	private String isRecurring;
-	private LocalDate startDate;
-	private LocalDate lastTransactionDate;
+	private Date startDate;
+	private Date lastTransactionDate;
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="budgetid")
 	private Budget bud;
 	
-	public RecurringCharge(int chargeId, double cost, String name, String isRecurring, LocalDate startDate,
-			LocalDate lastTransactionDate) {
+	public RecurringCharge(int chargeId, double cost, String name, String isRecurring, Date startDate,
+			Date lastTransactionDate) {
 		super();
 		this.chargeId = chargeId;
 		this.cost = cost;
@@ -68,16 +68,16 @@ public class RecurringCharge {
 	public void setIsRecurring(String isRecurring) {
 		this.isRecurring = isRecurring;
 	}
-	public LocalDate getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
-	public LocalDate getLastTransactionDate() {
+	public Date getLastTransactionDate() {
 		return lastTransactionDate;
 	}
-	public void setLastTransactionDate(LocalDate lastTransactionDate) {
+	public void setLastTransactionDate(Date lastTransactionDate) {
 		this.lastTransactionDate = lastTransactionDate;
 	}
 	public Budget getBud() {

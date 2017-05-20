@@ -11,7 +11,7 @@
 	
 	<div class='inner-egg'>
 		<p class='egg-p'>(Spent)</p>
-		<h3 class="no-top" id='spent'>$${cat.spent}</h3>
+		<h3 class="no-top" id='spent'>$${cat.spent}${cat.catId}</h3>
 	</div>
 	
 	<h3 class="no-top" id='id' hidden>${cat.catId}</h3>
