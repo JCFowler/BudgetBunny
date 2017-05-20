@@ -1,7 +1,7 @@
 
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
-		<h4 class="total-budget">TotalBudget $${totalBudget}</h4>
+		<h4 class="total-budget">TotalBudget $${user.getBudget().getBudgetString()}</h4>
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -11,7 +11,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-					<a class="navbar-brand grey-bunny" href="BudgetBunny/Home.jsp">Logo</a>
+					<a class="navbar-brand white-bunny" href="BudgetBunny/Home.jsp"></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->

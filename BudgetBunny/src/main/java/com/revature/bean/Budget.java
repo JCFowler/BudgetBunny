@@ -48,6 +48,10 @@ public class Budget {
 		super();
 	}
 	
+	public String getBudgetString()
+	{
+		return String.format( "%.2f", getTotalBudget());
+	}
 	public int getBudgetId() {
 		return budgetId;
 	}
