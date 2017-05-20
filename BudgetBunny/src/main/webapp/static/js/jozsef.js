@@ -5,6 +5,8 @@
 
 /*************************** Generic JS ***********************************/
 
+let totalBudget;
+let remainingBudget;
       
 /*
  * Send an ajax call.
@@ -22,7 +24,7 @@ function ajaxCall(data, destUrl)
 	    success: function (html) {
 	    	
 	      //TODO: finish ajax;
-	    	alert("Ajax Success: \n\t" + html);
+	    	//alert("Ajax Success: \n\t" + html);
 	    }
 	  });
 }
@@ -80,7 +82,6 @@ $('.RemoveButton').click(function()
 
 	row.find('[name="name"]').val('');
 	row.find('[name="cost"]').val('');
-	row.find('[name="startDate"]').val('');
 	row.hide();
 
 	hideEmptyTable(table);
@@ -124,19 +125,16 @@ function submitSystematicTransactions(numberPrefix, type, validData)
 		const name = nextIncome.find('[name="name"]');
 		const cost = nextIncome.find('[name="cost"]');
 		const period = nextIncome.find('[name="period"]');
-		const startDate = nextIncome.find('[name="startDate"]');
 		
-		if(name.val().length == 0 && cost.val().length == 0 && startDate.val().length == 0)
+		if(name.val().length == 0 && cost.val().length == 0)
 		{
 			turnOffHighLight(name);
 			turnOffHighLight(cost);
-			turnOffHighLight(startDate);			
 			continue;
 		}
-		const verifyStartDate = verifyNonEmpty(name);
 		const verifyCost = verifyIncomeValue(cost);
-		const verifyName = verifyFutureDate(startDate);
-		validData = validData && verifyStartDate && verifyCost && verifyName;
+		const verifyName = verifyNonEmpty(name);
+		validData = validData && verifyCost && verifyName;
 		
 		if(validData)
 		{
@@ -149,7 +147,6 @@ function submitSystematicTransactions(numberPrefix, type, validData)
 					name : name.val(),
 					cost : costVal,
 					period : period.val(),
-					startDate : startDate.val()
 					
 			}
 		}
@@ -323,10 +320,12 @@ function submitBudgetCategories(validData)
 		
 		if(validData)
 		{
+			remainingBudget += -1 * parseFloat(amount);
+
 			data[arrCount++] = {
 					category : category.val(),
 					name : name.val(),
-					amount : amount.val(),
+					amount : amount,
 					percent : percent.val(),
 			}
 		}
@@ -338,9 +337,9 @@ function calculateAmount(percent, amount){
 	let varifyAmount;
 	if(percent)
 	{
-		$('#amount-err').text('0 < Amount <= 100')
+		$('#amount-err').text('0 < percent <= 100')
 		varifyAmount = verifyPercent(amount);
-		amount = totalBudget * amount/100;
+		amount = totalBudget * amount.val()/100;
 	}
 	else
 	{
@@ -370,9 +369,6 @@ function displayErrorMessage(validData, data)
 
 /*************************** NewUserSetup ***********************************/
 
-let totalBudget;
-let remainingBudget;
-
 $('#submitSetup').click(function()
 {
 	totalBudget = 0;
@@ -383,17 +379,22 @@ $('#submitSetup').click(function()
 	
 	const catData = submitBudgetCategories(withData);
 	
-	const setupData = {
+	if(remainingBudget > 0)
+	{
+		const setupData = {
 			depositData : JSON.stringify(depData),
 			withdrawData : JSON.stringify(withData),
 			categoryData : JSON.stringify(catData)
+		}
+		if(depData && withData && catData)
+		{
+			ajaxCall(setupData, '/BudgetBunny/budgetsetuppage');
+			//TODO: SwitchPage
+		}	
 	}
-	
-	if(depData && withData && catData)
-	{
-		ajaxCall(setupData, '/BudgetBunny/budgetsetuppage');
-		//TODO: SwitchPage
-	}
+	else
+		alert("your over budget: " + remainingBudget + '/' + totalBudget);
+
 
 });
 

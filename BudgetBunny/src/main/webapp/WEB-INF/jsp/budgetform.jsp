@@ -33,7 +33,7 @@
 		    	<input id='amount' name="Amount" placeholder="Amount" type="number"/>
 		    	<label style='visibility: hidden' id="percentType">%</label>
 		    </td>
-		   	<td ><button class='btn btn-info removeButton' id="removeButton"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+		   	<td ><button class='removeButton RemoveButton' id="removeButton"><span class="glyphicon glyphicon-remove glyph-small" style="font-size: .75em;" aria-hidden="true"></span></button></td>
 		  </tr>
 		</tbody>
 	</table>

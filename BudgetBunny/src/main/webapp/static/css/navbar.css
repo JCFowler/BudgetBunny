@@ -15,7 +15,8 @@
 .white-bunny
 {
 	background-size: cover;
-    background-image: url("../images/grey-bunny.png");
+    background-image: url("../images/white-bunny.png");
+    width: 50pt;
 }
 
 .egg-back-1

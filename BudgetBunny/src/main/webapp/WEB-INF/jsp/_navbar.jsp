@@ -11,7 +11,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-					<a class="navbar-brand white-bunny" href="BudgetBunny/Home.jsp">Logo</a>
+					<a class="navbar-brand white-bunny" href="BudgetBunny/Home.jsp"></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->

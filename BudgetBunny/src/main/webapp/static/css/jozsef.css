@@ -5,11 +5,16 @@
 
 }
 
+.btn-info
+{
+	background-color: #65a5ce;
+}
+
 .table {
 	width: 25%;
 	margin-top:5%;
 
-	border: 50px solid #65a5ce;
+	border: 25px solid #65a5ce;
 	border-radius: 25px;
 	padding: 25px;
 	height: 25px;
@@ -36,6 +41,14 @@
 	width: 40pt;
 }
 
+.RemoveButton
+{
+	border-radius: 30pt;
+    padding: 2pt;
+    background-color: red;
+    border-color: black;
+    border-width: medium;
+}
 #setup-body
 {
 	text-align: center;	
@@ -47,6 +60,12 @@
     background-color: whitesmoke;
     padding: 2.5%;
     margin: 5%;
+}
+
+.glyph-small
+{
+	color: black;
+    font-size: .75em;
 }
 
 .table-hover>tbody>tr:hover

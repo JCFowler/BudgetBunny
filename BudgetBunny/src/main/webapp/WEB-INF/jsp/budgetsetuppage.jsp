@@ -36,11 +36,7 @@
 	</div>
 
 
-	<script type="text/javascript" src="static/js/systematicTrans.js"></script>
-	<script type="text/javascript" src="static/js/budgetForm.js"></script>
-	<script type="text/javascript" src="static/js/newUserSetup.js"></script>
-	
-	
+	<script type="text/javascript" src="static/js/jozsef.js"></script>
 	
 </body>
 </html>

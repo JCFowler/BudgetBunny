@@ -18,28 +18,18 @@
 		    <th>Name</th>
 		    <th>Amount</th> 
 		    <th class='period'>Period</th>
-		    <th>Start Date</th>
    		    <th id="close"></th>
 		  </tr>
 		  <tr class='header-row'>
 		  	<th hidden class='errorMsg'>Field Cannot Be Empty</th>
 		    <th hidden class='errorMsg'>0 < Amount < 999999999.99</th> 
 		    <th hidden class='errorMsg period'></th>
-		    <th hidden class='errorMsg'>Today or in the future</th>
 		  	<th hidden class='errorMsg'></th>
 		  </tr>
 		  <tr id="original${type}TableRow0" count='0' style="display: none;">
 		    <td><input name="name" placeholder="name" type="text"/></td>
 		    <td><input name="cost" placeholder="wage/salary" type="text"/></td> 
-		    <td>	
-			    <select name='period' class='period'>
-					<c:forEach items="${timePeriods}" var="period">
-						<option value="${period.unitId}">${period.unit}</option>
-					</c:forEach>
-				</select>
-			</td>
-			<td><input name="startDate" type="date"	></td>
-		   	<td ><button class='btn btn-info RemoveButton' type="${type}" id="${type}RemoveButton"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+		   	<td ><button class='RemoveButton' type="${type}" id="${type}RemoveButton"><span class="glyphicon glyphicon-remove glyph-small" style="font-size: .75em;" aria-hidden="true"></span></button></td>
 		  </tr>
 		</tbody>
 	</table>
