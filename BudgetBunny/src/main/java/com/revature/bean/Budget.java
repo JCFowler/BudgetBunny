@@ -50,7 +50,7 @@ public class Budget {
 	
 	public String getBudgetString()
 	{
-		return "" + getTotalBudget();
+		return String.format( "%.2f", getTotalBudget());
 	}
 	public int getBudgetId() {
 		return budgetId;
