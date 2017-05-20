@@ -1,23 +1,22 @@
 package com.revature.util;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.revature.bean.RecurringCharge;
-import com.revature.dao.BudgetDAO;
 import com.revature.dao.RecurringChargeDAO;
-import com.revature.dao.RecurringChargeDAOImpl;
 import com.revature.dao.UserDAO;
-import com.revature.dao.UserDAOImpl;
 
 @Component
 @Aspect
 public class ProcessReocurringUtil implements Runnable {
 
-	private static Thread processor;
+	private Thread processor = null;
+	private static ProcessReocurringUtil instance = null;
 	private Long interval;
 	
 	@Autowired
@@ -28,53 +27,64 @@ public class ProcessReocurringUtil implements Runnable {
 	private ProcessReocurringUtil()
 	{
 		super();
-		interval = 5l;
+		interval = 60*60*4l;
 	}	
-	
-	private ProcessReocurringUtil(Long timeSeconds)
-	{
-		interval = timeSeconds;
-	}
 	
 	@Override
 	public void run() {
-		System.out.println("DAO: " + rcd);
-		System.out.println("Processing: " + ud);
-
-//		RecurringCharge c = rc.getById(0);
 		ud.login("nope", "yep");
-		ArrayList<RecurringCharge> charges = rcd.getAllCharges();
-		
-				
-		for(RecurringCharge charge : charges)
+		while(true)
 		{
-			System.out.println("Processing: " + charge);
+			ArrayList<RecurringCharge> charges = rcd.getAllCharges();
+
+			for(RecurringCharge charge : charges)
+			{
+				processCharge(charge);
+			}
+			sleep();
 		}
-		sleep();
 	}
 	
 	private void sleep()
 	{
 		try {
-			Thread.sleep(interval * 100);
+			Thread.sleep(interval * 1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public boolean processCharge(RecurringCharge charge)
+	public static void processCharge(RecurringCharge charge)
 	{
-		System.out.println(charge);
-		return true;
+		instance.processChargePrivate(charge);
+	}
+	
+	private void processChargePrivate(RecurringCharge charge)
+	{
+		Date now = new Date();
+		processCharge(charge, now);	
+	}
+	
+	private void processCharge(RecurringCharge charge, Date now)
+	{
+		Date last = charge.getLastTransactionDate();
+		Date processDate = new Date(last.getTime());
+		processDate.setMonth(processDate.getMonth() + 1);
+		System.out.println(processDate + " compared to " + now);
+		if(processDate.getTime() < now.getTime())
+		{
+			charge.setLastTransactionDate(processDate);
+			rcd.update(charge);
+		}
 	}
 	
 	public void start()
 	{
-		System.out.println("Starting: ");
 		if(processor == null)
 		{
 			processor = new Thread(this);
+			instance = this;
 			processor.start();
 		}
 	}
