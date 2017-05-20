@@ -42,18 +42,14 @@ public class LoginController
 	{
 		if(bindingResult.hasErrors())
 		{
-			System.out.println("I have errors!!!!");
 			return "login";
 		}
 		User authUser = userService.login(user.getUsername(), user.getPassword());
-		System.out.println("name: " + user.getUsername() + "\tPassword: " + user.getPassword());
 		if(authUser==null)
 			return "login";
 		else {
 			Budget b = budgetService.get(authUser.getUserId());
-			System.out.println(authUser.getBudget());
 			req.getSession().setAttribute("user", authUser);
-			System.out.println(authUser.getBudget().getTotalBudget());
 			if(authUser.getBudget().getTotalBudget() == 0)
 				return "redirect:budgetsetuppage";
 			else
