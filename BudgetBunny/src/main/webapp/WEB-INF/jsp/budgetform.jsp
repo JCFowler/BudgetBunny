@@ -6,29 +6,29 @@
 
 <c:set var="categories" value='<%=new Category[]{new Category(0, "Food", 0, 0, null), new Category(1, "Bills", 0, 0, null), new Category(2, "entertainment", 0, 0, null), new Category(3, "amazon", 0, 0, null)}%>' />
 
-<div id='tableHeader'>
+<div>
 
 	<h3>Setup Budget Categories</h3>
 
-	<table class="table-hover table table-bordered" id="categoryTable")>
+	<table class="table table-hover" id="categoryTable")>
 		<tbody id="categoryTableBody">
-		  <tr>
+		  <tr class="thead-default">
 		    <th>Name</th>
 		    <th class="percentage">Percentage</th>
 		    <th>Amount</th> 
 		    <th id="close"></th>
 		  </tr>
-		  <tr>
+		  <tr class='header-row'>
 		    <th hidden class='errorMsg'>Field Cannot Be Empty</th> 
 		    <th hidden class='percentage errorMsg'></th>
-		    <th hidden class='errorMsg'>0 < Amount < 999999999.99</th>
+		    <th hidden class='errorMsg' id="amount-err">0 < Amount < 999999999.99</th>
 		    <th hidden class='errorMsg'></th>
 		  </tr>
 		  <tr id="categoryTableRow0" hidden>
 		  	<td><input name='name' placeholder='name' type='text'></input></td>
 		    <c:set var="typeValue" value='$'></c:set>
 		    <td><input class="percentage" id="percentage" placeholder="" type="checkbox"/></td> 
-		    <td>
+		    <td style="display: inline-flex;">
 		    	<label id="dollarType">$</label>
 		    	<input id='amount' name="Amount" placeholder="Amount" type="number"/>
 		    	<label style='visibility: hidden' id="percentType">%</label>

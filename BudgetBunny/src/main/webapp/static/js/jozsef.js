@@ -71,9 +71,9 @@ $('.add-systematic').click(function(){
  */
 $('.RemoveButton').click(function()
 {
-	let table = $('#' + type + 'Table');
 	var type = $(this).attr('type');
-	
+	let table = $('#' + type + 'Table');
+
 	const id = $(this).attr('id').replace(type + 'RemoveButton', '');
 	
 	const row = $('#' + type + 'TableRow' + id);
@@ -83,13 +83,7 @@ $('.RemoveButton').click(function()
 	row.find('[name="startDate"]').val('');
 	row.hide();
 
-	let hide = true;
-	table.find('tr').each(function(){
-	if($(this).find('th') == undefined && !$(this).is(':disabled'))
-		hide = false;
-	});
-	if(hide)
-		table.hide();
+	hideEmptyTable(table);
 });
 
 
@@ -109,6 +103,7 @@ function submitSystematicDeposits(validData)
 {
 	return submitSystematicTransactions("", "deposit", validData);
 }
+
 
 
 /*
@@ -145,9 +140,14 @@ function submitSystematicTransactions(numberPrefix, type, validData)
 		
 		if(validData)
 		{
+			let costVal = numberPrefix + cost.val();
+			remainingBudget += parseFloat(costVal);
+			if(numberPrefix == "")
+				totalBudget += parseFloat(costVal);
+			
 			data[dataCount++] = {
 					name : name.val(),
-					cost : numberPrefix + cost.val(),
+					cost : costVal,
 					period : period.val(),
 					startDate : startDate.val()
 					
@@ -257,13 +257,42 @@ $('.percentage').click(function(){
 
 $('.removeButton').click(function()
 {
+	const table = $('#categoryTable');
 	const id = $(this).attr('id').replace('removeButton', '');
 	const row = $('#categoryTableRow' + id);
 	
 	row.find('[name="name"]').val('');
 	row.find('[name="Amount"]').val('');
 	row.hide();
+	
+	hideEmptyTable(table);
 });
+
+function hideEmptyTable(table)
+{
+	let hide = true;
+	table.find('tr').each(function(){
+	if(!$(this).hasClass('thead-default') && !$(this).hasClass('header-row') && $(this).css('display') != 'none')
+	{	
+		hide = false;
+	}
+	});
+	if(hide)
+	{
+		table.hide();
+	}
+}
+
+function verifyPercent(percent)
+{
+	if(percent.val() > 0 && percent.val() <= 100)
+	{
+		turnOffHighLight(percent);
+		return true;
+	}
+	turnOnHighLight(percent);
+	return false;
+}
 
 function submitBudgetCategories(validData)
 {
@@ -274,8 +303,10 @@ function submitBudgetCategories(validData)
 	{
 		const category = nextIncome.find('#category');
 		const name = nextIncome.find('[name="name"]');
-		const percent = nextIncome.find('#percent');
-		const amount = nextIncome.find('[name="Amount"]');
+		const percent = nextIncome.find('#percentage' + (count - 1));
+		
+		
+		let amount = nextIncome.find('[name="Amount"]');
 		
 		if(name.val().length == 0 && amount.val().length == 0)
 		{
@@ -284,9 +315,11 @@ function submitBudgetCategories(validData)
 			continue;
 		}
 		
+		let varifyAmount;
+		amount = calculateAmount(percent.is(':checked'), amount);
+	
 		const verifyName = verifyNonEmpty(name);
-		const verifyCost = verifyIncomeValue(amount);
-		validData = validData && verifyCost && verifyName;
+		validData = validData && amount > 0 && verifyName;
 		
 		if(validData)
 		{
@@ -299,6 +332,25 @@ function submitBudgetCategories(validData)
 		}
 	}
 	return displayErrorMessage(validData, data);
+}
+
+function calculateAmount(percent, amount){
+	let varifyAmount;
+	if(percent)
+	{
+		$('#amount-err').text('0 < Amount <= 100')
+		varifyAmount = verifyPercent(amount);
+		amount = totalBudget * amount/100;
+	}
+	else
+	{
+		$('#amount-err').text('0 < Amount < 999999999.99')
+		varifyAmount = verifyIncomeValue(amount);
+		amount = amount.val();
+	}
+	if(varifyAmount)
+		return amount;
+	return -1;
 }
 
 function displayErrorMessage(validData, data)
@@ -318,8 +370,14 @@ function displayErrorMessage(validData, data)
 
 /*************************** NewUserSetup ***********************************/
 
+let totalBudget;
+let remainingBudget;
+
 $('#submitSetup').click(function()
 {
+	totalBudget = 0;
+	remainingBudget = 0;
+	
 	const depData = submitSystematicDeposits(true);
 	const withData = submitSystematicWithdraws(depData);
 	

@@ -28,7 +28,7 @@
 		    <th hidden class='errorMsg'>Today or in the future</th>
 		  	<th hidden class='errorMsg'></th>
 		  </tr>
-		  <tr id="original${type}TableRow0" count='0' hidden>
+		  <tr id="original${type}TableRow0" count='0' style="display: none;">
 		    <td><input name="name" placeholder="name" type="text"/></td>
 		    <td><input name="cost" placeholder="wage/salary" type="text"/></td> 
 		    <td>	
