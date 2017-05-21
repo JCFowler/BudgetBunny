@@ -2,6 +2,7 @@ package com.revature.bean;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ public class Transaction {
 	@GeneratedValue(generator="transaction_seq", strategy=GenerationType.AUTO)
 	private int transactionId;
 	@Column(name="transactionDate")
-	private LocalDate date;
+	private Date date;
 	@Column(name="transactionTime")
 	private LocalTime time;
 	private double cost;
@@ -31,7 +32,7 @@ public class Transaction {
 	@JoinColumn(name="catid")
 	private Category cat;
 	
-	public Transaction(int transactionId, LocalDate date, LocalTime time, double cost) {
+	public Transaction(int transactionId, Date date, LocalTime time, double cost) {
 		super();
 		this.transactionId = transactionId;
 		this.date = date;
@@ -48,10 +49,10 @@ public class Transaction {
 	public void setTransactionId(int transactionId) {
 		this.transactionId = transactionId;
 	}
-	public LocalDate getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(LocalDate date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public LocalTime getTime() {

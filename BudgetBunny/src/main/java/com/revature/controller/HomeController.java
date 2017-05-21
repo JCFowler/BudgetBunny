@@ -37,7 +37,12 @@ public class HomeController
 		return "home";
 	}
 	
-	
+	@RequestMapping(method=RequestMethod.POST)
+	public String postHomepage(HttpServletRequest req)
+	{		
+
+		return "home";
+	}
 		
 				
 	

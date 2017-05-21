@@ -23,7 +23,10 @@ public class TransactionService {
 	@Autowired 
 	BudgetDAO bd;
 	
-	public void save(Transaction t){
+	public void save(Transaction t, int catId){
+		
+		Category c = cd.getById(catId);
+		t.setCat(c);
 		td.save(t);
 		double spent = t.getCost() + t.getCat().getSpent(); 
 		t.getCat().setSpent(spent);
