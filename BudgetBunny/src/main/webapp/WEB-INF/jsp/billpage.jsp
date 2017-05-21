@@ -15,16 +15,18 @@
 
 	<%@ include file = "_navbar.jsp" %>
 
-		<div id="depositFormDiv">
+		<div id="table-container">
+		
+		<h3 class="no-top" id='totalSpent' hidden>${user.budget.totalSpent}</h3>
+		<h3 class="no-top" id='totalBudget' hidden>${user.budget.totalBudget}</h3>
+		
 			<c:set var="headerMsg" value="Add Your Bills"></c:set>
 			<c:set var="type" value="withdraw"></c:set>
 			<%@ include file = "systematictransactionform.jsp" %>
-		</div>
-		
-		<button class="btn btn-info submission" id="submitSetup">Submit</button>
-			
-	</div>
 
+		<button class="btn btn-info submission submit-bill">Submit</button>
+
+		</div>
 
 	<script type="text/javascript" src="static/js/jozsef.js"></script>
 	

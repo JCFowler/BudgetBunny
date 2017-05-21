@@ -74,6 +74,7 @@ $('.add-systematic').click(function(){
 	var type = $(this).attr('id').replace('add', '');
 	
 	$('#' + type + 'Table').show();
+	$('.submission').show();
 
 	var hiddenRow = $("#original" + type + "TableRow0");
 	var newId = parseInt(hiddenRow.attr('count')) + 1;
@@ -233,14 +234,21 @@ function turnOffHighLight(element)
 
 var categoryCount = 1;
 
-$('#addCategory').click(function(){
-	$('#categoryTable').show();
+$('#addCategory').click(addCategory);
+$('#categoryTable').click(addCategory);
+$('#categoryTableBody').click(function(){
+	event.stopPropagation();
+});
 
+function addCategory(){
+	$('#categoryTable').show();
+	$('.submission').show();
+	
 	var hiddenRow = $("#categoryTableRow0").clone(true);
 	var newName = 'categoryTableRow' + categoryCount;
-
+	
 	$('#categoryTable').show();
-
+	
 	hiddenRow.attr('id', newName);
 	
 	var newDollarTypeId = 'dollarType' + categoryCount;
@@ -257,7 +265,7 @@ $('#addCategory').click(function(){
 	
 	$("#categoryTableBody")[0].append(hiddenRow[0]);
 	hiddenRow.show();
-});
+}
 
 $('.percentage').click(function(){
 	const id = $(this).attr('id').replace('percentage', '');
@@ -300,6 +308,7 @@ function hideEmptyTable(table)
 	});
 	if(hide)
 	{
+		$('.submission').hide();
 		table.hide();
 	}
 }
@@ -395,32 +404,62 @@ function displayErrorMessage(validData, data)
 
 $('#submitSetup').click(function()
 {
-	totalBudget = 0;
-	remainingBudget = 10;
+	totalBudget = parseFloat($('#totalSpent').text());
+	remainingBudget = parseFloat($('#totalBudget').text());
 	
 	const depData = submitSystematicDeposits(true);
 	const withData = submitSystematicWithdraws(depData);
 	
 	const catData = submitBudgetCategories(withData);
-	
-	if(remainingBudget > 0)
-	{
-		const setupData = {
+
+	const setupData = {
 			depositData : JSON.stringify(depData),
 			withdrawData : JSON.stringify(withData),
 			categoryData : JSON.stringify(catData)
 		}
-		if(depData && withData && catData)
-		{
-			ajaxCall(setupData, '/BudgetBunny/budgetsetuppage');
-			//TODO: SwitchPage
-		}	
-	}
-	else
-		alert("your over budget: " + remainingBudget + '/' + totalBudget);
-
-
+	
+	if(depData && withData && catData)
+		submitAjaxBudgetCheck(setupData, '/BudgetBunny/budgetsetuppage');
 });
+
+$('.submit-income').click(function(){	
+	totalBudget = parseFloat($('#totalSpent').text());
+	remainingBudget = parseFloat($('#totalBudget').text());
+
+	const depData = submitSystematicDeposits(true);
+
+	if(depData)
+		submitAjaxBudgetCheck(depData, '/BudgetBunny/incomepage');
+});
+
+$('.submit-bill').click(function(){
+	totalBudget = parseFloat($('#totalSpent').text());
+	remainingBudget = parseFloat($('#totalBudget').text());
+
+	const withData = submitSystematicWithdraws(true);
+
+	if(withData)
+		submitAjaxBudgetCheck(withData, '/BudgetBunny/billpage');
+});
+
+$('.submit-budget').click(function(){
+	totalBudget = parseFloat($('#totalSpent').text());
+	remainingBudget = parseFloat($('#totalBudget').text());
+	
+	const catData = submitBudgetCategories(true);
+
+	if(catData)
+		submitAjaxBudgetCheck(catData, '/BudgetBunny/budgetpage');
+});
+
+function submitAjaxBudgetCheck(data, url){
+		if(remainingBudget < 0)
+		{
+			alert("Your over budget by " + remainingBudget);
+		}
+		ajaxCall(data, url);
+
+}
 
 
 /*************************** BudgetDisplay ***********************************/

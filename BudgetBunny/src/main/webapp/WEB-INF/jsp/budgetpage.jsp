@@ -17,10 +17,13 @@
 
 
 	<div id='table-container'>
-		
+	
+		<h3 class="no-top" id='totalSpent' hidden>${user.budget.totalSpent}</h3>
+		<h3 class="no-top" id='totalBudget' hidden>${user.budget.totalBudget}</h3>
+				
 		<%@ include file = "budgetform.jsp" %>
 
-		<button class="btn btn-info submission" id="submitSetup">Submit</button>
+		<button class="btn btn-info submission submit-budget">Submit</button>
 	
 	</div>
 

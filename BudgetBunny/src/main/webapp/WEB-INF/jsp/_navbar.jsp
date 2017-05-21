@@ -11,7 +11,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-					<a class="navbar-brand white-bunny" href="BudgetBunny/Home.jsp"></a>
+					<a class="navbar-brand white-bunny" href="home"></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -20,7 +20,7 @@
 				<ul class="nav navbar-nav navbar-left">
 					<li class="active"><a href="home">Home <span class="sr-only">(current)</span></a></li>
 					<li><a href="transaction">Transactions</a></li>
-					<li><a href="#">Reports</a></li>
+					<li><a href="reports">Reports</a></li>
 				</ul>
 			
 				

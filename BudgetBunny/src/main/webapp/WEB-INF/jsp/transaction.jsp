@@ -6,8 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-<%@ include file = "imports.jsp" %>
 
+<%@ include file = "imports.jsp" %>
 
 <link rel="stylesheet" href="./static/css/transaction.css">
 
