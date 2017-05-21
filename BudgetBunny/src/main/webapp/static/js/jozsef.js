@@ -460,7 +460,7 @@ $('#purchase').click(function(){
 				id: popUp.find('#id').text(),
 				amount: amount.val()
 		};
-		ajaxCall(data, '/BudgetBunny/addtransaction');
+		ajaxCall(data, '/BudgetBunny/home');
 		close_div();
 	}
 	

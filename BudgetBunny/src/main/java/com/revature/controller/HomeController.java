@@ -39,8 +39,13 @@ public class HomeController
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public String postHomepage(HttpServletRequest req)
-	{		
-
+	{	
+		//get new date object and time
+	    DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+	    Date dateobj = new Date();
+	    System.out.println(df.format(dateobj));
+		String id req.getParameter(arg0)
+		String 
 		return "home";
 	}
 		
