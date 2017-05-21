@@ -14,11 +14,14 @@ import com.revature.bean.Budget;
 import com.revature.bean.User;
 import com.revature.service.BudgetService;
 import com.revature.service.UserService;
+import com.revature.util.ProcessReocurringUtil;
 
 @Controller
 @RequestMapping(value="/login")
 public class LoginController
 {
+	@Autowired
+	private ProcessReocurringUtil processUtil;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -29,6 +32,8 @@ public class LoginController
 	{
 		User emptyUser = new User();
 		modelMap.addAttribute("user", emptyUser);
+		
+		processUtil.start();
 		return "login";
 	}
 	
@@ -44,9 +49,7 @@ public class LoginController
 			return "login";
 		else {
 			Budget b = budgetService.get(authUser.getUserId());
-			System.out.println(authUser.getBudget());
 			req.getSession().setAttribute("user", authUser);
-			System.out.println(authUser.getBudget().getTotalBudget());
 			if(authUser.getBudget().getTotalBudget() == 0)
 				return "redirect:budgetsetuppage";
 			else

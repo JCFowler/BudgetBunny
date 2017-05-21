@@ -26,8 +26,9 @@ public class RecurringChargeDAOImpl implements RecurringChargeDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<RecurringCharge> getAll() {
+	public ArrayList<RecurringCharge> getAllCharges() {
 		String hql = "FROM RecurringCharge";
+		System.out.println("My session: " + session);
 		ArrayList<RecurringCharge> rcs = (ArrayList<RecurringCharge>) session.createQuery(hql).list();
 		return rcs; 
 	}

@@ -10,6 +10,7 @@
 			<h3 class='budget-eq' id='spent'>spent</h3>
 			<h3 class='budget-eq'> = </h3>
 			<h3 class='budget-eq' id='total'>total</h3>
+			<h3 class="no-top" id='id' hidden>id</h3>
 		</div>
 		<div class='trans-input' >
 			<button class='btn btn-info' id='purchase' >Purchase</button>

@@ -38,7 +38,6 @@
 
 	<script type="text/javascript" src="static/js/jozsef.js"></script>
 	
-	
 </body>
 </html>
 

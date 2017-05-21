@@ -12,6 +12,13 @@
     background-image: url("../images/grey-bunny.png");
 }
 
+.white-bunny
+{
+	background-size: cover;
+    background-image: url("../images/white-bunny.png");
+    width: 50pt;
+}
+
 .egg-back-1
 {
     background-image: url("../images/egg_1.png");

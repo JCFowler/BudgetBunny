@@ -19,7 +19,6 @@
 
 		<%@page import="com.revature.bean.Category"%>
 
-
 		<c:forEach items='${cats}' var='cat'>
 			<%@ include file="budgetdisplay.jsp"%>
 		</c:forEach>
