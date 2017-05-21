@@ -39,7 +39,7 @@ public class BudgetService {
 		for(Category c : cList) {
 			cd.save(c);
 		}
-		
+		totalBudget -= totalSpent;
 		b.setTotalBudget(totalBudget);
 		b.setTotalSpent(totalSpent);
 		bd.update(b);	

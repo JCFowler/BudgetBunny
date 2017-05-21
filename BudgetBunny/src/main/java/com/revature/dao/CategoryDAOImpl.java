@@ -28,6 +28,11 @@ public class CategoryDAOImpl implements CategoryDAO {
 	public void update(Category c) {
 		session.update(c);
 	}
+	
+	@Override
+	public void merge(Category c) {
+		session.merge(c);
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -48,5 +53,4 @@ public class CategoryDAOImpl implements CategoryDAO {
 	public void setSession(Session session) {
 		this.session = session;
 	}
-
 }

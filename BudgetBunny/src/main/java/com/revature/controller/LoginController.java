@@ -48,13 +48,13 @@ public class LoginController
 		if(authUser==null)
 			return "login";
 		else {
-			Budget b = budgetService.get(authUser.getUserId());
+//			Budget b = budgetService.get(authUser.getUserId());
 			req.getSession().setAttribute("user", authUser);
 			if(authUser.getBudget().getTotalBudget() == 0)
 				return "redirect:budgetsetuppage";
 			else
 			{
-				req.getSession().setAttribute("budget", b);
+//				req.getSession().setAttribute("budget", b);
 				return "redirect:home";
 			}
 		}

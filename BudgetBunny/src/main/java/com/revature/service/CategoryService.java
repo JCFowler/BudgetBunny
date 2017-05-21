@@ -37,7 +37,14 @@ public class CategoryService {
 		cd.update(c);
 	}
 	
+	
 	void delete(Category c){
 		cd.delete(c);
+	}
+
+	public void mergeList(ArrayList<Category> cList) {
+		for(Category c : cList) {
+			cd.merge(c);
+		}
 	}
 }
