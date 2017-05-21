@@ -76,8 +76,8 @@ public class BudgetSetupController {
 				in.setName(iJson.get("name").asText());
 				in.setCost(iJson.get("cost").asDouble());
 				in.setBud(user.getBudget());
-				in.setStartDate(Date.valueOf(LocalDate.parse(iJson.get("startDate").asText(), formatter)));
-				in.setLastTransactionDate(Date.valueOf(LocalDate.now()));
+//				in.setStartDate(Date.valueOf(LocalDate.parse(iJson.get("startDate").asText(), formatter)));
+//				in.setLastTransactionDate(Date.valueOf(LocalDate.now()));
 				iList.add(in);
 			}
 			
@@ -88,8 +88,8 @@ public class BudgetSetupController {
 				b.setName(bJson.get("name").asText());
 				b.setCost(bJson.get("cost").asDouble());
 				b.setBud(user.getBudget());
-				b.setStartDate(Date.valueOf(LocalDate.parse(bJson.get("startDate").asText(), formatter)));
-				b.setLastTransactionDate(Date.valueOf(LocalDate.now()));
+//				b.setStartDate(Date.valueOf(LocalDate.parse(bJson.get("startDate").asText(), formatter)));
+//				b.setLastTransactionDate(Date.valueOf(LocalDate.now()));
 				bList.add(b);
 			}
 		} catch (JsonProcessingException e) {

@@ -15,6 +15,7 @@ public interface CategoryDAO extends HibernateSession{
 	
 	//U
 	void update(Category c);
+	void merge(Category c);
 	
 	//D
 	void delete(Category c);
