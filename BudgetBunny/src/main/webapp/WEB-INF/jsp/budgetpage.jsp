@@ -28,7 +28,6 @@
 	</div>
 	<script type="text/javascript" src="static/js/jozsef.js"></script>
 
-	<h3>${user.budget.category}</h3>
 	<c:forEach items="${user.budget.category}" var="cat">
 		<script>createAndFillCategories('${cat.name}', '${cat.budget}')</script>
 	</c:forEach>

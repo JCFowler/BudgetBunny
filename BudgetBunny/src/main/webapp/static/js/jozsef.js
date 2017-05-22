@@ -16,14 +16,12 @@ let remainingBudget;
  */
 function ajaxCall(data, destUrl)
 {
-	alert(JSON.stringify(data));
 	$.ajax({
 	    type:"POST",
 	    cache:false,
 	    url: destUrl,
 	    data: data,    // multiple data sent using ajax
 	    success: function (html) {
-	    	alert(destUrl);
 	    	if(destUrl == '/BudgetBunny/home')
 	    		transactionSuccess();
 	    	else
@@ -78,10 +76,10 @@ function getFunctionName() {
  * Creates a new withdraw row to the withdrawTable, with a 
  * unique row name and remove button id.
  */
-$('.add-systematic').click(addSystematic);
+$('.add-systematic').click(function(){addSystematic($(this))});
 
-function addSystematic(){
-	var type = $(this).attr('id').replace('add', '');
+function addSystematic(table){
+	var type = table.attr('id').replace('add', '');
 	
 	$('#' + type + 'Table').show();
 	$('.submission').show();
@@ -99,6 +97,7 @@ function addSystematic(){
 	newRow.attr('id', newName);
 	$("#" + type + "TableBody")[0].append(newRow[0])
 	$('#' + newName).show();
+	return newId;
 }
 
 
@@ -264,6 +263,23 @@ function createAndFillCategories(name, budget){
 	let row = $('#categoryTableRow' + id);
 	row.find('#name' + id).val(name);
 	row.find('#amount' + id).val(budget);
+}
+
+function createAndFillSysTrans(row, name, cost){
+	row.find('#name').val(name);
+	row.find('#cost').val(cost);
+}
+
+function createAndFillDeposit(name, cost){
+	let id = addSystematic($('#adddeposit'));
+	let row = $('#depositTableRow' + id);
+	createAndFillSysTrans(row, name, cost);
+}
+
+function createAndFillWithdraw(name, cost){
+	let id = addSystematic($('#addwithdraw'));
+	let row = $('#withdrawTableRow' + id);
+	createAndFillSysTrans(row, name, cost);
 }
 
 $('.percentage').click(function(){
