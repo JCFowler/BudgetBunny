@@ -19,4 +19,5 @@ public interface CategoryDAO extends HibernateSession{
 	
 	//D
 	void delete(Category c);
+	void deleteById(int catId);
 }

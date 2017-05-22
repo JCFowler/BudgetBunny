@@ -19,5 +19,6 @@ public interface RecurringChargeDAO extends HibernateSession{
 	void merge(RecurringCharge r);
 	
 	//D
+	void deleteById(int rId);
 	void delete(RecurringCharge r);
 }

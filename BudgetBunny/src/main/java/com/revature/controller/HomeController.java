@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,11 +31,12 @@ public class HomeController
 	@RequestMapping(method=RequestMethod.GET)
 	public String getHomepage(HttpServletRequest req)
 	{		
-		if(req.getSession().getAttribute("user") == null)
+		User u = (User)req.getSession().getAttribute("user");
+		if(u == null)
 			return "redirect:login";
-			
+		if(u.getBudget().getTotalBudget() == 0)
+			return "budgetsetuppage";
 		else {
-				User u = (User) req.getSession().getAttribute("user");
 				List<Category> list = new ArrayList<Category>();
 				list = catService.getAll(u.getBudget());
 				req.getSession().setAttribute("cats", list);	

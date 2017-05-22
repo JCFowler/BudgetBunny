@@ -41,9 +41,13 @@ public class BillController {
 	public String postBillPage(HttpServletRequest req, HttpServletResponse resp) 
 	{
 		String bill = req.getParameter("withdrawData");
+		String deleted = req.getParameter("deletedList");
+		
 		System.out.println(req.getParameter("withdrawData"));
+		System.out.println(deleted);
 		
 		ArrayList<RecurringCharge> bList = new ArrayList<RecurringCharge>();
+		ArrayList<Integer> dList = new ArrayList<Integer>();
 		
 		ObjectMapper mapper = new ObjectMapper();
 		User user = (User)req.getSession().getAttribute("user");
@@ -59,11 +63,18 @@ public class BillController {
 //				b.setLastTransactionDate(Date.valueOf(LocalDate.now()));
 				bList.add(b);
 			}
+			
+			JsonNode dNode = mapper.readTree(deleted);
+			for(int i=0;i<dNode.size();i++) {
+				JsonNode j = dNode.get(Integer.toString(i));
+				dList.add(j.get("id").asInt());
+			}
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		rcService.deleteList(dList);
 		Budget updatedBudget = rcService.mergeBillList(bList, user.getBudget());
 		user.getBudget().setTotalBudget(updatedBudget.getTotalBudget());
 		user.getBudget().setTotalSpent(updatedBudget.getTotalSpent());
