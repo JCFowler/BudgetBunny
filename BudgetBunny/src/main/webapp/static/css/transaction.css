@@ -1,6 +1,13 @@
 @CHARSET "ISO-8859-1";
 
-/* Credit to bootsnipp.com for the css for the color graph */
+#myBtn{
+	margin-left:650px;
+}
+
+#myModal{
+	top:250px;
+}
+
 
 .thead-default{
 	background-color: #f4a442;

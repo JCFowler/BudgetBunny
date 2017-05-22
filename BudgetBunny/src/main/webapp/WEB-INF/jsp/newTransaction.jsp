@@ -34,3 +34,4 @@
 	</div>
 </div>
 	
+<script src="static/js/transaction.js"></script>

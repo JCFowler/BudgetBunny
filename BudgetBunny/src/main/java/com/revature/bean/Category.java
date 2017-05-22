@@ -1,5 +1,6 @@
 package com.revature.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="category")
-public class Category {
+public class Category implements Serializable{
 	@Id
 	@Column
 	@SequenceGenerator(name="category_seq", sequenceName="category_seq")
