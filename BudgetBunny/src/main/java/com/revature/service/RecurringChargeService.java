@@ -39,6 +39,13 @@ public class RecurringChargeService {
 		return b;
 	}
 	
+	public void deleteList(ArrayList<Integer> dList) {
+		for(Integer i : dList) {
+			if(i != 0)
+				rd.deleteById(i);
+		}
+	}
+	
 	public Budget mergeIncomeList(ArrayList<RecurringCharge> rList, Budget b) {
 		double totalBudget = 0;
 		for(RecurringCharge r : rList ) {

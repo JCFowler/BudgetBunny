@@ -29,6 +29,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public User login(String uName, String pass) {
+		System.out.println("gfvjhubinjk");
 		String hql = "FROM User WHERE username=:uName and password=:pass";
 		Query q = (Query) session.createQuery(hql);
 		q.setParameter("uName", uName);
@@ -42,6 +43,7 @@ public class UserDAOImpl implements UserDAO {
 		else
 			return null;
 	}
+
 
 	@Override
 	public void setSession(Session session) {

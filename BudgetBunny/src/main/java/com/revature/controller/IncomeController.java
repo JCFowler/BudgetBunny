@@ -41,9 +41,13 @@ public class IncomeController {
 	public String postIncomepage(HttpServletRequest req, HttpServletResponse resp) 
 	{
 		String income = req.getParameter("depositData");
+		String deleted = req.getParameter("deletedList");
+		
 		System.out.println(req.getParameter("depositData"));
+		System.out.println(deleted);
 		
 		ArrayList<RecurringCharge> iList = new ArrayList<RecurringCharge>();
+		ArrayList<Integer> dList = new ArrayList<Integer>();
 		
 		ObjectMapper mapper = new ObjectMapper();
 		User user = (User)req.getSession().getAttribute("user");
@@ -60,11 +64,18 @@ public class IncomeController {
 				iList.add(in);
 			}
 			
+			JsonNode dNode = mapper.readTree(deleted);
+			for(int i=0;i<dNode.size();i++) {
+				JsonNode j = dNode.get(Integer.toString(i));
+				dList.add(j.get("id").asInt());
+			}
+			
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		rcService.deleteList(dList);
 		Budget updatedBudget = rcService.mergeBillList(iList, user.getBudget());
 		user.getBudget().setTotalBudget(updatedBudget.getTotalBudget());
 		req.getSession().setAttribute("user", user);

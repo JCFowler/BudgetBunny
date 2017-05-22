@@ -48,6 +48,12 @@ public class CategoryDAOImpl implements CategoryDAO {
 	public void delete(Category c) {
 		session.delete(c);
 	}
+	
+	@Override
+	public void deleteById(int catId) {
+		Category c = (Category)session.load(Category.class, catId);
+		session.delete(c);
+	}
 
 	@Override
 	public void setSession(Session session) {
