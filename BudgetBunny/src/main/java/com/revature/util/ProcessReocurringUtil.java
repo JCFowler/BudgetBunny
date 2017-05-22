@@ -1,5 +1,7 @@
 package com.revature.util;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,6 +26,12 @@ public class ProcessReocurringUtil implements Runnable {
 	UserDAO ud;
 	@Autowired
 	RecurringChargeDAO rcd;
+	
+	public static void main(String...args)
+	{
+		System.out.println(LocalTime.now());
+		System.out.println(LocalDate.now());
+	}
 	
 	private ProcessReocurringUtil()
 	{
@@ -72,12 +80,10 @@ public class ProcessReocurringUtil implements Runnable {
 		Date last = charge.getLastTransactionDate();
 		Date processDate = new Date(last.getTime());
 		processDate.setMonth(processDate.getMonth() + 1);
-		System.out.println(processDate + " compared to " + now);
 		if(processDate.getTime() < now.getTime())
 		{
-			Budget budget = charge.getBud();
-//			double cost = charge.getCost();
-//			budget.set
+//			Budget budget = charge.getBud();
+//TODO			Transaction newTrans = Transaction(charge.getCost());
 			charge.setLastTransactionDate(processDate);
 			rcd.update(charge);
 		}

@@ -31,6 +31,14 @@ public class Transaction {
 	@JoinColumn(name="catid")
 	private Category cat;
 	
+	public Transaction(double cost, Category cat){
+		super ();
+		this.cost = cost;
+		this.cat = cat;
+		this.transactionId = 0;
+		this.date = LocalDate.now();
+		this.time = LocalTime.now();
+	}
 	public Transaction(int transactionId, LocalDate date, LocalTime time, double cost) {
 		super();
 		this.transactionId = transactionId;
