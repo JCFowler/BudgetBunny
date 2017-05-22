@@ -140,10 +140,10 @@ function submitSystematicTransactions(numberPrefix, type, validData)
 		const name = nextIncome.find('[name="name"]');
 		const cost = nextIncome.find('[name="cost"]');
 		const period = nextIncome.find('[name="period"]');
+		const id = nextIncome.find('#id').val();
 		
 		if(name.val().length == 0 && cost.val().length == 0)
 		{
-			const id = nextIncome.find('#id').val();
 			if(id != "0" && id != "")
 				deletedData[deletedCount++] = {id : id};
 				
@@ -165,7 +165,8 @@ function submitSystematicTransactions(numberPrefix, type, validData)
 			data[dataCount++] = {
 					name : name.val(),
 					cost : costVal,
-					period : period.val()					
+					period : period.val(),
+					id : id
 			}
 		}
 	}
@@ -368,13 +369,12 @@ function submitBudgetCategories(validData)
 		const category = nextIncome.find('#category');
 		const name = nextIncome.find('[name="name"]');
 		const percent = nextIncome.find('#percentage' + (count - 1));
-		
+		const id = nextIncome.find('#id').val();		
 		
 		let amount = nextIncome.find('[name="Amount"]');
 		
 		if(name.val().length == 0 && amount.val().length == 0)
 		{
-			const id = nextIncome.find('#id').val();
 			if(id != "0")
 				deletedData[deletedCount++] = {id : id};
 
@@ -398,6 +398,7 @@ function submitBudgetCategories(validData)
 					name : name.val(),
 					amount : amount,
 					percent : percent.val(),
+					id : id
 			}
 		}
 	}
@@ -481,9 +482,10 @@ $('.submit-bill').click(function(){
 
 	const withData = submitSystematicWithdraws(true);
 	const setupData = {
-			withData : JSON.stringify(withData.data),
+			withdrawData : JSON.stringify(withData.data),
 			deletedList : JSON.stringify(withData.deletedList)
 	}
+	alert(JSON.stringify(setupData));
 
 	if(withData)
 		submitAjaxBudgetCheck(setupData, '/BudgetBunny/billpage');
