@@ -32,11 +32,10 @@ public class Transaction {
 	@JoinColumn(name="catid")
 	private Category cat;
 	
-	public Transaction(int transactionId, Date date, LocalTime time, double cost) {
+	public Transaction(int transactionId, Date date, double cost) {
 		super();
 		this.transactionId = transactionId;
 		this.date = date;
-		this.time = time;
 		this.cost = cost;
 	}
 	public Transaction() {
