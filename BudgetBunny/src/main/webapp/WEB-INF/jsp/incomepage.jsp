@@ -33,7 +33,9 @@
 	</div>
 
 	<script type="text/javascript" src="static/js/jozsef.js"></script>
-	
+	<c:forEach items="${incomeList}" var="elem">
+		<script>createAndFillDeposit('${elem.name}', '${elem.cost}')</script>		
+	</c:forEach>
 	
 </body>
 </html>
