@@ -63,12 +63,8 @@ public class LoginController
 			authUser.getBudget().setCategory(catList);
 			authUser.getBudget().setRecurringCharge(reList);
 			req.getSession().setAttribute("user", authUser);
-			if(authUser.getBudget().getTotalBudget() == 0)
-				return "redirect:budgetsetuppage";
-			else
-			{
-				return "redirect:home";
-			}
+			
+			return null;
 		}
 	}
 }

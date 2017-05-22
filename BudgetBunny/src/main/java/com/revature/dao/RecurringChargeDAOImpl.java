@@ -57,6 +57,12 @@ public class RecurringChargeDAOImpl implements RecurringChargeDAO {
 	}
 
 	@Override
+	public void deleteById(int rId) {
+		RecurringCharge r = (RecurringCharge)session.load(RecurringCharge.class, rId);
+		session.delete(r);
+	}
+	
+	@Override
 	public void delete(RecurringCharge r) {
 		session.delete(r);;
 	}
@@ -65,5 +71,4 @@ public class RecurringChargeDAOImpl implements RecurringChargeDAO {
 	public void setSession(Session session) {
 		this.session = session;
 	}
-
 }

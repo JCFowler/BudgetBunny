@@ -37,9 +37,11 @@ public class CategoryService {
 		cd.update(c);
 	}
 	
-	
-	void delete(Category c){
-		cd.delete(c);
+	public void deleteList(ArrayList<Integer> catIds){
+		for(Integer i : catIds) {
+			if(i != 0)
+				cd.deleteById(i);
+		}
 	}
 
 	public void mergeList(ArrayList<Category> cList) {

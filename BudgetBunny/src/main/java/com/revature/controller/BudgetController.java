@@ -29,8 +29,10 @@ public class BudgetController {
 	{
 		if(req.getSession().getAttribute("user") == null)
 			return "redirect:login";
+		User u = (User)req.getSession().getAttribute("user");
+		ArrayList<Category> cList = categoryService.getAll(u.getBudget());
 		
-		System.out.println("CategoryList size: " + ((User)req.getSession().getAttribute("user")).getBudget().getCategory().size() );
+		req.getSession().setAttribute("catList", cList);
 		
 		return "budgetpage";
 	}
@@ -39,10 +41,13 @@ public class BudgetController {
 	public String postBudgetPage(HttpServletRequest req, HttpServletResponse resp) 
 	{
 		String category = req.getParameter("categoryData");
-		//TODO: size 14?
+		String deleted = req.getParameter("deletedList");
+		
 		System.out.println(req.getParameter("categoryData"));
+		System.out.println(deleted);
 		
 		ArrayList<Category> cList = new ArrayList<Category>();
+		ArrayList<Integer> dList = new ArrayList<Integer>();
 		
 		ObjectMapper mapper = new ObjectMapper();
 		User user = (User)req.getSession().getAttribute("user");
@@ -56,12 +61,19 @@ public class BudgetController {
 				c.setBud(user.getBudget());
 				cList.add(c);
 			}
+			
+			JsonNode dNode = mapper.readTree(deleted);
+			for(int i=0;i<dNode.size();i++) {
+				JsonNode j = dNode.get(Integer.toString(i));
+				dList.add(j.get("id").asInt());
+			}
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
+		categoryService.deleteList(dList);
 		categoryService.mergeList(cList);
 		
 		return "budgetpage";
