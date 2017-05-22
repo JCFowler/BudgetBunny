@@ -1,4 +1,4 @@
-	<link rel="stylesheet" href="static/css/jozsef.css">
+	<link rel="stylesheet" href="static/css/myStyle.css">
 	<div class='trans-div' id='myPopup' style="display: none">
 	
 		<div class='bar'>
@@ -34,3 +34,4 @@
 	</div>
 </div>
 	
+<script src="static/js/transaction.js"></script>
