@@ -27,6 +27,7 @@
 		  <tr id="original${type}TableRow0" count='0' style="display: none;">
 		    <td><input name="name" id="name" placeholder="name" type="text"/></td>
 		    <td><input name="cost" id="cost" placeholder="wage/salary" type="text"/></td> 
+		   	<td><input name="id" id="id" value="0"/></td>
 		   	<td ><button class='RemoveButton' type="${type}" id="${type}RemoveButton"><span class="glyphicon glyphicon-remove glyph-small" style="font-size: .75em;" aria-hidden="true"></span></button></td>
 		  </tr>
 		</tbody>

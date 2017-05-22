@@ -34,7 +34,7 @@
 
 	<script type="text/javascript" src="static/js/jozsef.js"></script>
 	<c:forEach items="${incomeList}" var="elem">
-		<script>createAndFillDeposit('${elem.name}', '${elem.cost}')</script>		
+		<script>createAndFillDeposit('${elem.name}', '${elem.cost}', '${elem.chargeId}')</script>		
 	</c:forEach>
 	
 </body>
