@@ -56,12 +56,8 @@ public class HomeController
 		double budget = Double.parseDouble(sb1);
 		String catIDtemp = req.getParameter("id");
 		String spenttemp = req.getParameter("amount");
-		StringBuilder sbs = new StringBuilder(spenttemp);
-		StringBuilder sbt2 = sbs.deleteCharAt(0);
-		String sbsp = sbt2.toString();
+		String sbsp = spenttemp.toString();
 		Double spent = Double.parseDouble(sbsp);
-		System.out.println("PLEASE FUCKIN WORK");
-		System.out.println(spent);
 		int catID = Integer.parseInt(catIDtemp);
 		System.out.println(catID);
 		Budget bud = new Budget(catID, budget, spent,null,null);
@@ -70,7 +66,6 @@ public class HomeController
 		
 		//new transaction
 		Transaction transaction = new Transaction(spent, cat);
-		System.out.println(transaction.getDate().getClass().getName());
 		//save transaction to DB
 		tsService.save(transaction, catID);
 		
