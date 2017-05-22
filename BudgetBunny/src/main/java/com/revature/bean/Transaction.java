@@ -24,7 +24,7 @@ public class Transaction {
 	@GeneratedValue(generator="transaction_seq", strategy=GenerationType.AUTO)
 	private int transactionId;
 	@Column(name="transactionDate")
-	private Date date;
+	private LocalDate date;
 	@Column(name="transactionTime")
 	private LocalTime time;
 	private double cost;
@@ -32,10 +32,19 @@ public class Transaction {
 	@JoinColumn(name="catid")
 	private Category cat;
 	
-	public Transaction(int transactionId, Date date, double cost) {
+	public Transaction(double cost, Category cat){
+		super ();
+		this.cost = cost;
+		this.cat = cat;
+		this.transactionId = 0;
+		this.date = LocalDate.now();
+		this.time = LocalTime.now();
+	}
+	public Transaction(int transactionId, LocalDate date, LocalTime time, double cost) {
 		super();
 		this.transactionId = transactionId;
 		this.date = date;
+		this.time = time;
 		this.cost = cost;
 	}
 	public Transaction() {
@@ -48,10 +57,10 @@ public class Transaction {
 	public void setTransactionId(int transactionId) {
 		this.transactionId = transactionId;
 	}
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	public LocalTime getTime() {

@@ -29,6 +29,9 @@ public class BudgetController {
 	{
 		if(req.getSession().getAttribute("user") == null)
 			return "redirect:login";
+		
+		System.out.println("CategoryList size: " + ((User)req.getSession().getAttribute("user")).getBudget().getCategory().size() );
+		
 		return "budgetpage";
 	}
 	
@@ -36,6 +39,7 @@ public class BudgetController {
 	public String postBudgetPage(HttpServletRequest req, HttpServletResponse resp) 
 	{
 		String category = req.getParameter("categoryData");
+		//TODO: size 14?
 		System.out.println(req.getParameter("categoryData"));
 		
 		ArrayList<Category> cList = new ArrayList<Category>();
