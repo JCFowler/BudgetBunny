@@ -564,16 +564,19 @@ $(document).ready(function(){
 
 $('#purchase').click(function(){
 	let popUp = $('#myPopup');
+	var transamount = popUp.find("#amount");
+
+	var item = transamount.val();
+
 	
-	let amount = popUp.find('#amount');
-	if(verifyIncomeValue(amount))
+	if(verifyIncomeValue(transamount))
 	{
 		let data = {
 				name: popUp.find('#name').text(),
 				budget: popUp.find('#budget').text(),
 				spent: popUp.find('#spent').text(),
+				amount: item,
 				id: popUp.find('#id').text(),
-				amount: amount.val()
 		};
 		ajaxCall(data, '/BudgetBunny/home');
 		close_div();
