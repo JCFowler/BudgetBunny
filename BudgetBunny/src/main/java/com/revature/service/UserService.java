@@ -21,7 +21,6 @@ public class UserService
 	}
 	
 	public User login(String uName, String pass) {
-		System.out.println("here " +uName + " " + pass);
 		return ud.login(uName, pass);
 	}
 	

@@ -67,7 +67,13 @@ public class HomeController
 		//new transaction
 		Transaction transaction = new Transaction(spent, cat);
 		//save transaction to DB
+		
+		//Updating User Session
 		tsService.save(transaction, catID);
+		User u = (User)req.getSession().getAttribute("user");
+		u.getBudget().setTotalBudget(u.getBudget().getTotalBudget() - spent);
+		u.getBudget().setTotalSpent(u.getBudget().getTotalSpent() + spent);
+		req.getSession().setAttribute("user", u);
 		
 		return "home";
 	}

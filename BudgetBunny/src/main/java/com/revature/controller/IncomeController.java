@@ -56,6 +56,7 @@ public class IncomeController {
 			for(int i=0;i<iNode.size();i++) {
 				RecurringCharge in = new RecurringCharge();
 				JsonNode iJson = iNode.get(Integer.toString(i));
+				in.setChargeId(iJson.get("id").asInt());
 				in.setName(iJson.get("name").asText());
 				in.setCost(iJson.get("cost").asDouble());
 				in.setBud(user.getBudget());
@@ -64,10 +65,14 @@ public class IncomeController {
 				iList.add(in);
 			}
 			
-			JsonNode dNode = mapper.readTree(deleted);
-			for(int i=0;i<dNode.size();i++) {
-				JsonNode j = dNode.get(Integer.toString(i));
-				dList.add(j.get("id").asInt());
+			if(deleted != null) {
+				System.out.println("first");
+				JsonNode dNode = mapper.readTree(deleted);
+				for(int i=0;i<dNode.size();i++) {
+					System.out.println("loop");
+					JsonNode j = dNode.get(Integer.toString(i));
+					dList.add(j.get("id").asInt());
+				}			
 			}
 			
 		} catch (JsonProcessingException e) {
@@ -75,8 +80,10 @@ public class IncomeController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		rcService.deleteList(dList);
-		Budget updatedBudget = rcService.mergeBillList(iList, user.getBudget());
+		System.out.println(dList);
+		if(dList.size() > 0)
+			rcService.deleteList(dList);
+		Budget updatedBudget = rcService.mergeIncomeList(iList, user.getBudget());
 		user.getBudget().setTotalBudget(updatedBudget.getTotalBudget());
 		req.getSession().setAttribute("user", user);
 		System.out.println(iList);
