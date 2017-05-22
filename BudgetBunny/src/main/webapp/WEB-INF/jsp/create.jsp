@@ -4,57 +4,54 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="./static/css/create.css">
+<link rel="stylesheet" href="./static/css/login.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 <title>Create Account</title>
 </head>
 <body>
 
-<!--https://codepen.io/sevilayha/pen/IdGKH-->
-<div class="container">
-	<div class="row">
-		<div class="col-sm-4 get_form_inner">
-										<h4 class="__head">Create an Account</h4>
-										<!-- ngIf: social_error_message != undefined -->
-										<div class="text-center">
-										<hr class="ortext2">
-										<p></p>
-										<form name="registerForm" method="post" action="">
-											
-                                            <div class="group">
-												<input type="text" name="Name" required="required" placeholder = "Name">
-                                                <span class="highlight"></span>
-                                                <span class="bar"></span>
-                                                
-											</div>                                            
-                                            <div class="group">
-												<input type="text" name="Username" required="required" placeholder = "Username">
-                                                <span class="highlight"></span>
-                                                <span class="bar"></span>
-                                                
-											<div class="group">
-												<input type="password" name="password" required="required" placeholder="Password"><input type="hidden" name="profile" value="Password" >	
-                                                <span class="highlight"></span>
-                                                <span class="bar"></span>
-                                                
-											</div>
-											<div class="form-group text-center">
-												<div>
-													<button type="submit" class="btn btn-info">Create Account</button>
-												</div>
-												<div class="container-fluid loading hidden">
-													<label><span class="fa fa-refresh fa-spin"></span>
-														 Creating...</label>
-												</div>
-											</div>
-											<div class="text-right">
-												<p class="text-right">Already Registered? <a href="javascript:void(0);" data-toggle="modal" data-target="#login">Login here</a></p>
-											</div>
-										</form>
-									</div>
+<div class="container login">
+
+<div class="row" style="margin-top:20px">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+    	<div>
+			<fieldset>
+				<h2>Create an Account</h2>
+				<hr class="colorgraph">
+				<div class="form-group">
+                    <input type="text" id="name" class="form-control input-lg" placeholder = "Name" required="required">
+				</div>
+				<div class="form-group">
+                    <input type="username" id="username" class="form-control input-lg" placeholder="Username" required="required">
+				</div>
+				<div class="form-group">
+                    <input type="password" id="password" class="form-control input-lg" placeholder="Password" required="required">
+				</div>
+				<hr class="colorgraph">
+				<div class="alert alert-success" role="alert" id="success-msg" hidden>
+				  Success Message will go here.
+				</div>
+				<div class="alert alert-danger" role="alert" id="error-msg" hidden>
+				  Error Message will go here.
+				</div>
+				<div class="form-group text-center">
+					<div>
+						<button type="submit" id="create" class="btn btn-info">Create Account</button>
+					</div>
+					<br>
+					<div class="text">
+						<p class="text">Already Registered? <a href="login" data-toggle="modal" data-target="#login">Login here</a></p>
+					</div>
+				</div>
+			</fieldset>
+		</div>
 	</div>
 </div>
+	
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="static/js/create.js"></script>
 </body>
 </html>

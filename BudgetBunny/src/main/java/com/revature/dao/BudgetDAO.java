@@ -8,6 +8,7 @@ public interface BudgetDAO extends HibernateSession {
 		
 	//R
 	Budget getById(int id);
+	Budget getByUserId(int UserId);
 	
 	//U
 	void update(Budget b);

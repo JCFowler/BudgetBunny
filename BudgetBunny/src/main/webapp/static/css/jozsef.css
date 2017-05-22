@@ -2,16 +2,40 @@
 
 .table
 {
-    width: 700pt;
-    table-layout: fixed;
-    text-align: center;
-    margin-right: auto;
+
+}
+
+.btn-info
+{
+	background-color: #65a5ce;
+	font-size: 1em;
+    padding: .5em;
+    margin: 1em;
+}
+
+.table {
+	width: 25%;
+	margin-top:5%;
+
+	border: 25px solid #65a5ce;
+	border-radius: 25px;
+	padding: 25px;
+	height: 25px;
+	border-collapse: separate !important;
+	
+	display: none;
+	margin-right: auto;
     margin-left: auto;
+
+}
+
+.thead-default{
+	background-color: #f4a442;
 }
 
 #table-container
 {
-	    padding: 5%;
+	    padding: 1%;
 	    text-align: center;
 }
 
@@ -20,6 +44,14 @@
 	width: 40pt;
 }
 
+.RemoveButton
+{
+	border-radius: 30pt;
+    padding: 2pt;
+    background-color: red;
+    border-color: black;
+    border-width: medium;
+}
 #setup-body
 {
 	text-align: center;	
@@ -31,6 +63,12 @@
     background-color: whitesmoke;
     padding: 2.5%;
     margin: 5%;
+}
+
+.glyph-small
+{
+	color: black;
+    font-size: .75em;
 }
 
 .table-hover>tbody>tr:hover
@@ -66,7 +104,9 @@
 
 .submission
 {
-	font-size: 3em;
+	font-size: 2em;
+    margin: 0;
+
 }
 
 .budget-eq
@@ -124,63 +164,18 @@
 {
     display: inline-block;
     padding: 2.5%;
-    margin: 2.5%;
-    padding-right: 3%;
-    padding-left: 3%;
+    margin: 1%;
+    padding-right: 5%;
+    padding-left: 2%;
     border-radius: 10%;
     text-align: center;
-    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 html, body
 {
 	height: 100%;
-}
-
-.grey-bunny
-{
-	background-size: cover;
-    background-image: url("../images/grey-bunny.png");
-}
-
-.egg-back-1
-{
-    background-image: url("../images/egg_1.png");
-}
-
-.egg-back-2
-{
-    background-image: url("../images/egg_2.png");
-}
-
-.egg-back-3
-{
-    background-image: url("../images/egg_3.png");
-}
-
-.egg-back-4
-{
-    background-image: url("../images/egg_4.png");
-}
-
-.egg-back-5
-{
-    background-image: url("../images/egg_5.png");
-}
-
-.egg-back-6
-{
-	background-image: url("../images/egg_6.png");
-}
-
-.egg-back-7
-{
-    background-image: url("../images/egg_7.png");
-}
-
-.egg-back-8
-{
-    background-image: url("../images/egg_8.png");
 }
 
 .inner-egg

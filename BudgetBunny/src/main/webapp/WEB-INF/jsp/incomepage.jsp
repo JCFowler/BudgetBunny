@@ -4,7 +4,8 @@
 <html>
 <head>
 		<%@ include file = "imports.jsp" %>
-
+		<link rel="stylesheet" href="static/css/jozsef.css">
+		
 
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Income</title>
@@ -15,20 +16,26 @@
 
 	<%@ include file = "_navbar.jsp" %>
 
+
 	<div id='table-container'>
+
+		<h3 class="no-top" id='totalSpent' hidden>${user.budget.totalSpent}</h3>
+		<h3 class="no-top" id='totalBudget' hidden>${user.budget.totalBudget}</h3>
+		
+
 		<div id="withdrawFormDiv">
 			<c:set var="headerMsg" value="Add Your Income"></c:set>
 			<c:set var="type" value="deposit"></c:set>
 			<%@ include file = "systematictransactionform.jsp" %>
-		</div>
-		
-		<button class="btn btn-info submission" id="submitSetup">Submit</button>
-	
+			<button class="btn btn-info submission submit-income" style='display: none'>Submit</button>
+			
+		</div>	
 	</div>
 
-
 	<script type="text/javascript" src="static/js/jozsef.js"></script>
-	
+	<c:forEach items="${incomeList}" var="elem">
+		<script>createAndFillDeposit('${elem.name}', '${elem.cost}', '${elem.chargeId}')</script>		
+	</c:forEach>
 	
 </body>
 </html>

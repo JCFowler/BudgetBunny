@@ -4,19 +4,19 @@
 
 //onClick="validateLogin();"
 
+const name = document.querySelector('#name');
 const username = document.querySelector('#username');
 const password = document.querySelector('#password');
 
-function validateLogin() {
-    var x,y;
+function validateCreate() {
+    var x,y,z;
     var text = '';
 
     // Get the value of the input field with id="numb"
     x = document.getElementById("username").value;
     y = document.getElementById("password").value;
+    z = document.getElementById("name").value;
 
-
-    // If x is Not a Number or less than one or greater than 10
     if (x=="") {
     	document.getElementById('username').style.borderColor = "red";
     	document.getElementById('username').style.backgroundColor = "#e2b5b5";
@@ -31,6 +31,13 @@ function validateLogin() {
         document.getElementById("error-msg").innerHTML = text;
         $('#error-msg').show();
     }
+    if(z=="") {
+    	document.getElementById('name').style.borderColor = "red";
+    	document.getElementById('name').style.backgroundColor = "#e2b5b5";
+    	text = "Please fill in the blanks";
+        document.getElementById("error-msg").innerHTML = text;
+        $('#error-msg').show();
+    }
     
     if (text === '') {
     	return true;
@@ -39,31 +46,37 @@ function validateLogin() {
     }
 }
 
-var test = document.getElementById("login");
+var test = document.getElementById("create");
 
 test.addEventListener("click", (event) => {
 	event.preventDefault();
-	const inputIsValid = validateLogin();
+	var result = validateCreate();
 	
-	if (!inputIsValid) {
+	if (!result) {
 		return;
 	}
 	$('#error-msg').hide();
-	var loginBtn = document.querySelector('#login');
-	loginBtn.disabled = true;
-	loginBtn.innerHTML = "Logging in...";
-	$.ajax({
+	$('success-msg').hide();
+	var btn = document.querySelector('#create');
+	btn.disabled = true;
+	btn.innerHTML = "Creating...";
+	
+	$.ajax ({
 		type: 'post',
-		url: '/BudgetBunny/login',
-		data: { username: username.value, password: password.value },
+		url: '/BudgetBunny/create',
+		data: { name: name.value, username: username.value, password: password.value },
 		success: () => {
-			window.location = '/BudgetBunny/home';
+			$('#success-msg').html('You have successfully created a new User!')
+			$('#success-msg').show();
+			btn.innerHTML = "Created Account!";
 		},
 		error: () => {
-			$('#error-msg').html('Username or Password was incorrect.');
+			document.getElementById('username').style.borderColor = "red";
+	    	document.getElementById('username').style.backgroundColor = "#e2b5b5";
+			$('#error-msg').html('Username is already taken.');
 			$('#error-msg').show();
-			loginBtn.disabled = false;
-			loginBtn.innerHTML = "Log In";
+			btn.disabled = false;
+			btn.innerHTML = "Create Account";
 		}
 	});
 });

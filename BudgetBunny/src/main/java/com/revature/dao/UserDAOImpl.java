@@ -43,6 +43,7 @@ public class UserDAOImpl implements UserDAO {
 			return null;
 	}
 
+
 	@Override
 	public void setSession(Session session) {
 		this.session = session;

@@ -4,6 +4,7 @@
 <html>
 <head>
 		<%@ include file = "imports.jsp" %>
+		<link rel="stylesheet" href="static/css/jozsef.css">
 
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Budget</title>
@@ -16,15 +17,20 @@
 
 
 	<div id='table-container'>
-		
+	
+		<h3 class="no-top" id='totalSpent' hidden>${user.budget.totalSpent}</h3>
+		<h3 class="no-top" id='totalBudget' hidden>${user.budget.totalBudget}</h3>
+				
 		<%@ include file = "budgetform.jsp" %>
 
-		<button class="btn btn-info submission" id="submitSetup">Submit</button>
+		<button class="btn btn-info submission submit-budget" style='display: none'>Submit</button>
 	
 	</div>
-
-
 	<script type="text/javascript" src="static/js/jozsef.js"></script>
+
+	<c:forEach items="${user.budget.category}" var="cat">
+		<script>createAndFillCategories('${cat.name}', '${cat.budget}', '${cat.catId}')</script>
+	</c:forEach>
 	
 	
 </body>

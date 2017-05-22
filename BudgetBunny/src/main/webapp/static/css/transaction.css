@@ -1,9 +1,11 @@
 @CHARSET "ISO-8859-1";
 
-/* Credit to bootsnipp.com for the css for the color graph */
+#myBtn{
+	margin-left:650px;
+}
 
-.container {
-
+#myModal{
+	top:250px;
 }
 
 
@@ -23,7 +25,7 @@
 	width: 25%;
 	margin-top:5%;
 
-	border: 50px solid #65a5ce;
+	border: 25px solid #65a5ce;
 	border-radius: 25px;
 	padding: 25px;
 	height: 25px;

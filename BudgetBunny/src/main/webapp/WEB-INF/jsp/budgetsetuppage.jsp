@@ -4,7 +4,7 @@
 <html>
 <head>
 		<%@ include file = "imports.jsp" %>
-
+		<link rel="stylesheet" href="static/css/jozsef.css">
 
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Budget Setup</title>
@@ -37,7 +37,6 @@
 
 
 	<script type="text/javascript" src="static/js/jozsef.js"></script>
-	
 	
 </body>
 </html>

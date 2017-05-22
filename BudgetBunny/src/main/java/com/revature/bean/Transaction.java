@@ -2,6 +2,9 @@ package com.revature.bean;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.sql.Date;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,21 +26,25 @@ public class Transaction {
 	@GeneratedValue(generator="transaction_seq", strategy=GenerationType.AUTO)
 	private int transactionId;
 	@Column(name="transactionDate")
-	private LocalDate date;
-	@Column(name="transactionTime")
-	private LocalTime time;
+	private Date date;
 	private double cost;
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="catid")
 	private Category cat;
 	
-	public Transaction(int transactionId, LocalDate date, LocalTime time, double cost) {
-		super();
-		this.transactionId = transactionId;
-		this.date = date;
-		this.time = time;
+	public Transaction(double cost, Category cat){
+		super ();
+
 		this.cost = cost;
+		this.cat = cat;
+		this.transactionId = 0;
+		//CharSequence test = ;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		formatter = formatter.withLocale(Locale.US );
+		Date test = Date.valueOf(LocalDate.now());
+		this.date = test;
 	}
+
 	public Transaction() {
 		super();
 	}
@@ -48,18 +55,13 @@ public class Transaction {
 	public void setTransactionId(int transactionId) {
 		this.transactionId = transactionId;
 	}
-	public LocalDate getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(LocalDate date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
-	public LocalTime getTime() {
-		return time;
-	}
-	public void setTime(LocalTime time) {
-		this.time = time;
-	}
+
 	public double getCost() {
 		return cost;
 	}
@@ -80,7 +82,6 @@ public class Transaction {
 		temp = Double.doubleToLongBits(cost);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + ((time == null) ? 0 : time.hashCode());
 		result = prime * result + transactionId;
 		return result;
 	}
@@ -100,18 +101,13 @@ public class Transaction {
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
-		if (time == null) {
-			if (other.time != null)
-				return false;
-		} else if (!time.equals(other.time))
-			return false;
 		if (transactionId != other.transactionId)
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "Transaction [transactionId=" + transactionId + ", date=" + date + ", time=" + time + ", cost=" + cost
+		return "Transaction [transactionId=" + transactionId + ", date=" + date + ", cost=" + cost
 				+ "]";
 	}
 }
