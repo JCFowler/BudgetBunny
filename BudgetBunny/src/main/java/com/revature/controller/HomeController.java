@@ -1,6 +1,9 @@
 package com.revature.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.revature.bean.Category;
+import com.revature.bean.Transaction;
 import com.revature.bean.User;
 import com.revature.service.CategoryService;
+import com.revature.service.TransactionService;
 
 @Controller
 @RequestMapping(value="/home")
@@ -20,6 +25,9 @@ public class HomeController
 {
 	@Autowired
 	private CategoryService catService;
+	
+	@Autowired
+	private TransactionService tsService;
 	
 	
 	@RequestMapping(method=RequestMethod.GET)
@@ -40,12 +48,23 @@ public class HomeController
 	@RequestMapping(method=RequestMethod.POST)
 	public String postHomepage(HttpServletRequest req)
 	{	
-		//get new date object and time
-	    DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-	    Date dateobj = new Date();
-	    System.out.println(df.format(dateobj));
-		String id req.getParameter(arg0)
-		String 
+		//get new date object
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String catIDtemp = req.getParameter("id");
+		String costtemp = req.getParameter("budget");
+		int catID = Integer.parseInt(catIDtemp);
+		System.out.println(catID);
+		//int cost = Integer.parseInt(costtemp);
+
+		//System.out.println(cost);
+		
+		
+		//new transaction
+		Transaction transaction = new Transaction(0, date,2);
+		//save transaction to DB
+		tsService.save(transaction, catID);
+		
 		return "home";
 	}
 		
