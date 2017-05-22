@@ -16,43 +16,51 @@ let remainingBudget;
  */
 function ajaxCall(data, destUrl)
 {
+	alert(JSON.stringify(data));
 	$.ajax({
 	    type:"POST",
 	    cache:false,
 	    url: destUrl,
 	    data: data,    // multiple data sent using ajax
 	    success: function (html) {
-	    	
-	    	//Get the modal
-	    	var modal = document.getElementById('myModal');
-
-	    	// Get the button that opens the modal
-	    	var btn = document.getElementById("purchase");
-
-	    	// Get the <span> element that closes the modal
-	    	var span = document.getElementsByClassName("close")[0];
-
-	    	// When the user clicks the button, open the modal 
-	    	btn.onclick = function() {
-	    	    modal.style.display = "block";
-	    	}
-
-	    	// When the user clicks on <span> (x), close the modal
-	    	span.onclick = function() {
-	    	    modal.style.display = "none";
-	    	}
-
-	    	// When the user clicks anywhere outside of the modal, close it
-	    	window.onclick = function(event) {
-	    	    if (event.target == modal) {
-	    	        modal.style.display = "none";
-	    	    }
-	    	}
-
+	    	alert(destUrl);
+	    	if(destUrl == '/BudgetBunny/home')
+	    		transactionSuccess();
+	    	else
+	    		alert('Ajax success');
 	    }
 	  });
 }
 
+
+function transactionSuccess(){
+	
+	//Get the modal
+	var modal = document.getElementById('myModal');
+
+	// Get the button that opens the modal
+	var btn = document.getElementById("purchase");
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+
+	// When the user clicks the button, open the modal 
+	btn.onclick = function() {
+	    modal.style.display = "block";
+	}
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	    modal.style.display = "none";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
+}
 /*
  * Returns the calling functions name.
  */
@@ -70,7 +78,9 @@ function getFunctionName() {
  * Creates a new withdraw row to the withdrawTable, with a 
  * unique row name and remove button id.
  */
-$('.add-systematic').click(function(){	
+$('.add-systematic').click(addSystematic);
+
+function addSystematic(){
 	var type = $(this).attr('id').replace('add', '');
 	
 	$('#' + type + 'Table').show();
@@ -89,28 +99,7 @@ $('.add-systematic').click(function(){
 	newRow.attr('id', newName);
 	$("#" + type + "TableBody")[0].append(newRow[0])
 	$('#' + newName).show();
-	
-});
-
-
-/*
- * Removes rows from a given table, the type attribute indicates which table.
- */
-$('.RemoveButton').click(function()
-{
-	var type = $(this).attr('type');
-	let table = $('#' + type + 'Table');
-
-	const id = $(this).attr('id').replace(type + 'RemoveButton', '');
-	
-	const row = $('#' + type + 'TableRow' + id);
-
-	row.find('[name="name"]').val('');
-	row.find('[name="cost"]').val('');
-	row.hide();
-
-	hideEmptyTable(table);
-});
+}
 
 
 /*
@@ -251,20 +240,30 @@ function addCategory(){
 	
 	hiddenRow.attr('id', newName);
 	
+	var newInputId = 'name' + categoryCount;
 	var newDollarTypeId = 'dollarType' + categoryCount;
 	var newCheckBoxId = 'percentage' + categoryCount;
 	var newPercentTypeId = 'percentType' + categoryCount;
-	var removeButtonId = 'removeButton' + categoryCount;
+	var removeButtonId = 'categoryRemoveButton' + categoryCount;
 	var amountId = 'amount' + categoryCount++;
 	
+	hiddenRow.find('#name').attr('id', newInputId);
 	hiddenRow.find('#amount').attr('id', amountId);
 	hiddenRow.find('#percentType').attr('id', newPercentTypeId);
 	hiddenRow.find('#dollarType').attr('id', newDollarTypeId);
 	hiddenRow.find('#percentage').attr('id', newCheckBoxId);
-	hiddenRow.find('#removeButton').attr('id', removeButtonId);
+	hiddenRow.find('#categoryRemoveButton').attr('id', removeButtonId);
 	
 	$("#categoryTableBody")[0].append(hiddenRow[0]);
 	hiddenRow.show();
+	return categoryCount - 1;
+}
+
+function createAndFillCategories(name, budget){
+	let id = addCategory();
+	let row = $('#categoryTableRow' + id);
+	row.find('#name' + id).val(name);
+	row.find('#amount' + id).val(budget);
 }
 
 $('.percentage').click(function(){
@@ -284,16 +283,25 @@ $('.percentage').click(function(){
 
 });
 
-$('.removeButton').click(function()
+
+
+/*
+ * Removes rows from a given table, the type attribute indicates which table.
+ */
+$('.RemoveButton').click(function()
 {
-	const table = $('#categoryTable');
-	const id = $(this).attr('id').replace('removeButton', '');
-	const row = $('#categoryTableRow' + id);
+	var type = $(this).attr('type');
+	let table = $('#' + type + 'Table');
 	
+	const id = $(this).attr('id').replace(type + 'RemoveButton', '');
+	
+	const row = $('#' + type + 'TableRow' + id);
+
 	row.find('[name="name"]').val('');
+	row.find('[name="cost"]').val('');
 	row.find('[name="Amount"]').val('');
 	row.hide();
-	
+
 	hideEmptyTable(table);
 });
 
@@ -416,7 +424,7 @@ $('#submitSetup').click(function()
 			depositData : JSON.stringify(depData),
 			withdrawData : JSON.stringify(withData),
 			categoryData : JSON.stringify(catData)
-		}
+	}
 	
 	if(depData && withData && catData)
 		submitAjaxBudgetCheck(setupData, '/BudgetBunny/budgetsetuppage');
@@ -428,8 +436,12 @@ $('.submit-income').click(function(){
 
 	const depData = submitSystematicDeposits(true);
 
+	const setupData = {
+			depositData : JSON.stringify(depData)
+	}
+	
 	if(depData)
-		submitAjaxBudgetCheck(depData, '/BudgetBunny/incomepage');
+		submitAjaxBudgetCheck(setupData, '/BudgetBunny/incomepage');
 });
 
 $('.submit-bill').click(function(){
@@ -437,9 +449,13 @@ $('.submit-bill').click(function(){
 	remainingBudget = parseFloat($('#totalBudget').text());
 
 	const withData = submitSystematicWithdraws(true);
+	
+	const setupData = {
+			withdrawData : JSON.stringify(withData)
+		}
 
 	if(withData)
-		submitAjaxBudgetCheck(withData, '/BudgetBunny/billpage');
+		submitAjaxBudgetCheck(setupData, '/BudgetBunny/billpage');
 });
 
 $('.submit-budget').click(function(){
@@ -447,9 +463,13 @@ $('.submit-budget').click(function(){
 	remainingBudget = parseFloat($('#totalBudget').text());
 	
 	const catData = submitBudgetCategories(true);
+	
+	const setupData = {
+			categoryData : JSON.stringify(catData)
+	}
 
 	if(catData)
-		submitAjaxBudgetCheck(catData, '/BudgetBunny/budgetpage');
+		submitAjaxBudgetCheck(setupData, '/BudgetBunny/budgetpage');
 });
 
 function submitAjaxBudgetCheck(data, url){
@@ -523,7 +543,7 @@ $('#purchase').click(function(){
 				id: popUp.find('#id').text(),
 				amount: amount.val()
 		};
-		ajaxCall(data, '/BudgetBunny/addtransaction');
+		ajaxCall(data, '/BudgetBunny/home');
 		close_div();
 	}
 	

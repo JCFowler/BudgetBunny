@@ -25,7 +25,7 @@
 		    <th hidden class='errorMsg'></th>
 		  </tr>
 		  <tr id="categoryTableRow0" hidden>
-		  	<td><input name='name' placeholder='name' type='text'></input></td>
+		  	<td><input name='name' placeholder='name' id='name' type='text'></input></td>
 		    <c:set var="typeValue" value='$'></c:set>
 		    <td><input class="percentage" id="percentage" placeholder="" type="checkbox"/></td> 
 		    <td style="display: inline-flex;">
@@ -33,7 +33,7 @@
 		    	<input id='amount' name="Amount" placeholder="Amount" type="number"/>
 		    	<label style='visibility: hidden' id="percentType">%</label>
 		    </td>
-		   	<td ><button class='removeButton RemoveButton' id="removeButton"><span class="glyphicon glyphicon-remove glyph-small" style="font-size: .75em;" aria-hidden="true"></span></button></td>
+		   	<td ><button class='RemoveButton' type="category" id="categoryRemoveButton"><span class="glyphicon glyphicon-remove glyph-small" style="font-size: .75em;" aria-hidden="true"></span></button></td>
 		  </tr>
 		</tbody>
 	</table>

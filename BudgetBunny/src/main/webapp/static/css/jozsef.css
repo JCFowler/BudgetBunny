@@ -8,8 +8,9 @@
 .btn-info
 {
 	background-color: #65a5ce;
-	font-size: .5em;
+	font-size: 1em;
     padding: .5em;
+    margin: 1em;
 }
 
 .table {
@@ -103,8 +104,8 @@
 
 .submission
 {
-	font-size: 1em;
-    margin: 5%;
+	font-size: 2em;
+    margin: 0;
 
 }
 
