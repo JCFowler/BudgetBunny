@@ -1,6 +1,7 @@
 package com.revature.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.revature.bean.Budget;
 import com.revature.bean.User;
 import com.revature.service.BudgetService;
 import com.revature.service.UserService;
@@ -38,23 +38,23 @@ public class LoginController
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String doLogin(@Valid User user, BindingResult bindingResult, HttpServletRequest req, ModelMap modelMap)
+	public String doLogin(@Valid User user, BindingResult bindingResult, HttpServletResponse resp, HttpServletRequest req, ModelMap modelMap)
 	{
 		if(bindingResult.hasErrors())
 		{
 			return "login";
 		}
 		User authUser = userService.login(user.getUsername(), user.getPassword());
-		if(authUser==null)
-			return "login";
+		if(authUser==null) {
+			resp.setStatus(401);
+			return null;
+		}
 		else {
-			Budget b = budgetService.get(authUser.getUserId());
 			req.getSession().setAttribute("user", authUser);
 			if(authUser.getBudget().getTotalBudget() == 0)
 				return "redirect:budgetsetuppage";
 			else
 			{
-				req.getSession().setAttribute("budget", b);
 				return "redirect:home";
 			}
 		}

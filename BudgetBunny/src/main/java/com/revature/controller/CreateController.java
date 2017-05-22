@@ -1,6 +1,7 @@
 package com.revature.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class CreateController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String postCreate(@Valid User user, BindingResult bindingResult, HttpServletRequest req, ModelMap modelMap)
+	public String postCreate(@Valid User user, BindingResult bindingResult, HttpServletResponse resp, HttpServletRequest req, ModelMap modelMap)
 	{
 		System.out.println("Posting");
 		if(bindingResult.hasErrors())
@@ -40,8 +41,9 @@ public class CreateController {
 			userService.create(user);
 		}
 		else {
+			resp.setStatus(401);
 			System.out.println("Username is taken");
-			return "create";
+			return null;
 		}
 		return "create";
 	}

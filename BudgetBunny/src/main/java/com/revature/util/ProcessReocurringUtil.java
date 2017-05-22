@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.revature.bean.Budget;
 import com.revature.bean.RecurringCharge;
 import com.revature.dao.RecurringChargeDAO;
 import com.revature.dao.UserDAO;
@@ -74,6 +75,9 @@ public class ProcessReocurringUtil implements Runnable {
 		System.out.println(processDate + " compared to " + now);
 		if(processDate.getTime() < now.getTime())
 		{
+			Budget budget = charge.getBud();
+//			double cost = charge.getCost();
+//			budget.set
 			charge.setLastTransactionDate(processDate);
 			rcd.update(charge);
 		}
