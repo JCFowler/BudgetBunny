@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.bean.Transaction;
 import com.revature.service.TransactionService;
 
@@ -36,6 +37,13 @@ public class TransactionController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public String createTransaction(HttpServletRequest req){
+		
+		String trans = req.getParameter("");
+		ArrayList<Transaction> tlist = new ArrayList<Transaction>();
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		
 		
 		return null;
 	}

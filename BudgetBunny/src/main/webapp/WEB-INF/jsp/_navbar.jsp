@@ -34,7 +34,7 @@
 							<li><a href="logout">Logout</a></li>
 						</ul></li>
 				</ul>
-					<script type="text/javascript" src="static/js/jozsef.js"></script>
+					<script type="text/javascript" src="static/js/_navbar.js"></script>
 			</div>
 			<!-- /.navbar-collapse -->
 		</div>
