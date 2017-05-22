@@ -5,7 +5,6 @@
 
 /*************************** Generic JS ***********************************/
 
-let totalBudget;
 let remainingBudget;
       
 /*
