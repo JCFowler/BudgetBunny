@@ -5,6 +5,7 @@
 
 /*************************** Generic JS ***********************************/
 
+let totalBudget;
 let remainingBudget;
       
 /*
@@ -130,7 +131,9 @@ function submitSystematicTransactions(numberPrefix, type, validData)
 	
 	let tableRowCount = 1;
 	let dataCount = 0;
-	const data = {};
+	let deletedCount = 0;
+	let data = {};
+	const deletedData = {};
 	var nextIncome;
 	while((nextIncome = $('#' + type + 'TableRow' + tableRowCount++)).length > 0)
 	{
@@ -140,6 +143,10 @@ function submitSystematicTransactions(numberPrefix, type, validData)
 		
 		if(name.val().length == 0 && cost.val().length == 0)
 		{
+			const id = nextIncome.find('#id').val();
+			if(id != "0" && id != "")
+				deletedData[deletedCount++] = {id : id};
+				
 			turnOffHighLight(name);
 			turnOffHighLight(cost);
 			continue;
@@ -158,11 +165,11 @@ function submitSystematicTransactions(numberPrefix, type, validData)
 			data[dataCount++] = {
 					name : name.val(),
 					cost : costVal,
-					period : period.val(),
-					
+					period : period.val()					
 			}
 		}
 	}
+	data = {data : data, deletedList : deletedData};
 	return displayErrorMessage(validData, data);
 }
 
@@ -257,28 +264,30 @@ function addCategory(){
 	return categoryCount - 1;
 }
 
-function createAndFillCategories(name, budget){
-	let id = addCategory();
-	let row = $('#categoryTableRow' + id);
-	row.find('#name' + id).val(name);
-	row.find('#amount' + id).val(budget);
+function createAndFillCategories(name, budget, id){
+	let rowId = addCategory();
+	let row = $('#categoryTableRow' + rowId);
+	row.find('#name' + rowId).val(name);
+	row.find('#amount' + rowId).val(budget);
+	row.find('#id').val(id);
 }
 
-function createAndFillSysTrans(row, name, cost){
+function createAndFillSysTrans(row, name, cost, id){
 	row.find('#name').val(name);
 	row.find('#cost').val(cost);
+	row.find('#id').val(id);	
 }
 
-function createAndFillDeposit(name, cost){
-	let id = addSystematic($('#adddeposit'));
-	let row = $('#depositTableRow' + id);
-	createAndFillSysTrans(row, name, cost);
+function createAndFillDeposit(name, cost, id){
+	let rowId = addSystematic($('#adddeposit'));
+	let row = $('#depositTableRow' + rowId);
+	createAndFillSysTrans(row, name, cost, id);
 }
 
-function createAndFillWithdraw(name, cost){
-	let id = addSystematic($('#addwithdraw'));
-	let row = $('#withdrawTableRow' + id);
-	createAndFillSysTrans(row, name, cost);
+function createAndFillWithdraw(name, cost, id){
+	let rowId = addSystematic($('#addwithdraw'));
+	let row = $('#withdrawTableRow' + rowId);
+	createAndFillSysTrans(row, name, cost, id);
 }
 
 $('.percentage').click(function(){
@@ -351,6 +360,8 @@ function submitBudgetCategories(validData)
 {
 	let count = 1;
 	let arrCount = 0;
+	let deletedCount = 0;
+	let deletedData = {};
 	let data = {};
 	while((nextIncome = $('#categoryTableRow' + count++)).length > 0)
 	{
@@ -363,6 +374,10 @@ function submitBudgetCategories(validData)
 		
 		if(name.val().length == 0 && amount.val().length == 0)
 		{
+			const id = nextIncome.find('#id').val();
+			if(id != "0")
+				deletedData[deletedCount++] = {id : id};
+
 			turnOffHighLight(name);
 			turnOffHighLight(amount);
 			continue;
@@ -386,6 +401,7 @@ function submitBudgetCategories(validData)
 			}
 		}
 	}
+	data = {data : data, deletedList : deletedData};
 	return displayErrorMessage(validData, data);
 }
 
@@ -452,9 +468,9 @@ $('.submit-income').click(function(){
 	const depData = submitSystematicDeposits(true);
 
 	const setupData = {
-			depositData : JSON.stringify(depData)
+			depositData : JSON.stringify(depData.data),
+			deletedList : JSON.stringify(depData.deletedList)
 	}
-	
 	if(depData)
 		submitAjaxBudgetCheck(setupData, '/BudgetBunny/incomepage');
 });
@@ -464,10 +480,10 @@ $('.submit-bill').click(function(){
 	remainingBudget = parseFloat($('#totalBudget').text());
 
 	const withData = submitSystematicWithdraws(true);
-	
 	const setupData = {
-			withdrawData : JSON.stringify(withData)
-		}
+			withData : JSON.stringify(withData.data),
+			deletedList : JSON.stringify(withData.deletedList)
+	}
 
 	if(withData)
 		submitAjaxBudgetCheck(setupData, '/BudgetBunny/billpage');
@@ -480,7 +496,8 @@ $('.submit-budget').click(function(){
 	const catData = submitBudgetCategories(true);
 	
 	const setupData = {
-			categoryData : JSON.stringify(catData)
+			categoryData : JSON.stringify(catData.data),
+			deletedList : JSON.stringify(catData.deletedList)
 	}
 
 	if(catData)

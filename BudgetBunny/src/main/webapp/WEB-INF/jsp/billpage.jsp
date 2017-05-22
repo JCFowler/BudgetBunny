@@ -30,9 +30,8 @@
 
 	<script type="text/javascript" src="static/js/jozsef.js"></script>
 	
-	<script>createAndFillWithdraw('Katchup', '45.66')</script>
 	<c:forEach items="${billList}" var="elem">
-		<script>createAndFillWithdraw('${elem.name}', '${elem.cost}')</script>		
+		<script>createAndFillWithdraw('${elem.name}', '${-1 * elem.cost}', '${elem.chargeId}')</script>		
 	</c:forEach>
 </body>
 </html>
