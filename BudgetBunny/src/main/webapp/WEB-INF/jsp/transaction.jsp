@@ -2,11 +2,16 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="java.util.ArrayList" %>
+<%@ page import ="com.revature.service.TransactionService" %>
+<%@ page import ="com.revature.bean.Transaction" %>
 
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<%
+TransactionService test = new TransactionService();
+%>
 
 
 <%@ include file = "imports.jsp" %>
@@ -21,15 +26,6 @@
 	<div id='home-div'>
 	<%@ include file = "_navbar.jsp" %>
 
-<!-- ArrayList DummyData -->
-<% ArrayList<ArrayList<String>> test = new ArrayList<ArrayList<String>>();
-	ArrayList<String> sub = new ArrayList<String>();
-	sub.add("1");
-	sub.add("2");
-	sub.add("3");
-	test.add(sub);
-	test.add(sub);
-%>
 
 
 <div class="container">
@@ -86,7 +82,7 @@
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>Test</td>
+      <td id="help">Test</td>
       <td>Test</td>
       <td>Test</td>
     </tr>
