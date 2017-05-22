@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.revature.bean.Budget;
 import com.revature.bean.Category;
 import com.revature.bean.RecurringCharge;
 import com.revature.bean.User;
@@ -62,6 +63,22 @@ public class LoginController
 			ArrayList<RecurringCharge> reList = new ArrayList<RecurringCharge>(reSet);
 			authUser.getBudget().setCategory(catList);
 			authUser.getBudget().setRecurringCharge(reList);
+			
+			double totalS = 0, totalB= 0;
+			for(Category c : authUser.getBudget().getCategory())
+				totalS += c.getSpent();
+			
+			for(RecurringCharge r : authUser.getBudget().getRecurringCharge()) {
+				if(r.getCost() > 0)
+					totalB += r.getCost();
+				else
+					totalS -= r.getCost(); 
+			}
+			
+			totalB -= totalS;
+			authUser.getBudget().setTotalBudget(totalB);
+			authUser.getBudget().setTotalSpent(totalS);
+			
 			req.getSession().setAttribute("user", authUser);
 			
 			return null;

@@ -56,16 +56,19 @@ public class BudgetController {
 			for(int i=0;i<cNode.size();i++) {
 				Category c = new Category();
 				JsonNode cJson = cNode.get(Integer.toString(i));
+				c.setCatId(cJson.get("id").asInt());
 				c.setName(cJson.get("name").asText());
 				c.setBudget(cJson.get("amount").asDouble());
 				c.setBud(user.getBudget());
 				cList.add(c);
 			}
 			
-			JsonNode dNode = mapper.readTree(deleted);
-			for(int i=0;i<dNode.size();i++) {
-				JsonNode j = dNode.get(Integer.toString(i));
-				dList.add(j.get("id").asInt());
+			if(deleted != null) {
+				JsonNode dNode = mapper.readTree(deleted);
+				for(int i=0;i<dNode.size();i++) {
+					JsonNode j = dNode.get(Integer.toString(i));
+					dList.add(j.get("id").asInt());
+				}			
 			}
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();

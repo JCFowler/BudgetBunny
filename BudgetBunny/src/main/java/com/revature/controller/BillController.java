@@ -56,6 +56,7 @@ public class BillController {
 			for(int i=0;i<bNode.size();i++) {
 				RecurringCharge b = new RecurringCharge();
 				JsonNode bJson = bNode.get(Integer.toString(i));
+				b.setChargeId(bJson.get("id").asInt());
 				b.setName(bJson.get("name").asText());
 				b.setCost(bJson.get("cost").asDouble());
 				b.setBud(user.getBudget());
@@ -64,10 +65,12 @@ public class BillController {
 				bList.add(b);
 			}
 			
-			JsonNode dNode = mapper.readTree(deleted);
-			for(int i=0;i<dNode.size();i++) {
-				JsonNode j = dNode.get(Integer.toString(i));
-				dList.add(j.get("id").asInt());
+			if(deleted != null) {
+				JsonNode dNode = mapper.readTree(deleted);
+				for(int i=0;i<dNode.size();i++) {
+					JsonNode j = dNode.get(Integer.toString(i));
+					dList.add(j.get("id").asInt());
+				}			
 			}
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();

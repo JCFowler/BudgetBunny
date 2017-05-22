@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 import com.revature.bean.Budget;
 import com.revature.bean.Category;
 import com.revature.bean.RecurringCharge;
+import com.revature.dao.BudgetDAO;
 import com.revature.dao.RecurringChargeDAO;
 
 @Service
 public class RecurringChargeService {
 	@Autowired
 	RecurringChargeDAO rd;
+	
+	@Autowired
+	BudgetDAO bd;
 	
 	public void saveList(ArrayList<RecurringCharge> rList) {
 		for(RecurringCharge r : rList ) {
@@ -22,8 +26,7 @@ public class RecurringChargeService {
 	}
 	
 	public Budget mergeBillList(ArrayList<RecurringCharge> rList, Budget b) {
-		double totalSpent = 0;
-		double transactionSpent = 0;
+		double totalSpent = 0, transactionSpent = 0;
 		for(RecurringCharge r : rList ) {
 			totalSpent += r.getCost();
 			rd.merge(r);
@@ -31,19 +34,13 @@ public class RecurringChargeService {
 		for(Category c : b.getCategory() ) {
 			transactionSpent += c.getSpent();
 		}
-		
 		totalSpent += transactionSpent;
 		b.setTotalSpent(totalSpent);
-		b.setTotalBudget(b.getTotalBudget() - totalSpent);
+		b.setTotalBudget(b.getTotalBudget() + totalSpent);
+		
+		bd.update(b);
 		
 		return b;
-	}
-	
-	public void deleteList(ArrayList<Integer> dList) {
-		for(Integer i : dList) {
-			if(i != 0)
-				rd.deleteById(i);
-		}
 	}
 	
 	public Budget mergeIncomeList(ArrayList<RecurringCharge> rList, Budget b) {
@@ -54,7 +51,16 @@ public class RecurringChargeService {
 		}
 		b.setTotalBudget(totalBudget);
 		
+		bd.update(b);
+		
 		return b;
+	}
+	
+	public void deleteList(ArrayList<Integer> dList) {
+		for(Integer i : dList) {
+			if(i != 0)
+				rd.deleteById(i);
+		}
 	}
 	
 	public ArrayList<RecurringCharge> getAll(Budget b, boolean isIncome) {
