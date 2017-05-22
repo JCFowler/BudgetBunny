@@ -1,4 +1,4 @@
-
+	
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 		<h4 class="total-budget">TotalBudget $${user.getBudget().getBudgetString()}</h4>
@@ -18,13 +18,10 @@
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-left">
-					<li class="active"><a href="home">Home <span class="sr-only">(current)</span></a></li>
-					<li><a href="transaction">Transactions</a></li>
-					<li><a href="reports">Reports</a></li>
+					<li id="home"><a href="home">Home <span class="sr-only">(current)</span></a></li>
+					<li id="transaction"><a href="transaction">Transactions</a></li>
+					<li id="reports"><a href="reports">Reports</a></li>
 				</ul>
-			
-				
-			
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -37,8 +34,11 @@
 							<li><a href="logout">Logout</a></li>
 						</ul></li>
 				</ul>
+					<script type="text/javascript" src="static/js/jozsef.js"></script>
 			</div>
 			<!-- /.navbar-collapse -->
 		</div>
 		<!-- /.container-fluid -->
 	</nav>
+	
+	
