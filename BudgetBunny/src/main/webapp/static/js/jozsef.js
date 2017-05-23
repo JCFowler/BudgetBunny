@@ -14,7 +14,7 @@ let remainingBudget;
  * @param data - Intended to be a Json object.
  * @param url - url for ajax call;
  */
-function ajaxCall(data, destUrl)
+function ajaxCall(data, destUrl, onSuccess)
 {
 	$.ajax({
 	    type:"POST",
@@ -24,8 +24,10 @@ function ajaxCall(data, destUrl)
 	    success: function (html) {
 	    	if(destUrl == '/BudgetBunny/home')
 	    		transactionSuccess();
-	    	else
-	    		alert('Ajax success');
+	    
+	    	$('.total-budget').text($(html).find('.total-budget').text());
+	    	
+	    	submitSuccess();
 	    }
 	  });
 }
@@ -269,13 +271,13 @@ function createAndFillCategories(name, budget, id){
 	let rowId = addCategory();
 	let row = $('#categoryTableRow' + rowId);
 	row.find('#name' + rowId).val(name);
-	row.find('#amount' + rowId).val(budget);
+	row.find('#amount' + rowId).val(parseFloat(budget).toFixed(2));
 	row.find('#id').val(id);
 }
 
 function createAndFillSysTrans(row, name, cost, id){
 	row.find('#name').val(name);
-	row.find('#cost').val(cost);
+	row.find('#cost').val(parseFloat(cost).toFixed(2));
 	row.find('#id').val(id);	
 }
 
@@ -458,9 +460,18 @@ $('#submitSetup').click(function()
 			categoryData : JSON.stringify(catData)
 	}
 	
+	$(this).attr("disabled", true);
+	$(this).text("Submitting...");
+	
 	if(depData && withData && catData)
 		submitAjaxBudgetCheck(setupData, '/BudgetBunny/budgetsetuppage');
 });
+
+
+function submitSuccess(){
+	$('.submission').attr("disabled", false);
+	$('.submission').text("Submit");
+}
 
 $('.submit-income').click(function(){	
 	totalBudget = parseFloat($('#totalSpent').text());
@@ -472,8 +483,13 @@ $('.submit-income').click(function(){
 			depositData : JSON.stringify(depData.data),
 			deletedList : JSON.stringify(depData.deletedList)
 	}
+	
+	$(this).attr("disabled", true);
+	$(this).text("Submitting...");
+	
 	if(depData)
 		submitAjaxBudgetCheck(setupData, '/BudgetBunny/incomepage');
+
 });
 
 $('.submit-bill').click(function(){
@@ -485,8 +501,10 @@ $('.submit-bill').click(function(){
 			withdrawData : JSON.stringify(withData.data),
 			deletedList : JSON.stringify(withData.deletedList)
 	}
-	alert(JSON.stringify(setupData));
 
+	$(this).attr("disabled", true);
+	$(this).text("Submitting...");
+	
 	if(withData)
 		submitAjaxBudgetCheck(setupData, '/BudgetBunny/billpage');
 });
@@ -502,6 +520,9 @@ $('.submit-budget').click(function(){
 			deletedList : JSON.stringify(catData.deletedList)
 	}
 
+	$(this).attr("disabled", true);
+	$(this).text("Submitting...");
+	
 	if(catData)
 		submitAjaxBudgetCheck(setupData, '/BudgetBunny/budgetpage');
 });
@@ -509,7 +530,7 @@ $('.submit-budget').click(function(){
 function submitAjaxBudgetCheck(data, url){
 		if(remainingBudget < 0)
 		{
-			alert("Your over budget by " + remainingBudget);
+			//alert("Your over budget by " + remainingBudget);
 		}
 		ajaxCall(data, url);
 
@@ -546,20 +567,33 @@ $('.category-display').click(function(){
 	}
 });
 
-function getEggClass(){
-	let rand = Math.floor((Math.random() * 8) + 1);
-	return 'egg-back-' + rand;
+function getEggClass(spent, budget){
+	let ratio = spent/budget;
+	let color;
+	if(ratio > 1)
+		color = 'red';
+	else if(ratio > .75)
+		color = 'yellow';
+	else if(ratio > .25)
+		color = 'blue';
+	else
+		color = 'green';
+	
+	return 'egg-' + color;
 }
 
 $(document).ready(function(){
 	$('.category-display').each(function(){
-		$(this).addClass(getEggClass());
-	
-		let budget = $(this).find('#budget');
-		budget.text('$' + parseFloat(budget.text().replace('$', '')).toFixed(2));
-
 		let spent = $(this).find('#spent');
-		spent.text('$' + parseFloat(spent.text().replace('$', '')).toFixed(2));	
+		let budget = $(this).find('#budget');
+		spentVal = parseFloat(spent.text().replace('$', ''));
+		budgetVal = parseFloat(budget.text().replace('$', ''));
+		
+		budget.text('$' + budgetVal.toFixed(2));
+		spent.text('$' + spentVal.toFixed(2));	
+
+		$(this).addClass(getEggClass(spentVal, budgetVal));
+	
 	});
 });
 

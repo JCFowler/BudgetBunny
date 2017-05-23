@@ -20,42 +20,22 @@
     width: 50pt;
 }
 
-.egg-back-1
+.egg-blue
 {
     background-image: url("../images/egg-blue.png");
 }
 
-.egg-back-2
+.egg-green
 {
     background-image: url("../images/egg-green.png");
 }
 
-.egg-back-3
+.egg-red
 {
     background-image: url("../images/egg-red.png");
 }
 
-.egg-back-4
+.egg-yellow
 {
     background-image: url("../images/egg-yellow.png");
-}
-
-.egg-back-5
-{
-    background-image: url("../images/egg-yellow.png");
-}
-
-.egg-back-6
-{
-	background-image: url("../images/egg-red.png");
-}
-
-.egg-back-7
-{
-    background-image: url("../images/egg-green.png");
-}
-
-.egg-back-8
-{
-    background-image: url("../images/egg-blue.png");
 }

@@ -7,7 +7,7 @@
 
 <c:set var="timePeriods" value='<%=new TimeUnit[]{new TimeUnit(0, "Monthly"),new TimeUnit(3, "One Time")}%>' scope="application" />
 <input hidden value="${type}" id="type">
-
+<div>
 	<h3>${headerMsg}</h3>
 
 	<table class="table table-hover" id="${type}Table">
@@ -30,7 +30,7 @@
 		  </tr>
 		</tbody>
 	</table>
-	
+</div>
 	<button class="btn btn-info add-systematic" id="add${type}">Add ${type}</button>
 
 
