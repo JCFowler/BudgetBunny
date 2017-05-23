@@ -31,12 +31,14 @@ public class TransactionController {
 			return "redirect:login";
 			
 		else {
+
 				User u = (User) req.getSession().getAttribute("user");
 				List<Transaction> list = new ArrayList<Transaction>();
 				list = tService.getAll(u.getBudget().getBudgetId());
 				req.getSession().setAttribute("transaction", list);	
 		 
 		} 
+
 		return "transaction";
 	}
 	
