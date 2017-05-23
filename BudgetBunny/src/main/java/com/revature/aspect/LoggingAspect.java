@@ -31,7 +31,7 @@ public class LoggingAspect
 			obj = pjp.proceed();
 		}catch(Throwable t)
 		{
-			log.error("Method threw "+t.getMessage());
+			log.error("Method threw "+t);
 			log.warn(Arrays.toString(t.getStackTrace()));
 		}
 		log.warn(sig+" returned: "+obj);
