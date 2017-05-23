@@ -40,7 +40,7 @@ ArrayList<Category> item = (ArrayList<Category>)session.getAttribute("cats");
 <!-- Filter Table-->
 <table class="table">
   <thead class="thead-default">
-    <tr>
+    <tr id="top">
       <th></th>
       <th>Start Date</th>
       <th>End Date</th>
@@ -60,7 +60,7 @@ ArrayList<Category> item = (ArrayList<Category>)session.getAttribute("cats");
   </div>
   
   <div class="dropdown">
-  <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+  <button onclick="myFunction()" class="dropbtn">Category</button>
   <div id="myDropdown" class="dropdown-content">
 	<% for (Category test : item){ %>
 	<a href="#"><%= test.getName()%></a>
@@ -78,7 +78,7 @@ ArrayList<Category> item = (ArrayList<Category>)session.getAttribute("cats");
 
 
 <!-- Table for Transactions -->
-<table class="table table-hover">
+<table class="table table-hover" id="filtertable">
   <thead>
     <tr>
       <th>Date of Transaction</th>
@@ -92,7 +92,7 @@ ArrayList<Category> item = (ArrayList<Category>)session.getAttribute("cats");
 							<td hidden>${item.transactionId}</td>
 							<td>${item.date}</td>
 							<td>$${String.format( "%.2f",item.cost)}</td>
-							<td>${item.cat.name}</td>
+							<td id="catname">${item.cat.name}</td>
 							<td><button class='RemoveButton tranRemove'
 									type="${item.transactionId}" id="${item.transactionId}">
 									<span class="glyphicon glyphicon-remove glyph-small"
