@@ -2,16 +2,23 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 <%@ page import ="com.revature.service.TransactionService" %>
+<%@ page import ="com.revature.service.CategoryService" %>
+<%@ page import ="com.revature.bean.Budget" %>
 <%@ page import ="com.revature.bean.Transaction" %>
+<%@ page import ="com.revature.bean.Category" %>
 
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <%
-TransactionService test = new TransactionService();
+CategoryService cat = new CategoryService();
+ArrayList<Category> item = (ArrayList<Category>)session.getAttribute("cats");
+
 %>
+
 
 
 <%@ include file = "imports.jsp" %>
@@ -55,9 +62,9 @@ TransactionService test = new TransactionService();
     <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Categories
     <span class="caret"></span></button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Cat 1</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Cat 2</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Cat 3</a></li>
+	<% for (Category test : item){ %>
+	<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= test.getName()%></a></li>
+	<% } %>
 
     </ul>
   </div>
@@ -80,19 +87,20 @@ TransactionService test = new TransactionService();
     </tr>
   </thead>
   <tbody>
-    <c:forEach items="${transaction}" var="item">
-						<tr id="row${transactionId}">
-							<td hidden>${item.transactionId}</td>
-							<td>${item.date}</td>
-							<td>$${String.format( "%.2f",item.cost)}</td>
-							<td>${item.cat.name}</td>
-							<td><button class='RemoveButton tranRemove'
-									type="${transactionId}" id="${transactionId}">
-									<span class="glyphicon glyphicon-remove glyph-small"
-										style="font-size: .75em;" aria-hidden="true"></span>
-								</button></td>
-						</tr>
-					</c:forEach>
+    <tr>
+      <th scope="row">1</th>
+      <td id="help">Test</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+        <tr>
+      <th scope="row">2</th>
+      <td>Test</td>
+      <td>Test</td>
+      <td>Test</td>
+    </tr>
+    <tr>
+    </tr>
   </tbody>
 </table>
 
