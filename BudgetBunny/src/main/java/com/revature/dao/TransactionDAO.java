@@ -16,5 +16,8 @@ public interface TransactionDAO extends HibernateSession{
 	void update(Transaction t);
 	
 	//D
-	void delete(Integer i);
+	void delete(Transaction t);
+	
+	
+	
 }

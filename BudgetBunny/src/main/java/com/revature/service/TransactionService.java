@@ -48,10 +48,11 @@ public class TransactionService {
 		td.update(t);
 	}
 	
-	public void delete(ArrayList<Integer> transIds){
-		for(Integer i : transIds){
-			if(i != 0)
-				td.delete(i);
-		}
+	public void delete(Transaction t){
+				td.delete(t);
+	}
+	public void deleteById(int id){
+		Transaction t = td.getById(id); 
+		td.delete(t);
 	}
 }
