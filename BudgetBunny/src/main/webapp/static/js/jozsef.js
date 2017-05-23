@@ -23,7 +23,7 @@ function ajaxCall(data, destUrl, onSuccess)
 	    data: data,    // multiple data sent using ajax
 	    success: function (html) {
 	    	if(destUrl == '/BudgetBunny/home')
-	    		transactionSuccess();
+	    		transactionSuccess(html);
 	    
 	    	$('.total-budget').text($(html).find('.total-budget').text());
 	    	
@@ -33,33 +33,46 @@ function ajaxCall(data, destUrl, onSuccess)
 }
 
 
-function transactionSuccess(){
+function transactionSuccess(html){
 	
-	//Get the modal
-	var modal = document.getElementById('myModal');
-
-	// Get the button that opens the modal
-	var btn = document.getElementById("purchase");
-
-	// Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close")[0];
-
-	// When the user clicks the button, open the modal 
-	btn.onclick = function() {
-	    modal.style.display = "block";
-	}
-
-	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
-	    modal.style.display = "none";
-	}
-
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-	    if (event.target == modal) {
-	        modal.style.display = "none";
-	    }
-	}
+    var div = $('<div>');
+    div.html(html);
+    var content = div.find('#eggs');
+    	
+	console.log(content.html());
+	$('#eggs').html(content.html());
+	readyHtml();
+	//console.log($(html).find('#home-div').html());
+	//$('#home-div').replaceWith($(html).find('#home-div'));
+	//$('#home-div').load(html);
+//	console.log("home success!");
+//	console.log($(html).find('.eggs')[0].attr('id'));
+//	console.log($(html).find('.total-budget'));
+//	//Get the modal
+//	var modal = document.getElementById('myModal');
+//
+//	// Get the button that opens the modal
+//	var btn = document.getElementById("purchase");
+//
+//	// Get the <span> element that closes the modal
+//	var span = document.getElementsByClassName("close")[0];
+//
+//	// When the user clicks the button, open the modal 
+//	btn.onclick = function() {
+//	    modal.style.display = "block";
+//	}
+//
+//	// When the user clicks on <span> (x), close the modal
+//	span.onclick = function() {
+//	    modal.style.display = "none";
+//	}
+//
+//	// When the user clicks anywhere outside of the modal, close it
+//	window.onclick = function(event) {
+//	    if (event.target == modal) {
+//	        modal.style.display = "none";
+//	    }
+//	}
 }
 /*
  * Returns the calling functions name.
@@ -455,9 +468,9 @@ $('#submitSetup').click(function()
 	const catData = submitBudgetCategories(withData);
 
 	const setupData = {
-			depositData : JSON.stringify(depData),
-			withdrawData : JSON.stringify(withData),
-			categoryData : JSON.stringify(catData)
+			depositData : JSON.stringify(depData.data),
+			withdrawData : JSON.stringify(withData.data),
+			categoryData : JSON.stringify(catData.data)
 	}
 	
 	$(this).attr("disabled", true);
@@ -530,7 +543,6 @@ $('.submit-budget').click(function(){
 function submitAjaxBudgetCheck(data, url){
 		if(remainingBudget < 0)
 		{
-			//alert("Your over budget by " + remainingBudget);
 		}
 		ajaxCall(data, url);
 
@@ -543,28 +555,6 @@ $('#home-div').click(function()
 {
 	if($("#home-div").hasClass("blur-filter"))
 		close_div()	
-});
-
-$('.category-display').click(function(){
-	if(!$("#home-div").hasClass("blur-filter"))
-	{
-		event.stopPropagation();
-		const name = $(this).find('#name');
-		const budget = $(this).find('#budget');
-		const spent = $(this).find('#spent');
-		const id = $(this).find('#id');
-		const total = (parseFloat(budget.text().replace('$', '')) - parseFloat(spent.text().replace('$', '')));
-
-		$("#home-div").addClass("blur-filter");
-		let popUp = $('#myPopup');
-		popUp.find('#name').text(name.text());
-		popUp.find('#budget').text(budget.text());
-		popUp.find('#spent').text(spent.text());
-		popUp.find('#total').text('$' + total.toFixed(2));
-		popUp.find('#id').text(id.text());
-		
-		popUp.show(500);
-	}
 });
 
 function getEggClass(spent, budget){
@@ -583,6 +573,11 @@ function getEggClass(spent, budget){
 }
 
 $(document).ready(function(){
+	readyHtml();
+});
+
+function readyHtml()
+{
 	$('.category-display').each(function(){
 		let spent = $(this).find('#spent');
 		let budget = $(this).find('#budget');
@@ -594,9 +589,30 @@ $(document).ready(function(){
 
 		$(this).addClass(getEggClass(spentVal, budgetVal));
 	
-	});
-});
+	});	
 
+	$('.category-display').click(function(){
+		if(!$("#home-div").hasClass("blur-filter"))
+		{
+			event.stopPropagation();
+			const name = $(this).find('#name');
+			const budget = $(this).find('#budget');
+			const spent = $(this).find('#spent');
+			const id = $(this).find('#id');
+			const total = (parseFloat(budget.text().replace('$', '')) - parseFloat(spent.text().replace('$', '')));
+
+			$("#home-div").addClass("blur-filter");
+			let popUp = $('#myPopup');
+			popUp.find('#name').text(name.text());
+			popUp.find('#budget').text(budget.text());
+			popUp.find('#spent').text(spent.text());
+			popUp.find('#total').text('$' + total.toFixed(2));
+			popUp.find('#id').text(id.text());
+			
+			popUp.show(500);
+		}
+	});
+}
 
 $('#purchase').click(function(){
 	let popUp = $('#myPopup');
