@@ -57,20 +57,18 @@ ArrayList<Category> item = (ArrayList<Category>)session.getAttribute("cats");
       <input name="startDate" type="date"	>
         <span class="glyphicon glyphicon-th"></span></td>
       <td>  
-  </div>
   
   <div class="dropdown">
-  <button onclick="myFunction()" class="dropbtn">Category</button>
-  <div id="myDropdown" class="dropdown-content">
+  <select id="myDropdown" class="dropdown-content">
 	<% for (Category test : item){ %>
-	<a href="#"><%= test.getName()%></a>
-	<% } %>
+	<option class="option" href="#"><%= test.getName()%></option>
+	<% } %>  
+	</select>
+
   </div>
-      <button class='btn btn-info' id='sort'>Sort</button>
-</div>
-
-
+        	 <button class='btn btn-info' id='sort'>Sort</button>
       </td>
+
     </tr>
   </tbody>
 </table>
