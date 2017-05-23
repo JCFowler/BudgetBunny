@@ -40,8 +40,12 @@ public class CategoryService {
 	public double deleteList(ArrayList<Integer> catIds){
 		double spent = 0;
 		for(Integer i : catIds) {
-			if(i != 0)
-				spent += cd.deleteById(i);
+			if(i != 0) 
+			{
+				Category c = cd.getById(i);
+				spent += c.getSpent();
+				cd.delete(c);
+			}
 		}
 		return spent;
 	}

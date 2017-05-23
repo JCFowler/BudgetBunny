@@ -43,7 +43,11 @@ public class TransactionController {
 	public String createTransaction(HttpServletRequest req){
 		
 		int deleted = Integer.parseInt(req.getParameter("transactionId"));
-		tService.deleteById(deleted);
+		User u = (User)req.getSession().getAttribute("user");
+		double cost = tService.deleteById(deleted, u.getBudget());
+		u.getBudget().setTotalBudget(u.getBudget().getTotalBudget() + cost);
+		u.getBudget().setTotalSpent(u.getBudget().getTotalSpent() - cost);
+		req.getSession().setAttribute("user", u);
 		
 		return "transaction";
 	}
