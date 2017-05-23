@@ -88,13 +88,13 @@ ArrayList<Category> item = (ArrayList<Category>)session.getAttribute("cats");
   </thead>
   <tbody>
    <c:forEach items="${transaction}" var="item">
-						<tr id="row${transactionId}">
+						<tr id="row${item.transactionId}">
 							<td hidden>${item.transactionId}</td>
 							<td>${item.date}</td>
 							<td>$${String.format( "%.2f",item.cost)}</td>
 							<td>${item.cat.name}</td>
 							<td><button class='RemoveButton tranRemove'
-									type="${transactionId}" id="${transactionId}">
+									type="${item.transactionId}" id="${item.transactionId}">
 									<span class="glyphicon glyphicon-remove glyph-small"
 										style="font-size: .75em;" aria-hidden="true"></span>
 								</button></td>
