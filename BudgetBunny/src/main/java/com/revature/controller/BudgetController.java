@@ -73,6 +73,7 @@ public class BudgetController {
 			e.printStackTrace();
 		}
 		
+		System.out.println(dList);
 		if(dList.size() > 0)
 		{
 			double spent = categoryService.deleteList(dList);
