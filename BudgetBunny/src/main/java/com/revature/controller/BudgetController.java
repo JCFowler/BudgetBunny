@@ -76,8 +76,11 @@ public class BudgetController {
 			e.printStackTrace();
 		}
 		
-		categoryService.deleteList(dList);
+		double spent = categoryService.deleteList(dList);
 		categoryService.mergeList(cList);
+		user.getBudget().setTotalBudget(user.getBudget().getTotalBudget() + spent);
+		user.getBudget().setTotalSpent(user.getBudget().getTotalSpent() - spent);
+		req.getSession().setAttribute("user", user);
 		
 		return "budgetpage";
 	}

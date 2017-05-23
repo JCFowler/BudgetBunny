@@ -88,6 +88,6 @@ public class IncomeController {
 		req.getSession().setAttribute("user", user);
 		System.out.println(iList);
 		
-		return "budgetsetuppage";
+		return "incomepage";
 	}
 }

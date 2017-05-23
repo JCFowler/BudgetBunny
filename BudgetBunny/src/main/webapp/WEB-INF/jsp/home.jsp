@@ -23,7 +23,7 @@
 		<div class='basket'>
 		<c:forEach items='${cats}' var='cat'>
 			<c:if test="${count == 'aaaa'}">
-				</div><div class='basket'>
+				<div class='basket'></div>
 				<c:set var='count' value=''/>		
 			</c:if>
 			<c:set var='count' value='a${count}'/>		
@@ -31,6 +31,8 @@
 		</c:forEach>
 		</div>
 	</div>
+	</div>
+	
 
 	<%@ include file="newTransaction.jsp"%>
 

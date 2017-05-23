@@ -84,6 +84,6 @@ public class BillController {
 		req.getSession().setAttribute("user", user);
 		System.out.println(bList);
 		
-		return "budgetsetuppage";
+		return "billpage";
 	}
 }

@@ -27,7 +27,7 @@ public class Category implements Serializable{
 	private String name;
 	private double budget;
 	private double spent;
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="cat")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="cat", orphanRemoval=true)
 	private Collection<Transaction> transaction;
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="budgetid")
