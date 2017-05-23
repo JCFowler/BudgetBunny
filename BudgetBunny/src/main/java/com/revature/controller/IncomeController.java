@@ -84,7 +84,7 @@ public class IncomeController {
 		if(dList.size() > 0)
 			rcService.deleteList(dList);
 		Budget updatedBudget = rcService.mergeIncomeList(iList, user.getBudget());
-		user.getBudget().setTotalBudget(updatedBudget.getTotalBudget());
+		user.getBudget().setTotalBudget(updatedBudget.getTotalBudget() - user.getBudget().getTotalSpent());
 		req.getSession().setAttribute("user", user);
 		System.out.println(iList);
 		
