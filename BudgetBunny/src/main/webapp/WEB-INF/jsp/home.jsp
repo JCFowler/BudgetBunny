@@ -18,11 +18,18 @@
 		<%@ include file="_navbar.jsp"%>
 
 		<%@page import="com.revature.bean.Category"%>
-
+	
+		<c:set var='count' value=''/>
+		<div class='basket'>
 		<c:forEach items='${cats}' var='cat'>
+			<c:if test="${count == 'aaaa'}">
+				</div><div class='basket'>
+				<c:set var='count' value=''/>		
+			</c:if>
+			<c:set var='count' value='a${count}'/>		
 			<%@ include file="budgetdisplay.jsp"%>
 		</c:forEach>
-
+		</div>
 	</div>
 
 	<%@ include file="newTransaction.jsp"%>

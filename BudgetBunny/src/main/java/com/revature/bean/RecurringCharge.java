@@ -27,7 +27,7 @@ public class RecurringCharge {
 	private String isRecurring;
 	private Date startDate;
 	private Date lastTransactionDate;
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="budgetid")
 	private Budget bud;
 	
