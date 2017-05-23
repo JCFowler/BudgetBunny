@@ -9,7 +9,7 @@
 		<property name="hibernate.connection.url">jdbc:oracle:thin:@jfowlerbatch.c2tfjdcko9rs.us-west-2.rds.amazonaws.com:1521:ORCL</property>
 		<property name="hibernate.connection.username">budget</property>
 		<property name="hibernate.connection.password">p4ssw0rd</property>
-		<property name="hibernate.connection.pool_size">35</property>
+		<property name="hibernate.connection.pool_size">10</property>
 		
 		<!-- Some hibernate configurations -->
 		<property name="show_sql">false</property>
