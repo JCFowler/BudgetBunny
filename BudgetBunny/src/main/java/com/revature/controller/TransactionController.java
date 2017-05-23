@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.bean.Transaction;
+import com.revature.bean.User;
 import com.revature.service.TransactionService;
 
 @Controller
@@ -27,9 +28,10 @@ public class TransactionController {
 			
 		else {
 				Transaction t = (Transaction) req.getSession().getAttribute("cat");
-				List<Transaction> list = new ArrayList<Transaction>();
-				list = tService.getAll(t.getCat());
-				req.getSession().setAttribute("cats", list);	
+				//List<Transaction> list = new ArrayList<Transaction>();
+				//list = tService.getAll(t.getCat());
+				User u = (User) req.getSession().getAttribute("user");
+				req.getSession().setAttribute("cats", u.getBudget().getCategory());	
 		
 		}
 		return "transaction";
