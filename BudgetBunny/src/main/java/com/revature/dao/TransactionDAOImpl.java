@@ -29,8 +29,8 @@ public class TransactionDAOImpl implements TransactionDAO {
 	}
 
 	@Override
-	public void delete(Integer i) {
-		session.delete(i);
+	public void delete(Transaction t) {
+		session.delete(t);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -49,4 +49,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		this.session = session;
 	}
 
+	
+
+	
 }
