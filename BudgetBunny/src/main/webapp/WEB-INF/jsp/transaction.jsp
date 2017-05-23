@@ -40,7 +40,7 @@ ArrayList<Category> item = (ArrayList<Category>)session.getAttribute("cats");
 <!-- Filter Table-->
 <table class="table">
   <thead class="thead-default">
-    <tr>
+    <tr id="top">
       <th></th>
       <th>Start Date</th>
       <th>End Date</th>
@@ -57,18 +57,19 @@ ArrayList<Category> item = (ArrayList<Category>)session.getAttribute("cats");
       <input name="startDate" type="date"	>
         <span class="glyphicon glyphicon-th"></span></td>
       <td>  
-      
-  <div class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Categories
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-	<% for (Category test : item){ %>
-	<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><%= test.getName()%></a></li>
-	<% } %>
-
-    </ul>
   </div>
- 
+  
+  <div class="dropdown">
+  <button onclick="myFunction()" class="dropbtn">Category</button>
+  <div id="myDropdown" class="dropdown-content">
+	<% for (Category test : item){ %>
+	<a href="#"><%= test.getName()%></a>
+	<% } %>
+  </div>
+      <button class='btn btn-info' id='sort'>Sort</button>
+</div>
+
+
       </td>
     </tr>
   </tbody>
@@ -77,10 +78,9 @@ ArrayList<Category> item = (ArrayList<Category>)session.getAttribute("cats");
 
 
 <!-- Table for Transactions -->
-<table class="table table-hover">
+<table class="table table-hover" id="filtertable">
   <thead>
     <tr>
-      <th></th>
       <th>Date of Transaction</th>
       <th>Spent</th>
       <th>Category</th>
@@ -92,7 +92,7 @@ ArrayList<Category> item = (ArrayList<Category>)session.getAttribute("cats");
 							<td hidden>${item.transactionId}</td>
 							<td>${item.date}</td>
 							<td>$${String.format( "%.2f",item.cost)}</td>
-							<td>${item.cat.name}</td>
+							<td id="catname">${item.cat.name}</td>
 							<td><button class='RemoveButton tranRemove'
 									type="${item.transactionId}" id="${item.transactionId}">
 									<span class="glyphicon glyphicon-remove glyph-small"

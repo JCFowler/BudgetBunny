@@ -646,5 +646,7 @@ function close_div()
 }
 
 
-
+var selection = $("#category option:selected").text();
+console.log("#category").val();
+console.log(selection);
 

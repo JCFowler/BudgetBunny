@@ -10,6 +10,8 @@ $('body').on('click','#myBtn',function(){
 });
 
 
+$("#category option:selected").text();
+	
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
 function myFunction() {
@@ -60,7 +62,7 @@ $(document).ready(function(){
 $('.tranRemove').click(function(){
 			var id = $(this).attr('id');
 			$('#row' + id).hide();
-			let x = {transactionId : id};
+			let x = {transactionId : id}
 			ajaxCall(x , '/BudgetBunny/transaction')
 });
 
@@ -74,28 +76,8 @@ function ajaxCall(data, destUrl, onSuccess)
 	    data: data,    // multiple data sent using ajax
 	    
 	    success: function (html) {
-	    	
-	    }
+    }
 	  });
 }
 
 
-
-$('a').click(function(){
-	var textselect = $(this).text();
-	    
-	   $('#filtertable').find('tr').each(function(){
-		  let catname = $(this).find('#catname').text();
-		  
-		  if(catname != textselect){
-			  $(this).hide();
-		  }
-		  else{
-			  $(this).show();
-		  }
-			  
-		  
-	   });
-	  }
-
-);
