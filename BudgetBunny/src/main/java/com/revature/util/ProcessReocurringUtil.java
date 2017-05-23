@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.revature.bean.Budget;
 import com.revature.bean.RecurringCharge;
+import com.revature.dao.BudgetDAO;
 import com.revature.dao.RecurringChargeDAO;
 import com.revature.dao.UserDAO;
 
@@ -26,6 +27,8 @@ public class ProcessReocurringUtil implements Runnable {
 	UserDAO ud;
 	@Autowired
 	RecurringChargeDAO rcd;
+	@Autowired
+	BudgetDAO bd;
 	
 	public static void main(String...args)
 	{
@@ -75,16 +78,38 @@ public class ProcessReocurringUtil implements Runnable {
 		processCharge(charge, now);	
 	}
 	
+	public void processOneTimeCharge(RecurringCharge charge)
+	{
+		Date d = new Date();
+		d.setYear(d.getYear() + 100);
+		processCharge(charge, d);
+	}
+	
 	private void processCharge(RecurringCharge charge, Date now)
 	{
+		charge = rcd.getByIdEager(charge.getChargeId());
+		if(charge.getIsRecurring() == null || !charge.getIsRecurring().equals("monthly"))
+			return;
 		Date last = charge.getLastTransactionDate();
 		Date processDate = new Date(last.getTime());
 		processDate.setMonth(processDate.getMonth() + 1);
 		if(processDate.getTime() < now.getTime())
 		{
-//			Budget budget = charge.getBud();
-//TODO			Transaction newTrans = Transaction(charge.getCost());
+			Budget b = charge.getBud();
+			double amount = charge.getCost();
+			if(amount > 0)
+			{
+				double total = b.getTotalBudget();
+				b.setTotalBudget(total + amount);
+			}
+			else
+			{
+				double spent = b.getTotalSpent();
+				b.setTotalSpent(spent + amount * -1);
+			}
+			bd.save(b);
 			charge.setLastTransactionDate(processDate);
+
 			rcd.update(charge);
 		}
 	}

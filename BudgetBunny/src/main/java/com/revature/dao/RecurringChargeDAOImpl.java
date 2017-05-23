@@ -23,6 +23,13 @@ public class RecurringChargeDAOImpl implements RecurringChargeDAO {
 		RecurringCharge rc = (RecurringCharge) session.get(RecurringCharge.class, id);
 		return rc;
 	}
+	
+	@Override
+	public RecurringCharge getByIdEager(int id) {
+		RecurringCharge rc = (RecurringCharge) session.get(RecurringCharge.class, id);
+		System.out.println(rc.getBud());
+		return rc;
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
