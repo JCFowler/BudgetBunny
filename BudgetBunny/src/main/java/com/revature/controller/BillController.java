@@ -43,9 +43,6 @@ public class BillController {
 		String bill = req.getParameter("withdrawData");
 		String deleted = req.getParameter("deletedList");
 		
-		System.out.println(req.getParameter("withdrawData"));
-		System.out.println(deleted);
-		
 		ArrayList<RecurringCharge> bList = new ArrayList<RecurringCharge>();
 		ArrayList<Integer> dList = new ArrayList<Integer>();
 		
@@ -60,8 +57,6 @@ public class BillController {
 				b.setName(bJson.get("name").asText());
 				b.setCost(bJson.get("cost").asDouble());
 				b.setBud(user.getBudget());
-//				b.setStartDate(Date.valueOf(LocalDate.parse(bJson.get("startDate").asText(), formatter)));
-//				b.setLastTransactionDate(Date.valueOf(LocalDate.now()));
 				bList.add(b);
 			}
 			
@@ -82,7 +77,6 @@ public class BillController {
 		user.getBudget().setTotalBudget(updatedBudget.getTotalBudget());
 		user.getBudget().setTotalSpent(updatedBudget.getTotalSpent());
 		req.getSession().setAttribute("user", user);
-		System.out.println(bList);
 		
 		return "billpage";
 	}

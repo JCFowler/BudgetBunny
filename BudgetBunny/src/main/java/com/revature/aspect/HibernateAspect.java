@@ -32,6 +32,7 @@ public class HibernateAspect {
 			tx.rollback();
 		}
 		tx.commit();
+		session.flush();
 		session.close();
 		dao.setSession(null);
 		return obj;
