@@ -1,9 +1,8 @@
 package com.revature.bean;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 import javax.persistence.Column;
@@ -28,7 +27,7 @@ public class Transaction {
 	@Column(name="transactionDate")
 	private Date date;
 	private double cost;
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="catid")
 	private Category cat;
 	

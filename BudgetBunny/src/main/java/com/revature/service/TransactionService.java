@@ -40,15 +40,18 @@ public class TransactionService {
 		return td.getById(id);
 	}
 	
-	public ArrayList<Transaction> getAll(Category c){
-		return td.getAll(c);
+	public ArrayList<Transaction> getAll(int id){
+		return td.getAll(id);
 	}
 	
-	void update(Transaction t){
+	public void update(Transaction t){
 		td.update(t);
 	}
 	
-	void delete(Transaction t){
-		td.delete(t);
+	public void delete(ArrayList<Integer> transIds){
+		for(Integer i : transIds){
+			if(i != 0)
+				td.delete(i);
+		}
 	}
 }
