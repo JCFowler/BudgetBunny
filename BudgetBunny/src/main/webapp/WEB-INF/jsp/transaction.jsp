@@ -87,20 +87,19 @@ ArrayList<Category> item = (ArrayList<Category>)session.getAttribute("cats");
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td id="help">Test</td>
-      <td>Test</td>
-      <td>Test</td>
-    </tr>
-        <tr>
-      <th scope="row">2</th>
-      <td>Test</td>
-      <td>Test</td>
-      <td>Test</td>
-    </tr>
-    <tr>
-    </tr>
+   <c:forEach items="${transaction}" var="item">
+						<tr id="row${transactionId}">
+							<td hidden>${item.transactionId}</td>
+							<td>${item.date}</td>
+							<td>$${String.format( "%.2f",item.cost)}</td>
+							<td>${item.cat.name}</td>
+							<td><button class='RemoveButton tranRemove'
+									type="${transactionId}" id="${transactionId}">
+									<span class="glyphicon glyphicon-remove glyph-small"
+										style="font-size: .75em;" aria-hidden="true"></span>
+								</button></td>
+						</tr>
+					</c:forEach>
   </tbody>
 </table>
 
