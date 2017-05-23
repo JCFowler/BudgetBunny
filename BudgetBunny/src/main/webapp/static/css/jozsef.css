@@ -1,10 +1,5 @@
 @CHARSET "ISO-8859-1";
 
-.table
-{
-
-}
-
 .btn-info
 {
 	background-color: #65a5ce;
@@ -15,7 +10,7 @@
 
 .table {
 	width: 25%;
-	margin-top:5%;
+	margin-top:0;
 
 	border: 25px solid #65a5ce;
 	border-radius: 25px;

@@ -24,9 +24,9 @@
 			<c:set var="type" value="withdraw"></c:set>
 			<%@ include file = "systematictransactionform.jsp" %>
 
-		<button class="btn btn-info submission submit-bill" style='display: none'>Submit</button>
 
 		</div>
+			<button class="btn btn-info submission submit-bill" style='display: none'>Submit</button>
 
 	<script type="text/javascript" src="static/js/jozsef.js"></script>
 	

@@ -44,7 +44,6 @@ public class ProcessReocurringUtil implements Runnable {
 	
 	@Override
 	public void run() {
-		ud.login("nope", "yep");
 		while(true)
 		{
 			ArrayList<RecurringCharge> charges = rcd.getAllCharges();
@@ -87,9 +86,13 @@ public class ProcessReocurringUtil implements Runnable {
 	
 	private void processCharge(RecurringCharge charge, Date now)
 	{
-		charge = rcd.getByIdEager(charge.getChargeId());
-		if(charge.getIsRecurring() == null || !charge.getIsRecurring().equals("monthly"))
-			return;
+		String seperator = "\n\n***************************************\n\n";
+		System.out.println(seperator + "Processing Reocurring Transaction: \n" + charge + seperator);
+
+		if(charge.getLastTransactionDate() == null)
+		{
+			charge.setLastTransactionDate(new Date());
+		}
 		Date last = charge.getLastTransactionDate();
 		Date processDate = new Date(last.getTime());
 		processDate.setMonth(processDate.getMonth() + 1);
