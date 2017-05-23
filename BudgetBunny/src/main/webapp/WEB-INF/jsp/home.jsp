@@ -20,6 +20,7 @@
 		<%@page import="com.revature.bean.Category"%>
 	
 		<c:set var='count' value=''/>
+		<div id='eggs'>
 		<div class='basket'>
 		<c:forEach items='${cats}' var='cat'>
 			<c:if test="${count == 'aaaa'}">
