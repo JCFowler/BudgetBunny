@@ -43,9 +43,6 @@ public class BudgetController {
 		String category = req.getParameter("categoryData");
 		String deleted = req.getParameter("deletedList");
 		
-		System.out.println(req.getParameter("categoryData"));
-		System.out.println(deleted);
-		
 		ArrayList<Category> cList = new ArrayList<Category>();
 		ArrayList<Integer> dList = new ArrayList<Integer>();
 		
@@ -76,11 +73,15 @@ public class BudgetController {
 			e.printStackTrace();
 		}
 		
-		double spent = categoryService.deleteList(dList);
+		if(dList.size() > 0)
+		{
+			double spent = categoryService.deleteList(dList);
+			user.getBudget().setTotalBudget(user.getBudget().getTotalBudget() + spent);
+			user.getBudget().setTotalSpent(user.getBudget().getTotalSpent() - spent);
+			req.getSession().setAttribute("user", user);
+		}
+		
 		categoryService.mergeList(cList);
-		user.getBudget().setTotalBudget(user.getBudget().getTotalBudget() + spent);
-		user.getBudget().setTotalSpent(user.getBudget().getTotalSpent() - spent);
-		req.getSession().setAttribute("user", user);
 		
 		return "budgetpage";
 	}

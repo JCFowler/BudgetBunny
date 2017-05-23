@@ -75,6 +75,10 @@ public class HomeController
 		u.getBudget().setTotalSpent(u.getBudget().getTotalSpent() + spent);
 		req.getSession().setAttribute("user", u);
 		
+		List<Category> list = new ArrayList<Category>();
+		list = catService.getAll(u.getBudget());
+		req.getSession().setAttribute("cats", list);	
+		
 		return "home";
 	}
 		

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +28,7 @@ public class Category implements Serializable{
 	private String name;
 	private double budget;
 	private double spent;
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="cat", orphanRemoval=true)
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="cat", cascade=CascadeType.ALL)
 	private Collection<Transaction> transaction;
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="budgetid")

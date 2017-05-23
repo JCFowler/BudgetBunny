@@ -47,6 +47,7 @@ public class CategoryService {
 	}
 
 	public void mergeList(ArrayList<Category> cList) {
+		System.out.println(cList);
 		for(Category c : cList) {
 			cd.merge(c);
 		}
