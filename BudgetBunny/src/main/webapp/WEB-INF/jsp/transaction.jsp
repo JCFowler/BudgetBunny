@@ -90,7 +90,7 @@
 						<th>Category</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="filterrow">
 					<c:forEach items="${transaction}" var="item">
 						<tr id="row${item.transactionId}">
 							<td hidden>${item.transactionId}</td>
