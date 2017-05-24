@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.revature.bean.Category;
 import com.revature.bean.Transaction;
 import com.revature.bean.User;
+import com.revature.service.CategoryService;
 import com.revature.service.TransactionService;
 
 @Controller
@@ -19,6 +21,9 @@ import com.revature.service.TransactionService;
 public class TransactionController {
 	@Autowired
 	private	TransactionService tService;
+	
+	@Autowired 
+	CategoryService cService;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String getTransactionpage(HttpServletRequest req)
@@ -31,6 +36,10 @@ public class TransactionController {
 				User u = (User) req.getSession().getAttribute("user");
 				List<Transaction> list = tService.getAll(u.getBudget().getBudgetId());
 				req.getSession().setAttribute("transaction", list);	
+				
+				
+				List<Category> cList = cService.getAll(u.getBudget());
+				req.getSession().setAttribute("cats", cList);		
 		} 
 
 		return "transaction";
