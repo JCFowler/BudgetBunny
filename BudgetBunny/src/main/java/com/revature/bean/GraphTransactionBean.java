@@ -1,21 +1,22 @@
 package com.revature.bean;
 
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class GraphTransactionBean {
 
 	private String title;
-	private HashMap<String, HashMap<String, Double>> types = new HashMap<String, HashMap<String, Double>>();
+	private SortedMap<String, SortedMap<String, Double>> types = new TreeMap<String, SortedMap<String, Double>>();
 
 	public void addTransaction(Transaction trans)
 	{
 		String typeName = trans.getCat().getName();
-		HashMap<String, Double> map = types.get(typeName);
+		SortedMap<String, Double> map = types.get(typeName);
 				
 		if(map == null)
 		{
-			map = new HashMap<String, Double>();
+			map = new TreeMap<String, Double>();
 			types.put(typeName, map);
 		}
 		
@@ -36,7 +37,7 @@ public class GraphTransactionBean {
 		return title;
 	}
 
-	public HashMap<String, HashMap<String, Double>> getTypes() {
+	public SortedMap<String, SortedMap<String, Double>> getTypes() {
 		return types;
 	}
 }

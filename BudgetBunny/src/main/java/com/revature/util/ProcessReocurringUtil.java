@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,9 @@ public class ProcessReocurringUtil implements Runnable {
 	private Thread processor = null;
 	private static ProcessReocurringUtil instance = null;
 	private Long interval;
+	private Logger log = Logger.getRootLogger();
+	private int falures = 0;
+	private int failMax = 10;
 	
 	@Autowired
 	RecurringChargeService rcs;
@@ -50,8 +54,12 @@ public class ProcessReocurringUtil implements Runnable {
 	{
 		try {
 			Thread.sleep(interval * 1000);
+			falures = 0;
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			log.error(e);
+			falures++;
+			if(falures > failMax)
+				this.processor.interrupt();
 		}
 	}
 	
