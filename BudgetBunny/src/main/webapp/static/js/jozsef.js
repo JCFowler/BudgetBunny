@@ -153,13 +153,16 @@ function submitSystematicTransactions(numberPrefix, type, validData)
 		
 		if(name.val().length == 0 && cost.val().length == 0)
 		{
+			if(id != "0" && id != "")
+				deletedData[deletedCount++] = {id : id};
+			
 			ignore(id, name, cost);
 			continue;
 		}
 		const verifyCost = verifyIncomeValue(cost);
 		const verifyName = verifyNonEmpty(name);
-		validData = validData && verifyCost && verifyName;
 		
+		validData = validData && verifyCost && verifyName;
 		if(validData)
 		{
 			const costVal = numberPrefix + cost.val();
@@ -181,9 +184,6 @@ function submitSystematicTransactions(numberPrefix, type, validData)
 
 function ignore(id, name, cost)
 {
-	if(id != "0" && id != "")
-		deletedData[deletedCount++] = {id : id};
-		
 	turnOffHighLight(name);
 	turnOffHighLight(cost);	
 }
