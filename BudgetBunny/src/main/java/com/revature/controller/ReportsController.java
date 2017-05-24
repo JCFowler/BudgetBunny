@@ -33,19 +33,15 @@ public class ReportsController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public String postReportPage(HttpServletRequest req) {
-
-		if(req.getSession().getAttribute("user") == null)
+		User u = (User) req.getSession().getAttribute("user");
+		
+		if(u == null)
 			return "redirect:login";
 		
-		 Gson gson = new Gson();
-		 
-			User u = (User) req.getSession().getAttribute("user");
+		Gson gson = new Gson();
 
-			
-			List<Transaction> list = new ArrayList<Transaction>();
-			list = tService.getAll(u.getBudget().getBudgetId());
-			req.getSession().setAttribute("transaction", list);	
-			
+		List<Transaction> list = tService.getAll(u.getBudget().getBudgetId());
+		req.getSession().setAttribute("transaction", list);	
 			
 		GraphTransactionBean b = new GraphTransactionBean();
 		for(Transaction tran : list)

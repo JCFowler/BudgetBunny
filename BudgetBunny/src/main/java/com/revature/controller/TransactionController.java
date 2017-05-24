@@ -1,6 +1,5 @@
 package com.revature.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +18,7 @@ import com.revature.service.TransactionService;
 @Controller
 @RequestMapping(value="/transaction")
 public class TransactionController {
+	private String transaction = "transaction";
 	@Autowired
 	private	TransactionService tService;
 	
@@ -35,14 +35,14 @@ public class TransactionController {
 		else {
 				User u = (User) req.getSession().getAttribute("user");
 				List<Transaction> list = tService.getAll(u.getBudget().getBudgetId());
-				req.getSession().setAttribute("transaction", list);	
+				req.getSession().setAttribute(transaction, list);	
 				
 				
 				List<Category> cList = cService.getAll(u.getBudget());
 				req.getSession().setAttribute("cats", cList);		
 		} 
 
-		return "transaction";
+		return transaction;
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
@@ -55,7 +55,7 @@ public class TransactionController {
 		u.getBudget().setTotalSpent(u.getBudget().getTotalSpent() - cost);
 		req.getSession().setAttribute("user", u);
 		
-		return "transaction";
+		return transaction;
 	}
 	
 }
