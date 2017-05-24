@@ -36,23 +36,23 @@ public class GenerateData {
 			double cost = Math.random() * 500;
 			
 			int year = 2017;
-			int month = (int) (r.nextDouble() * 12 + 1);
-			int day = (int) (r.nextDouble() * 28 + 1);
+			int month = (int) (r.nextInt() % 12 + 1);
+			int day = (int) (r.nextInt() % 28 + 1);
 			Date date = Date.valueOf(year + "-" + month + "-" + day);
 						
-			int stop = (int) (r.nextDouble() * cats.size());
+			int stop = (int) (r.nextInt() % cats.size());
 			int count = 0;
 			
-			if(cats != null)
-			{
-				Category chosen = null;
-				for(Category c : cats){
-					chosen = c;
-					if(count++ == stop)
-						break;
-				}
-				this.tService.save(createTransaction(cost, chosen, date), chosen.getCatId());
+
+			Category chosen = null;
+			for(Category c : cats){
+				chosen = c;
+				if(count++ == stop)
+					break;
 			}
+			
+			if(chosen != null)
+				this.tService.save(createTransaction(cost, chosen, date), chosen.getCatId());
 		}
 		
 	}
