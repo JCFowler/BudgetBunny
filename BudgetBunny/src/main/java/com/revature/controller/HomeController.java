@@ -1,6 +1,5 @@
 package com.revature.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,8 +36,7 @@ public class HomeController
 		if(u.getBudget().getTotalBudget() == 0)
 			return "budgetsetuppage";
 		else {
-				List<Category> list = new ArrayList<Category>();
-				list = catService.getAll(u.getBudget());
+				List<Category> list = catService.getAll(u.getBudget());
 				req.getSession().setAttribute("cats", list);	
 		}
 		return "home";
@@ -59,7 +57,6 @@ public class HomeController
 		String sbsp = spenttemp;
 		Double spent = Double.parseDouble(sbsp);
 		int catID = Integer.parseInt(catIDtemp);
-		System.out.println(catID);
 		Budget bud = new Budget(catID, budget, spent,null,null);
 		Category cat = new Category(catID, name, bud.getTotalBudget(), bud.getTotalSpent(), null, bud);
 
@@ -75,8 +72,7 @@ public class HomeController
 		u.getBudget().setTotalSpent(u.getBudget().getTotalSpent() + spent);
 		req.getSession().setAttribute("user", u);
 		
-		List<Category> list = new ArrayList<Category>();
-		list = catService.getAll(u.getBudget());
+		List<Category> list = catService.getAll(u.getBudget());
 		req.getSession().setAttribute("cats", list);	
 		
 		return "home";

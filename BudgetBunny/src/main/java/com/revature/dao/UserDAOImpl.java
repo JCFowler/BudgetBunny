@@ -34,10 +34,8 @@ public class UserDAOImpl implements UserDAO {
 		q.setParameter("uName", uName);
 		q.setParameter("pass", pass);
 		
-		if(q.list().size() > 0)
-		{
-			User u = (User) q.list().get(0);
-			return u;
+		if(q.list().size() > 0){
+			return (User) q.list().get(0);
 		}
 		else
 			return null;

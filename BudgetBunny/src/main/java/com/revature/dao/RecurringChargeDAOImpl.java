@@ -20,37 +20,30 @@ public class RecurringChargeDAOImpl implements RecurringChargeDAO {
 	
 	@Override
 	public RecurringCharge getById(int id) {
-		RecurringCharge rc = (RecurringCharge) session.get(RecurringCharge.class, id);
-		return rc;
+		return (RecurringCharge) session.get(RecurringCharge.class, id);
 	}
 	
 	@Override
 	public RecurringCharge getByIdEager(int id) {
-		RecurringCharge rc = (RecurringCharge) session.get(RecurringCharge.class, id);
-		System.out.println(rc.getBud());
-		return rc;
+		return (RecurringCharge) session.get(RecurringCharge.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<RecurringCharge> getAllCharges() {
 		String hql = "FROM RecurringCharge";
-		System.out.println("My session: " + session);
-		ArrayList<RecurringCharge> rcs = (ArrayList<RecurringCharge>) session.createQuery(hql).list();
-		return rcs; 
+		return  (ArrayList<RecurringCharge>) session.createQuery(hql).list();
+		
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<RecurringCharge> getAll(Budget b) {
-		System.out.println("Here");
-		System.out.println(b.getBudgetId());
 		String hql = "FROM RecurringCharge WHERE bud = :budget";
 		Query q = (Query) session.createQuery(hql);
 		q.setParameter("budget", b);
-		ArrayList<RecurringCharge> rList = (ArrayList<RecurringCharge>) q.list();
-		return rList; 
-		
+		return (ArrayList<RecurringCharge>) q.list();
+		 		
 	}
 	
 	@Override
