@@ -50,8 +50,6 @@ public class ReportsController {
 			list = tService.getAll(u.getBudget().getBudgetId());
 			req.getSession().setAttribute("transaction", list);	
 			
-			System.out.println("Post..............................." + list.size());
-
 			
 		GraphTransactionBean b = new GraphTransactionBean();
 		for(Transaction tran : list)
