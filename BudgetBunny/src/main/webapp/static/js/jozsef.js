@@ -500,13 +500,16 @@ $('.submit-income').click(function(){
 	remainingBudget = parseFloat($('#totalBudget').text());
 
 	const depData = submitSystematicDeposits(true);
+	if($.isEmptyObject(depData.data))
+		return;
 
 	const setupData = {
 			depositData : JSON.stringify(depData.data),
 			deletedList : JSON.stringify(depData.deletedList)
 	}
-	
-	if(depData && !$.isEmptyObject(setupData.depositData) )
+	alert(JSON.stringify(setupData.depositData));
+
+	if(depData)
 	{
 		$(this).attr("disabled", true);
 		$(this).text("Submitting...");
@@ -520,6 +523,9 @@ $('.submit-bill').click(function(){
 	remainingBudget = parseFloat($('#totalBudget').text());
 
 	const withData = submitSystematicWithdraws(true);
+	if($.isEmptyObject(withData.data))
+		return;
+	
 	const setupData = {
 			withdrawData : JSON.stringify(withData.data),
 			deletedList : JSON.stringify(withData.deletedList)
@@ -541,6 +547,8 @@ $('.submit-budget').click(function(){
 	remainingBudget = parseFloat($('#totalBudget').text());
 	
 	const catData = submitBudgetCategories(true);
+	if($.isEmptyObject(catData.data))
+		return;
 	
 	const setupData = {
 			categoryData : JSON.stringify(catData.data),
@@ -664,6 +672,5 @@ function close_div()
 
 
 var selection = $("#category option:selected").text();
-console.log("#category").val();
-console.log(selection);
+
 
