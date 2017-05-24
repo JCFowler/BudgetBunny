@@ -28,8 +28,6 @@ public class ReportsController {
 		if(req.getSession().getAttribute("user") == null)
 			return "redirect:login";
 		
-		System.out.println("Get...............................");
-
 		return "reports";
 	}
 	

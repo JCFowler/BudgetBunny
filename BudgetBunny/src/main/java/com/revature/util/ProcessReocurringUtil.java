@@ -1,5 +1,6 @@
 package com.revature.util;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -61,27 +62,27 @@ public class ProcessReocurringUtil implements Runnable {
 	
 	private void processChargePrivate(RecurringCharge charge)
 	{
-		Date now = new Date();
-		processCharge(charge, now);	
+		processCharge(charge, LocalDate.now());	
 	}
 	
 	public void processOneTimeCharge(RecurringCharge charge)
 	{
-		Date d = new Date();
-		d.setYear(d.getYear() + 100);
-		processCharge(charge, d);
+		LocalDate ld = LocalDate.now();
+		ld.plusYears(100);
+		processCharge(charge, ld);
 	}
 	
-	private void processCharge(RecurringCharge charge, Date now)
+	private void processCharge(RecurringCharge charge, LocalDate now)
 	{
 		if(charge.getLastTransactionDate() == null)
 		{
 			charge.setLastTransactionDate(new Date());
 		}
-		Date last = charge.getLastTransactionDate();
-		Date processDate = new Date(last.getTime());
-		processDate.setMonth(processDate.getMonth() + 1);
-		if(processDate.getTime() < now.getTime())
+		
+		LocalDate processDate = new java.sql.Date( new java.util.Date().getTime() ).toLocalDate();
+		processDate = processDate.plusMonths(1);
+		
+		if(processDate.isBefore(now))
 		{
 			Budget b = charge.getBud();
 			double amount = charge.getCost();
@@ -96,7 +97,7 @@ public class ProcessReocurringUtil implements Runnable {
 				b.setTotalSpent(spent + amount * -1);
 			}
 			bs.save(b);
-			charge.setLastTransactionDate(processDate);
+			charge.setLastTransactionDate(java.sql.Date.valueOf(processDate));
 
 			rcs.update(charge);
 		}
