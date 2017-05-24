@@ -63,6 +63,7 @@
 
 							<div class="dropdown">
 								<select id="myDropdown" class="dropdown-content">
+									<option class="option" href="#">All</option>
 									<%
 										for (Category test : item) {
 									%>
@@ -72,7 +73,6 @@
 									%>
 								</select>
 							</div>
-							<button class='btn btn-info' id='sort'>Sort</button>
 						</td>
 
 					</tr>

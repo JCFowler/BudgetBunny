@@ -35,12 +35,14 @@ function ajaxCall(data, destUrl, onSuccess)
 
 $('select').change(function(){
 	var textselect = $(this).val();
+	console.log(textselect);
 	   $('#filtertable').find('tr').each(function(){
 		  let catname = $(this).find('#catname').text();
-		  
 		  if(catname != textselect){
 			  $(this).hide();
-		//if(catname == "All")
+		if(textselect == "All"){
+			$('#filtertable tr').show();
+		}
 		  }
 		  else{
 			  $(this).show();
