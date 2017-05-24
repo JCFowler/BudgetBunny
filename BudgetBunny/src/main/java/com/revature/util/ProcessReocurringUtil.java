@@ -19,6 +19,7 @@ import com.revature.service.RecurringChargeService;
 public class ProcessReocurringUtil implements Runnable {
 
 	private Thread processor = null;
+	private static ProcessReocurringUtil instance = null;
 	private Long interval;
 	private Logger log = Logger.getRootLogger();
 	private int falures = 0;
@@ -115,6 +116,7 @@ public class ProcessReocurringUtil implements Runnable {
 		if(processor == null)
 		{
 			processor = new Thread(this);
+			instance = this;
 			processor.start();
 		}
 	}
