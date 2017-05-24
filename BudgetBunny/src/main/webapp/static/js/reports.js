@@ -96,7 +96,7 @@ function renderPieGraph(jsonObj){
 	var chart = new CanvasJS.Chart("chartContainer",{
 				theme: "theme2",
 				title:{
-					text: "Gaming Consoles Sold in 2012"
+					text: "Historical Budget Percentages"
 				},
 				data: data
 			});

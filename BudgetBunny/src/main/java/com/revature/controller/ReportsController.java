@@ -1,6 +1,5 @@
 package com.revature.controller;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
-import com.revature.bean.Category;
 import com.revature.bean.GraphTransactionBean;
 import com.revature.bean.Transaction;
 import com.revature.bean.User;
@@ -30,8 +28,6 @@ public class ReportsController {
 		if(req.getSession().getAttribute("user") == null)
 			return "redirect:login";
 		
-		System.out.println("Get...............................");
-
 		return "reports";
 	}
 	
