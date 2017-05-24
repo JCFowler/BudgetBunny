@@ -1,7 +1,5 @@
 package com.revature.util;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,9 +9,8 @@ import org.springframework.stereotype.Component;
 
 import com.revature.bean.Budget;
 import com.revature.bean.RecurringCharge;
-import com.revature.dao.BudgetDAO;
-import com.revature.dao.RecurringChargeDAO;
-import com.revature.dao.UserDAO;
+import com.revature.service.BudgetService;
+import com.revature.service.RecurringChargeService;
 
 @Component
 @Aspect
@@ -24,29 +21,21 @@ public class ProcessReocurringUtil implements Runnable {
 	private Long interval;
 	
 	@Autowired
-	UserDAO ud;
+	RecurringChargeService rcs;
 	@Autowired
-	RecurringChargeDAO rcd;
-	@Autowired
-	BudgetDAO bd;
-	
-	public static void main(String...args)
-	{
-		System.out.println(LocalTime.now());
-		System.out.println(LocalDate.now());
-	}
+	BudgetService bs;
 	
 	private ProcessReocurringUtil()
 	{
 		super();
-		interval = 60*60*4l;
+		interval = 60*60*24l;
 	}	
 	
 	@Override
 	public void run() {
 		while(true)
 		{
-			ArrayList<RecurringCharge> charges = rcd.getAllCharges();
+			ArrayList<RecurringCharge> charges = rcs.getAll();
 
 			for(RecurringCharge charge : charges)
 			{
@@ -61,7 +50,6 @@ public class ProcessReocurringUtil implements Runnable {
 		try {
 			Thread.sleep(interval * 1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -86,9 +74,6 @@ public class ProcessReocurringUtil implements Runnable {
 	
 	private void processCharge(RecurringCharge charge, Date now)
 	{
-		String seperator = "\n\n***************************************\n\n";
-		System.out.println(seperator + "Processing Reocurring Transaction: \n" + charge + seperator);
-
 		if(charge.getLastTransactionDate() == null)
 		{
 			charge.setLastTransactionDate(new Date());
@@ -110,10 +95,10 @@ public class ProcessReocurringUtil implements Runnable {
 				double spent = b.getTotalSpent();
 				b.setTotalSpent(spent + amount * -1);
 			}
-			bd.save(b);
+			bs.save(b);
 			charge.setLastTransactionDate(processDate);
 
-			rcd.update(charge);
+			rcs.update(charge);
 		}
 	}
 	

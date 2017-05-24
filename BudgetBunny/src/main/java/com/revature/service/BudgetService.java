@@ -49,4 +49,8 @@ public class BudgetService {
 	public Budget get(int UserId) {
 		return bd.getByUserId(UserId);
 	}
+
+	public void save(Budget b) {
+		bd.save(b);
+	}
 }

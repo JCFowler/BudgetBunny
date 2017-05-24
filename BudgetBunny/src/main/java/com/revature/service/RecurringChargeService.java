@@ -80,4 +80,14 @@ public class RecurringChargeService {
 		else 
 			return bList;
 	}
+	
+	public ArrayList<RecurringCharge> getAll()
+	{
+		return rd.getAllCharges();
+	}
+	
+	public void update(RecurringCharge charge)
+	{
+		rd.update(charge);
+	}
 }

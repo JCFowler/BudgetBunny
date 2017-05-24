@@ -20,6 +20,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="category")
 public class Category implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column
 	@SequenceGenerator(name="category_seq", sequenceName="category_seq")

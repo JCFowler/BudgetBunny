@@ -14,10 +14,13 @@
 <body>
 	<%@ include file="_navbar.jsp"%>
 	
-	<a id="chart">Show Chart</a>
-		
+	<button class="btn btn-info" id="chart">Bar Graph</button>
+	<button class="btn btn-info" id="pie">Pie Graph</button>
+	
+	<div id='container'>	
 	<div id="chartContainer" style="height: 800px; width: 100%;"></div>
 	
 	<script src="static/js/reports.js"></script>
+	</div>
 </body>
 </html>

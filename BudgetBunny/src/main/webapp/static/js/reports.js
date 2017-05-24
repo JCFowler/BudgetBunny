@@ -3,77 +3,112 @@ window.onload = function () {
 
 }
 
-function renderTieredBarGraph(){
+function ajaxCall(data, destUrl, type)
+{
+	$.ajax({
+	    type:"POST",
+	    cache:false,
+	    url: destUrl,
+	    data: data,    // multiple data sent using ajax
+	    success: function (html, data) {
+	    	
+	        var div = $('<div>');
+	        div.html(html);
+	    	var content = div.find('#container');
+
+	        let json = div.find('#json').text();
+	    	let jsonObj = $.parseJSON(json).types
+	    	
+	    	$('#container').html(content.html());
+	    	createGraph(type, jsonObj);
+	    }
+	  });
+}
+
+function createGraph(graphName, jsonObj)
+{
+	switch(graphName)
+	{
+	case 'tieredBarGraph': 
+		renderTieredBarGraph(jsonObj);
+		break;
+	case 'pieGraph':
+		renderPieGraph(jsonObj);
+		break;
+	}
+}
+
+function renderTieredBarGraph(jsonObj){
+	data = [];
+	for(category in jsonObj)
+	{
+	    dataPoints = [];
+	    for(month in jsonObj[category])
+	    {
+	    	dataPoints.push({
+	    			y : jsonObj[category][month], 
+	    			label : month
+	    	});
+	    }
+	    
+	    data.push({	
+	   		type: "stackedColumn",
+			legendText: category,
+			showInLegend: "true", 
+			dataPoints: dataPoints
+		});
+	}
 	var chart = new CanvasJS.Chart("chartContainer", {
 		title: {
 			text: "Per-Month Budget Expenditurs"
 		},
-		axisY: {
-			title: "Amount Spent",
-			stripLines: [{
-				value: 1950,
-				label: "Avg",
-				showOnTop: true
-			},{
-				value: 1900,
-				label: "Min",
-				showOnTop: true
-			},{
-				value: 2000,
-				label: "Max",
-				showOnTop: true,
-				lineColor: "red"
-			}
-			]	
-		},
-		data: [{
-			type: "stackedColumn",
-			legendText: "Food",
-			showInLegend: "true",
-			dataPoints: [
-				{ y: 405.35, label: "August 2016" },
-				{ y: 355.44, label: "September 2016" },
-				{ y: 534.96, label: "October 2016" },
-				{ y: 436.44, label: "November 2016" },
-			]
-		}, {
-			type: "stackedColumn",
-			legendText: "Rent",
-			showInLegend: "true",
-			indexLabelPlacement: "outside",
-			dataPoints: [
-				{ y: 1500.00, label: "August 2016" },
-				{ y: 1500.00, label: "September 2016" },
-				{ y: 1500.00, label: "October 2016" },
-				{ y: 1500.00, label: "November 2016" },
-			]
-	}, {
-		type: "stackedColumn",
-		legendText: "Gaming",
-		showInLegend: "true",
-		indexLabelPlacement: "outside",
-		dataPoints: [
-			{ y: 103.11, label: "August 2016" },
-			{ y: 24.84, label: "September 2016" },
-			{ y: 0.00, label: "October 2016" },
-			{ y: 15.48, label: "November 2016" },
-		]
-	}, {
-		type: "stackedColumn",
-		legendText: "movies",
-		showInLegend: "true",
-		indexLabel: "#total bn",
-		indexLabelPlacement: "outside",
-		dataPoints: [
-			{ y: 15.55, label: "August 2016" },
-			{ y: 20.00, label: "September 2016" },
-			{ y: 0.00, label: "October 2016" },
-			{ y: 34.18, label: "November 2016" },
-		]
-	}
-	]
+		data: data
 	});
 	chart.render();
 }
 
-$('#chart').click(renderTieredBarGraph);
+
+function renderPieGraph(jsonObj){
+	data = [];
+	dataPoints = [];
+	for(category in jsonObj)
+	{
+	    let total = 0;
+	    for(month in jsonObj[category])
+	    {
+	    	total = total + parseFloat(jsonObj[category][month]);
+	    }
+	    dataPoints.push({
+	    	y: total,
+	    	indexLabel: category
+	    });
+	}
+	
+    data.push({	
+		type: "pie",
+		showInLegend: true,
+		toolTipContent: "{y} - #percent %",
+		yValueFormatString: "#0.#,,. Million",
+		legendText: "{indexLabel}",
+		dataPoints: dataPoints
+	});
+    
+	var chart = new CanvasJS.Chart("chartContainer",{
+				theme: "theme2",
+				title:{
+					text: "Gaming Consoles Sold in 2012"
+				},
+				data: data
+			});
+			chart.render();
+}
+
+$('#chart').click(function(){
+	ajaxCall({}, '/BudgetBunny/reports', 'tieredBarGraph')
+});
+
+$('#pie').click(function(){
+	ajaxCall({}, '/BudgetBunny/reports', 'pieGraph')
+});
+
+

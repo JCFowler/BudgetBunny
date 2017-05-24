@@ -15,11 +15,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.revature.bean.Budget;
 import com.revature.bean.Category;
 import com.revature.bean.RecurringCharge;
 import com.revature.bean.User;
-import com.revature.service.BudgetService;
 import com.revature.service.UserService;
 import com.revature.util.ProcessReocurringUtil;
 
@@ -31,8 +29,6 @@ public class LoginController
 	private ProcessReocurringUtil processUtil;
 	@Autowired
 	private UserService userService;
-	@Autowired
-	private BudgetService budgetService;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String getLogin(ModelMap modelMap)
@@ -81,6 +77,9 @@ public class LoginController
 			
 			req.getSession().setAttribute("user", authUser);
 			
+//			System.out.println("User Authorized>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+//			gd.GenerateTransactions(authUser);
+//			
 			return null;
 		}
 	}
