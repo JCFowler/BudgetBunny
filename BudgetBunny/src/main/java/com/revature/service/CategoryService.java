@@ -51,8 +51,9 @@ public class CategoryService {
 	}
 
 	public void mergeList(ArrayList<Category> cList) {
-		System.out.println(cList);
 		for(Category c : cList) {
+			Category oldC = cd.getById(c.getCatId());
+			c.setSpent(oldC.getSpent());
 			cd.merge(c);
 		}
 	}
