@@ -56,7 +56,7 @@ public class HomeController
 		double budget = Double.parseDouble(sb1);
 		String catIDtemp = req.getParameter("id");
 		String spenttemp = req.getParameter("amount");
-		String sbsp = spenttemp.toString();
+		String sbsp = spenttemp;
 		Double spent = Double.parseDouble(sbsp);
 		int catID = Integer.parseInt(catIDtemp);
 		System.out.println(catID);

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import com.revature.service.RecurringChargeService;
 public class BillController {
 	@Autowired
 	RecurringChargeService rcService;
+	Logger log = Logger.getRootLogger();
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String getBillPage(HttpServletRequest req)
@@ -68,9 +70,9 @@ public class BillController {
 				}			
 			}
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			log.error(e.getMessage());
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error(e.getMessage());
 		}
 		rcService.deleteList(dList);
 		Budget updatedBudget = rcService.mergeBillList(bList, user.getBudget());
