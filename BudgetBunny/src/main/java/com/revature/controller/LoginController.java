@@ -19,6 +19,7 @@ import com.revature.bean.Category;
 import com.revature.bean.RecurringCharge;
 import com.revature.bean.User;
 import com.revature.service.UserService;
+import com.revature.util.GenerateData;
 import com.revature.util.ProcessReocurringUtil;
 
 @Controller
@@ -29,6 +30,8 @@ public class LoginController
 	private ProcessReocurringUtil processUtil;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private GenerateData gd;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String getLogin(ModelMap modelMap)
@@ -77,9 +80,9 @@ public class LoginController
 			
 			req.getSession().setAttribute("user", authUser);
 			
-//			System.out.println("User Authorized>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-//			gd.GenerateTransactions(authUser);
-//			
+			//System.out.println("User Authorized>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			//gd.GenerateTransactions(authUser);
+			
 			return null;
 		}
 	}

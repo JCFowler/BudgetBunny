@@ -480,7 +480,7 @@ $('#submitSetup').click(function()
 			categoryData : JSON.stringify(catData.data)
 	}
 	
-	if(depData && withData && catData)
+	if(depData && withData && catData  && !$.isEmptyObject(catData.data) && !$.isEmptyObject(depData.data) && !$.isEmptyObject(withData.data))
 	{	
 		$(this).attr("disabled", true);
 		$(this).text("Submitting...");
@@ -506,7 +506,7 @@ $('.submit-income').click(function(){
 			deletedList : JSON.stringify(depData.deletedList)
 	}
 	
-	if(depData)
+	if(depData && !$.isEmptyObject(setupData.depositData) )
 	{
 		$(this).attr("disabled", true);
 		$(this).text("Submitting...");
@@ -528,7 +528,7 @@ $('.submit-bill').click(function(){
 	$(this).attr("disabled", true);
 	$(this).text("Submitting...");
 	
-	if(withData)
+	if(withData && !$.isEmptyObject(setupData.withdrawData))
 	{	
 		$(this).attr("disabled", true);
 		$(this).text("Submitting...");
@@ -546,8 +546,8 @@ $('.submit-budget').click(function(){
 			categoryData : JSON.stringify(catData.data),
 			deletedList : JSON.stringify(catData.deletedList)
 	}
-	
-	if(catData)
+
+	if(catData && !$.isEmptyObject(setupData.categoryData))
 	{
 		$(this).attr("disabled", true);
 		$(this).text("Submitting...");
