@@ -25,7 +25,7 @@ public class GenerateData {
 	@Autowired
 	BudgetDAO bd;
 	@Autowired
-	private	TransactionService tService;
+	TransactionService tService;
 	
 	public void GenerateTransactions(User u)
 	{
