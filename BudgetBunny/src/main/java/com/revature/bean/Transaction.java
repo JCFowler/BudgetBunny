@@ -37,7 +37,6 @@ public class Transaction {
 		this.cost = cost;
 		this.cat = cat;
 		this.transactionId = 0;
-		//CharSequence test = ;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		formatter = formatter.withLocale(Locale.US );
 		Date test = Date.valueOf(LocalDate.now());
