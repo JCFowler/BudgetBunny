@@ -71,7 +71,7 @@ public class RecurringChargeDAOImpl implements RecurringChargeDAO {
 	
 	@Override
 	public void delete(RecurringCharge r) {
-		session.delete(r);;
+		session.delete(r);
 	}
 
 	@Override
