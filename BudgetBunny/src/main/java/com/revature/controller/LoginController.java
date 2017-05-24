@@ -53,14 +53,15 @@ public class LoginController
 			return null;
 		}
 		else {
-			Set<Category> catSet = new HashSet<Category>(authUser.getBudget().getCategory());
-			Set<RecurringCharge> reSet = new HashSet<RecurringCharge>(authUser.getBudget().getRecurringCharge());
-			ArrayList<Category> catList = new ArrayList<Category>(catSet);
-			ArrayList<RecurringCharge> reList = new ArrayList<RecurringCharge>(reSet);
+			Set<Category> catSet = new HashSet<>(authUser.getBudget().getCategory());
+			Set<RecurringCharge> reSet = new HashSet<>(authUser.getBudget().getRecurringCharge());
+			ArrayList<Category> catList = new ArrayList<>(catSet);
+			ArrayList<RecurringCharge> reList = new ArrayList<>(reSet);
 			authUser.getBudget().setCategory(catList);
 			authUser.getBudget().setRecurringCharge(reList);
 			
-			double totalS = 0, totalB= 0;
+			double totalS = 0;
+			double totalB= 0;
 			for(Category c : authUser.getBudget().getCategory())
 				totalS += c.getSpent();
 			
@@ -77,9 +78,7 @@ public class LoginController
 			
 			req.getSession().setAttribute("user", authUser);
 			
-//			System.out.println("User Authorized>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 //			gd.GenerateTransactions(authUser);
-//			
 			return null;
 		}
 	}
