@@ -12,7 +12,7 @@ function validateCreate() {
     var x,y,z;
     var text = '';
 
-
+    // Get the value of the input field with id="numb"
     x = document.getElementById("username").value;
     y = document.getElementById("password").value;
     z = document.getElementById("name").value;
@@ -41,7 +41,9 @@ function validateCreate() {
     
     if (text === '') {
     	return true;
-    } else
+    } else {
+    	return false;
+    }
 }
 
 var test = document.getElementById("create");
