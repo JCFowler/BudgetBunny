@@ -64,6 +64,7 @@
 
 							<div class="dropdown">
 								<select id="myDropdown" class="dropdown-content">
+									<option class="option" href="#">All</option>
 									<%
 										for (Category test : item) {
 									%>
@@ -73,7 +74,6 @@
 									%>
 								</select>
 							</div>
-							<button class='btn btn-info' id='sort'>Sort</button>
 						</td>
 
 					</tr>
@@ -90,7 +90,7 @@
 						<th>Category</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="filterrow">
 					<c:forEach items="${transaction}" var="item">
 						<tr id="row${item.transactionId}">
 							<td hidden>${item.transactionId}</td>

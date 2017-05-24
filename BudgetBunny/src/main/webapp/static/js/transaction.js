@@ -11,7 +11,7 @@ $('body').on('click','#myBtn',function(){
 
 $('.tranRemove').click(function(){
 			var id = $(this).attr('id');
-			$('#row' + id).hide();
+			$('#row' + id).remove();
 			let x = {transactionId : id};
 			ajaxCall(x , '/BudgetBunny/transaction')
 });
@@ -35,18 +35,18 @@ function ajaxCall(data, destUrl, onSuccess)
 
 $('select').change(function(){
 	var textselect = $(this).val();
-	   $('#filtertable').find('tr').each(function(){
+	console.log(textselect);
+	   $('#filterrow').find('tr').each(function(){
 		  let catname = $(this).find('#catname').text();
-		  
 		  if(catname != textselect){
 			  $(this).hide();
-		//if(catname == "All")
+		if(textselect == "All"){
+			$('#filtertable tr').show();
+		}
 		  }
 		  else{
 			  $(this).show();
-		  }
-		  
-		  
+		  }	  
 	   });
 	  }	
 
