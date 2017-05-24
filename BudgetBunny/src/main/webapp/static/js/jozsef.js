@@ -24,10 +24,16 @@ function ajaxCall(data, destUrl, onSuccess)
 	    success: function (html) {
 	    	if(destUrl == '/BudgetBunny/home')
 	    		transactionSuccess(html);
-	    
+	    	
+	    	if(destUrl == '/BudgetBunny/budgetsetuppage')
+	    	{	
+	    		window.location='/BudgetBunny/home';
+	    		return;
+	    	}
 	    	$('.total-budget').text($(html).find('.total-budget').text());
 	    	
 	    	submitSuccess();
+	    	close_div();
 	    }
 	  });
 }
@@ -459,8 +465,11 @@ function displayErrorMessage(validData, data)
 
 $('#submitSetup').click(function()
 {
-	totalBudget = parseFloat($('#totalSpent').text());
-	remainingBudget = parseFloat($('#totalBudget').text());
+	totalBudget = parseFloat($('#total').val());
+	if(typeof totalBudget == undefined || isNaN(totalBudget))
+		totalBudget = 0;
+	remainingBudget = parseFloat($('#totalBudget').text()) - parseFloat($('#totalSpent').text());
+	
 	
 	const depData = submitSystematicDeposits(true);
 	const withData = submitSystematicWithdraws(depData);
@@ -473,12 +482,14 @@ $('#submitSetup').click(function()
 			categoryData : JSON.stringify(catData.data)
 	}
 	
-	$(this).attr("disabled", true);
-	$(this).text("Submitting...");
-	
 	if(depData && withData && catData)
+	{	
+		$(this).attr("disabled", true);
+		$(this).text("Submitting...");
 		submitAjaxBudgetCheck(setupData, '/BudgetBunny/budgetsetuppage');
+	}
 });
+
 
 
 function submitSuccess(){
@@ -497,11 +508,12 @@ $('.submit-income').click(function(){
 			deletedList : JSON.stringify(depData.deletedList)
 	}
 	
-	$(this).attr("disabled", true);
-	$(this).text("Submitting...");
-	
 	if(depData)
+	{
+		$(this).attr("disabled", true);
+		$(this).text("Submitting...");
 		submitAjaxBudgetCheck(setupData, '/BudgetBunny/incomepage');
+	}
 
 });
 
@@ -519,7 +531,11 @@ $('.submit-bill').click(function(){
 	$(this).text("Submitting...");
 	
 	if(withData)
+	{	
+		$(this).attr("disabled", true);
+		$(this).text("Submitting...");
 		submitAjaxBudgetCheck(setupData, '/BudgetBunny/billpage');
+	}	
 });
 
 $('.submit-budget').click(function(){
@@ -532,12 +548,13 @@ $('.submit-budget').click(function(){
 			categoryData : JSON.stringify(catData.data),
 			deletedList : JSON.stringify(catData.deletedList)
 	}
-
-	$(this).attr("disabled", true);
-	$(this).text("Submitting...");
 	
 	if(catData)
+	{
+		$(this).attr("disabled", true);
+		$(this).text("Submitting...");
 		submitAjaxBudgetCheck(setupData, '/BudgetBunny/budgetpage');
+	}
 });
 
 function submitAjaxBudgetCheck(data, url){
@@ -617,12 +634,13 @@ function readyHtml()
 $('#purchase').click(function(){
 	let popUp = $('#myPopup');
 	var transamount = popUp.find("#amount");
-
 	var item = transamount.val();
 
 	
 	if(verifyIncomeValue(transamount))
 	{
+		$(this).text('Processing');
+
 		let data = {
 				name: popUp.find('#name').text(),
 				budget: popUp.find('#budget').text(),
@@ -631,7 +649,7 @@ $('#purchase').click(function(){
 				id: popUp.find('#id').text(),
 		};
 		ajaxCall(data, '/BudgetBunny/home');
-		close_div();
+		
 	}
 	
 });
@@ -640,6 +658,7 @@ function close_div()
 {
 	$("#home-div").removeClass("blur-filter");
 	$('#myPopup').hide();
+	$('#purchase').text('Purchase');
 	let input = $('#myPopup').find('#amount');
 	turnOffHighLight(input);
 	input.val("");
