@@ -1,6 +1,5 @@
 package com.revature.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.bean.Budget;
@@ -45,8 +43,8 @@ public class BillController {
 		String bill = req.getParameter("withdrawData");
 		String deleted = req.getParameter("deletedList");
 		
-		ArrayList<RecurringCharge> bList = new ArrayList<RecurringCharge>();
-		ArrayList<Integer> dList = new ArrayList<Integer>();
+		ArrayList<RecurringCharge> bList = new ArrayList<>();
+		ArrayList<Integer> dList = new ArrayList<>();
 		
 		ObjectMapper mapper = new ObjectMapper();
 		User user = (User)req.getSession().getAttribute("user");
@@ -69,11 +67,9 @@ public class BillController {
 					dList.add(j.get("id").asInt());
 				}			
 			}
-		} catch (JsonProcessingException e) {
-			log.error(e.getMessage());
-		} catch (IOException e) {
-			log.error(e.getMessage());
-		}
+		} catch (Exception e) {
+			log.error(e);
+		} 
 		rcService.deleteList(dList);
 		Budget updatedBudget = rcService.mergeBillList(bList, user.getBudget());
 		user.getBudget().setTotalBudget(updatedBudget.getTotalBudget());

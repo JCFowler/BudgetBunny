@@ -1,6 +1,5 @@
 package com.revature.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.bean.Budget;
@@ -43,9 +41,9 @@ public class BudgetSetupController {
 		String bill = req.getParameter("withdrawData");
 		String category = req.getParameter("categoryData");
 		
-		ArrayList<Category> cList = new ArrayList<Category>();
-		ArrayList<RecurringCharge> iList = new ArrayList<RecurringCharge>();
-		ArrayList<RecurringCharge> bList = new ArrayList<RecurringCharge>();
+		ArrayList<Category> cList = new ArrayList<>();
+		ArrayList<RecurringCharge> iList = new ArrayList<>();
+		ArrayList<RecurringCharge> bList = new ArrayList<>();
 		
 		ObjectMapper mapper = new ObjectMapper();
 		User user = (User)req.getSession().getAttribute("user");
@@ -82,11 +80,9 @@ public class BudgetSetupController {
 				b.setBud(user.getBudget());
 				bList.add(b);
 			}
-		} catch (JsonProcessingException e) {
-			log.error(e.getMessage());
-		} catch (IOException e) {
-			log.error(e.getMessage());
-		}
+		} catch (Exception e) {
+			log.error(e);
+		} 
 		Budget updatedBudget = budgetService.saveAll(iList, bList, cList, user.getBudget());
 		user.getBudget().setTotalBudget(updatedBudget.getTotalBudget());
 		user.getBudget().setTotalSpent(updatedBudget.getTotalSpent());

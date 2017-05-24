@@ -1,6 +1,5 @@
 package com.revature.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.bean.Category;
@@ -45,8 +43,8 @@ public class BudgetController {
 		String category = req.getParameter("categoryData");
 		String deleted = req.getParameter("deletedList");
 		
-		ArrayList<Category> cList = new ArrayList<Category>();
-		ArrayList<Integer> dList = new ArrayList<Integer>();
+		ArrayList<Category> cList = new ArrayList<>();
+		ArrayList<Integer> dList = new ArrayList<>();
 		
 		ObjectMapper mapper = new ObjectMapper();
 		User user = (User)req.getSession().getAttribute("user");
@@ -60,6 +58,7 @@ public class BudgetController {
 				c.setBudget(cJson.get("amount").asDouble());
 				c.setBud(user.getBudget());
 				cList.add(c);
+				System.out.println(c);
 			}
 			
 			if(deleted != null) {
@@ -69,14 +68,12 @@ public class BudgetController {
 					dList.add(j.get("id").asInt());
 				}			
 			}
-		} catch (JsonProcessingException e) {
-			log.error(e.getMessage());
-		} catch (IOException e) {
-			log.error(e.getMessage());
-		}
-		
-		System.out.println(dList);
-		if(dList.size() > 0)
+		} catch (Exception e) {
+			log.error(e);
+			System.out.println("here");
+		} 
+		System.out.println(cList);
+		if(!dList.isEmpty())
 		{
 			double spent = categoryService.deleteList(dList);
 			user.getBudget().setTotalBudget(user.getBudget().getTotalBudget() + spent);

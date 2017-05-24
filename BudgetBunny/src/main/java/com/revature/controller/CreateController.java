@@ -19,22 +19,22 @@ import com.revature.service.UserService;
 public class CreateController {
 	@Autowired
 	UserService userService;
+	private String create = "create";
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String getCreatePage(ModelMap modelMap)
 	{
 		User emptyUser = new User();
 		modelMap.addAttribute("createUser", emptyUser);
-		return "create";
+		return create;
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public String postCreate(@Valid User user, BindingResult bindingResult, HttpServletResponse resp, HttpServletRequest req, ModelMap modelMap)
 	{
-		System.out.println("Posting");
 		if(bindingResult.hasErrors())
 		{
-			return "create";
+			return create;
 		}
 		if(!userService.isUsernameTaken(user.getUsername()))
 		{
@@ -42,9 +42,8 @@ public class CreateController {
 		}
 		else {
 			resp.setStatus(401);
-			System.out.println("Username is taken");
 			return null;
 		}
-		return "create";
+		return create;
 	}
 }
