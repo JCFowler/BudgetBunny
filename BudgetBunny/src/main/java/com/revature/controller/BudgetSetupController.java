@@ -1,13 +1,12 @@
 package com.revature.controller;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +26,7 @@ import com.revature.service.BudgetService;
 public class BudgetSetupController {
 	@Autowired
 	BudgetService budgetService;
+	Logger log = Logger.getRootLogger();
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String getBudgetSetPage(HttpServletRequest req)
@@ -83,9 +83,9 @@ public class BudgetSetupController {
 				bList.add(b);
 			}
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			log.error(e.getMessage());
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error(e.getMessage());
 		}
 		Budget updatedBudget = budgetService.saveAll(iList, bList, cList, user.getBudget());
 		user.getBudget().setTotalBudget(updatedBudget.getTotalBudget());
