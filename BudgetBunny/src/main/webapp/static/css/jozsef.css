@@ -1,10 +1,5 @@
 @CHARSET "ISO-8859-1";
 
-.table
-{
-
-}
-
 .btn-info
 {
 	background-color: #65a5ce;
@@ -15,7 +10,7 @@
 
 .table {
 	width: 25%;
-	margin-top:5%;
+	margin-top:0;
 
 	border: 25px solid #65a5ce;
 	border-radius: 25px;
@@ -165,12 +160,14 @@
     display: inline-block;
     padding: 2.5%;
     margin: 1%;
-    padding-right: 5%;
+    padding-right: 2%;
     padding-left: 2%;
     border-radius: 10%;
     text-align: center;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
+    width: 190pt;
+    height: 250pt;
 }
 
 html, body
@@ -182,6 +179,15 @@ html, body
 {
 	background-color: whitesmoke;
     border-radius: 10pt;
+}
+
+.div-group-egg
+{
+    text-align: center;
+    position: relative;
+    margin-left: 10%;
+    margin-right: 5%;
+    margin-top: 50%;
 }
 
 .egg-p

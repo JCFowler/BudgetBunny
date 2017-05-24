@@ -14,7 +14,7 @@ let remainingBudget;
  * @param data - Intended to be a Json object.
  * @param url - url for ajax call;
  */
-function ajaxCall(data, destUrl)
+function ajaxCall(data, destUrl, onSuccess)
 {
 	$.ajax({
 	    type:"POST",
@@ -23,41 +23,62 @@ function ajaxCall(data, destUrl)
 	    data: data,    // multiple data sent using ajax
 	    success: function (html) {
 	    	if(destUrl == '/BudgetBunny/home')
-	    		transactionSuccess();
-	    	else
-	    		alert('Ajax success');
+	    		transactionSuccess(html);
+	    	
+	    	if(destUrl == '/BudgetBunny/budgetsetuppage')
+	    	{	
+	    		window.location='/BudgetBunny/home';
+	    		return;
+	    	}
+	    	$('.total-budget').text($(html).find('.total-budget').text());
+	    	
+	    	submitSuccess();
+	    	close_div();
 	    }
 	  });
 }
 
 
-function transactionSuccess(){
+function transactionSuccess(html){
 	
-	//Get the modal
-	var modal = document.getElementById('myModal');
-
-	// Get the button that opens the modal
-	var btn = document.getElementById("purchase");
-
-	// Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close")[0];
-
-	// When the user clicks the button, open the modal 
-	btn.onclick = function() {
-	    modal.style.display = "block";
-	}
-
-	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
-	    modal.style.display = "none";
-	}
-
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-	    if (event.target == modal) {
-	        modal.style.display = "none";
-	    }
-	}
+    var div = $('<div>');
+    div.html(html);
+    var content = div.find('#eggs');
+    	
+	console.log(content.html());
+	$('#eggs').html(content.html());
+	readyHtml();
+	//console.log($(html).find('#home-div').html());
+	//$('#home-div').replaceWith($(html).find('#home-div'));
+	//$('#home-div').load(html);
+//	console.log("home success!");
+//	console.log($(html).find('.eggs')[0].attr('id'));
+//	console.log($(html).find('.total-budget'));
+//	//Get the modal
+//	var modal = document.getElementById('myModal');
+//
+//	// Get the button that opens the modal
+//	var btn = document.getElementById("purchase");
+//
+//	// Get the <span> element that closes the modal
+//	var span = document.getElementsByClassName("close")[0];
+//
+//	// When the user clicks the button, open the modal 
+//	btn.onclick = function() {
+//	    modal.style.display = "block";
+//	}
+//
+//	// When the user clicks on <span> (x), close the modal
+//	span.onclick = function() {
+//	    modal.style.display = "none";
+//	}
+//
+//	// When the user clicks anywhere outside of the modal, close it
+//	window.onclick = function(event) {
+//	    if (event.target == modal) {
+//	        modal.style.display = "none";
+//	    }
+//	}
 }
 /*
  * Returns the calling functions name.
@@ -269,13 +290,13 @@ function createAndFillCategories(name, budget, id){
 	let rowId = addCategory();
 	let row = $('#categoryTableRow' + rowId);
 	row.find('#name' + rowId).val(name);
-	row.find('#amount' + rowId).val(budget);
+	row.find('#amount' + rowId).val(parseFloat(budget).toFixed(2));
 	row.find('#id').val(id);
 }
 
 function createAndFillSysTrans(row, name, cost, id){
 	row.find('#name').val(name);
-	row.find('#cost').val(cost);
+	row.find('#cost').val(parseFloat(cost).toFixed(2));
 	row.find('#id').val(id);	
 }
 
@@ -444,8 +465,11 @@ function displayErrorMessage(validData, data)
 
 $('#submitSetup').click(function()
 {
-	totalBudget = parseFloat($('#totalSpent').text());
-	remainingBudget = parseFloat($('#totalBudget').text());
+	totalBudget = parseFloat($('#total').val());
+	if(typeof totalBudget == undefined || isNaN(totalBudget))
+		totalBudget = 0;
+	remainingBudget = parseFloat($('#totalBudget').text()) - parseFloat($('#totalSpent').text());
+	
 	
 	const depData = submitSystematicDeposits(true);
 	const withData = submitSystematicWithdraws(depData);
@@ -453,14 +477,25 @@ $('#submitSetup').click(function()
 	const catData = submitBudgetCategories(withData);
 
 	const setupData = {
-			depositData : JSON.stringify(depData),
-			withdrawData : JSON.stringify(withData),
-			categoryData : JSON.stringify(catData)
+			depositData : JSON.stringify(depData.data),
+			withdrawData : JSON.stringify(withData.data),
+			categoryData : JSON.stringify(catData.data)
 	}
 	
 	if(depData && withData && catData)
+	{	
+		$(this).attr("disabled", true);
+		$(this).text("Submitting...");
 		submitAjaxBudgetCheck(setupData, '/BudgetBunny/budgetsetuppage');
+	}
 });
+
+
+
+function submitSuccess(){
+	$('.submission').attr("disabled", false);
+	$('.submission').text("Submit");
+}
 
 $('.submit-income').click(function(){	
 	totalBudget = parseFloat($('#totalSpent').text());
@@ -472,8 +507,14 @@ $('.submit-income').click(function(){
 			depositData : JSON.stringify(depData.data),
 			deletedList : JSON.stringify(depData.deletedList)
 	}
+	
 	if(depData)
+	{
+		$(this).attr("disabled", true);
+		$(this).text("Submitting...");
 		submitAjaxBudgetCheck(setupData, '/BudgetBunny/incomepage');
+	}
+
 });
 
 $('.submit-bill').click(function(){
@@ -485,10 +526,16 @@ $('.submit-bill').click(function(){
 			withdrawData : JSON.stringify(withData.data),
 			deletedList : JSON.stringify(withData.deletedList)
 	}
-	alert(JSON.stringify(setupData));
 
+	$(this).attr("disabled", true);
+	$(this).text("Submitting...");
+	
 	if(withData)
+	{	
+		$(this).attr("disabled", true);
+		$(this).text("Submitting...");
 		submitAjaxBudgetCheck(setupData, '/BudgetBunny/billpage');
+	}	
 });
 
 $('.submit-budget').click(function(){
@@ -501,15 +548,18 @@ $('.submit-budget').click(function(){
 			categoryData : JSON.stringify(catData.data),
 			deletedList : JSON.stringify(catData.deletedList)
 	}
-
+	
 	if(catData)
+	{
+		$(this).attr("disabled", true);
+		$(this).text("Submitting...");
 		submitAjaxBudgetCheck(setupData, '/BudgetBunny/budgetpage');
+	}
 });
 
 function submitAjaxBudgetCheck(data, url){
 		if(remainingBudget < 0)
 		{
-			alert("Your over budget by " + remainingBudget);
 		}
 		ajaxCall(data, url);
 
@@ -524,55 +574,73 @@ $('#home-div').click(function()
 		close_div()	
 });
 
-$('.category-display').click(function(){
-	if(!$("#home-div").hasClass("blur-filter"))
-	{
-		event.stopPropagation();
-		const name = $(this).find('#name');
-		const budget = $(this).find('#budget');
-		const spent = $(this).find('#spent');
-		const id = $(this).find('#id');
-		const total = (parseFloat(budget.text().replace('$', '')) - parseFloat(spent.text().replace('$', '')));
-
-		$("#home-div").addClass("blur-filter");
-		let popUp = $('#myPopup');
-		popUp.find('#name').text(name.text());
-		popUp.find('#budget').text(budget.text());
-		popUp.find('#spent').text(spent.text());
-		popUp.find('#total').text('$' + total.toFixed(2));
-		popUp.find('#id').text(id.text());
-		
-		popUp.show(500);
-	}
-});
-
-function getEggClass(){
-	let rand = Math.floor((Math.random() * 8) + 1);
-	return 'egg-back-' + rand;
+function getEggClass(spent, budget){
+	let ratio = spent/budget;
+	let color;
+	if(ratio > 1)
+		color = 'red';
+	else if(ratio > .75)
+		color = 'yellow';
+	else if(ratio > .25)
+		color = 'blue';
+	else
+		color = 'green';
+	
+	return 'egg-' + color;
 }
 
 $(document).ready(function(){
-	$('.category-display').each(function(){
-		$(this).addClass(getEggClass());
-	
-		let budget = $(this).find('#budget');
-		budget.text('$' + parseFloat(budget.text().replace('$', '')).toFixed(2));
-
-		let spent = $(this).find('#spent');
-		spent.text('$' + parseFloat(spent.text().replace('$', '')).toFixed(2));	
-	});
+	readyHtml();
 });
 
+function readyHtml()
+{
+	$('.category-display').each(function(){
+		let spent = $(this).find('#spent');
+		let budget = $(this).find('#budget');
+		spentVal = parseFloat(spent.text().replace('$', ''));
+		budgetVal = parseFloat(budget.text().replace('$', ''));
+		
+		budget.text('$' + budgetVal.toFixed(2));
+		spent.text('$' + spentVal.toFixed(2));	
+
+		$(this).addClass(getEggClass(spentVal, budgetVal));
+	
+	});	
+
+	$('.category-display').click(function(){
+		if(!$("#home-div").hasClass("blur-filter"))
+		{
+			event.stopPropagation();
+			const name = $(this).find('#name');
+			const budget = $(this).find('#budget');
+			const spent = $(this).find('#spent');
+			const id = $(this).find('#id');
+			const total = (parseFloat(budget.text().replace('$', '')) - parseFloat(spent.text().replace('$', '')));
+
+			$("#home-div").addClass("blur-filter");
+			let popUp = $('#myPopup');
+			popUp.find('#name').text(name.text());
+			popUp.find('#budget').text(budget.text());
+			popUp.find('#spent').text(spent.text());
+			popUp.find('#total').text('$' + total.toFixed(2));
+			popUp.find('#id').text(id.text());
+			
+			popUp.show(500);
+		}
+	});
+}
 
 $('#purchase').click(function(){
 	let popUp = $('#myPopup');
 	var transamount = popUp.find("#amount");
-
 	var item = transamount.val();
 
 	
 	if(verifyIncomeValue(transamount))
 	{
+		$(this).text('Processing');
+
 		let data = {
 				name: popUp.find('#name').text(),
 				budget: popUp.find('#budget').text(),
@@ -581,7 +649,7 @@ $('#purchase').click(function(){
 				id: popUp.find('#id').text(),
 		};
 		ajaxCall(data, '/BudgetBunny/home');
-		close_div();
+		
 	}
 	
 });
@@ -590,11 +658,14 @@ function close_div()
 {
 	$("#home-div").removeClass("blur-filter");
 	$('#myPopup').hide();
+	$('#purchase').text('Purchase');
 	let input = $('#myPopup').find('#amount');
 	turnOffHighLight(input);
 	input.val("");
 }
 
 
-
+var selection = $("#category option:selected").text();
+console.log("#category").val();
+console.log(selection);
 

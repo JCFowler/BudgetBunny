@@ -11,6 +11,7 @@ public interface RecurringChargeDAO extends HibernateSession{
 	
 	//R
 	RecurringCharge getById(int id);
+	RecurringCharge getByIdEager(int id);
 	ArrayList<RecurringCharge> getAll(Budget b);
 	ArrayList<RecurringCharge> getAllCharges();
 	

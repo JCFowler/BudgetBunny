@@ -34,9 +34,11 @@ public class RecurringChargeService {
 		for(Category c : b.getCategory() ) {
 			transactionSpent += c.getSpent();
 		}
-		totalSpent += transactionSpent;
-		b.setTotalSpent(totalSpent);
-		b.setTotalBudget(b.getTotalBudget() + totalSpent);
+		totalSpent -= transactionSpent;
+		double initBudget = b.getTotalBudget() + b.getTotalSpent();
+		System.out.println(totalSpent);
+		b.setTotalSpent(totalSpent * -1);
+		b.setTotalBudget(initBudget + totalSpent);
 		
 		bd.update(b);
 		
@@ -77,5 +79,15 @@ public class RecurringChargeService {
 			return iList;
 		else 
 			return bList;
+	}
+	
+	public ArrayList<RecurringCharge> getAll()
+	{
+		return rd.getAllCharges();
+	}
+	
+	public void update(RecurringCharge charge)
+	{
+		rd.update(charge);
 	}
 }

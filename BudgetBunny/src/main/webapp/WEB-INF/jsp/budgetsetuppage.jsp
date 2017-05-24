@@ -13,8 +13,6 @@
 </head>
 <body id="setup-body">
 
-	<%@ include file = "_navbar.jsp" %>
-
 	<div id='table-container'>
 		<div id="withdrawFormDiv">
 			<c:set var="headerMsg" value="Add Your Income"></c:set>

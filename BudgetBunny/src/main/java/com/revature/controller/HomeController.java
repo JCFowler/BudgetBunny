@@ -56,7 +56,7 @@ public class HomeController
 		double budget = Double.parseDouble(sb1);
 		String catIDtemp = req.getParameter("id");
 		String spenttemp = req.getParameter("amount");
-		String sbsp = spenttemp.toString();
+		String sbsp = spenttemp;
 		Double spent = Double.parseDouble(sbsp);
 		int catID = Integer.parseInt(catIDtemp);
 		System.out.println(catID);
@@ -74,6 +74,10 @@ public class HomeController
 		u.getBudget().setTotalBudget(u.getBudget().getTotalBudget() - spent);
 		u.getBudget().setTotalSpent(u.getBudget().getTotalSpent() + spent);
 		req.getSession().setAttribute("user", u);
+		
+		List<Category> list = new ArrayList<Category>();
+		list = catService.getAll(u.getBudget());
+		req.getSession().setAttribute("cats", list);	
 		
 		return "home";
 	}

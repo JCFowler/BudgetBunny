@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +20,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="category")
 public class Category implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column
 	@SequenceGenerator(name="category_seq", sequenceName="category_seq")
@@ -27,7 +30,7 @@ public class Category implements Serializable{
 	private String name;
 	private double budget;
 	private double spent;
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="cat")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="cat", cascade=CascadeType.ALL)
 	private Collection<Transaction> transaction;
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="budgetid")

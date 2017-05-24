@@ -2,7 +2,6 @@ package com.revature.dao;
 
 import java.util.ArrayList;
 
-import com.revature.bean.Category;
 import com.revature.bean.Transaction;
 
 public interface TransactionDAO extends HibernateSession{
@@ -11,11 +10,14 @@ public interface TransactionDAO extends HibernateSession{
 	
 	//R
 	Transaction getById(int id);
-	ArrayList<Transaction> getAll(Category c);
+	ArrayList<Transaction> getAll(int id);
 	
 	//U
 	void update(Transaction t);
 	
 	//D
 	void delete(Transaction t);
+	
+	
+	
 }

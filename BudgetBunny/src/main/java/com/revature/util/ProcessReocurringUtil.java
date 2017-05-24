@@ -1,7 +1,6 @@
 package com.revature.util;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 import com.revature.bean.Budget;
 import com.revature.bean.RecurringCharge;
-import com.revature.dao.RecurringChargeDAO;
-import com.revature.dao.UserDAO;
+import com.revature.service.BudgetService;
+import com.revature.service.RecurringChargeService;
 
 @Component
 @Aspect
@@ -23,28 +22,21 @@ public class ProcessReocurringUtil implements Runnable {
 	private Long interval;
 	
 	@Autowired
-	UserDAO ud;
+	RecurringChargeService rcs;
 	@Autowired
-	RecurringChargeDAO rcd;
-	
-	public static void main(String...args)
-	{
-		System.out.println(LocalTime.now());
-		System.out.println(LocalDate.now());
-	}
+	BudgetService bs;
 	
 	private ProcessReocurringUtil()
 	{
 		super();
-		interval = 60*60*4l;
+		interval = 60*60*24l;
 	}	
 	
 	@Override
 	public void run() {
-		ud.login("nope", "yep");
 		while(true)
 		{
-			ArrayList<RecurringCharge> charges = rcd.getAllCharges();
+			ArrayList<RecurringCharge> charges = rcs.getAll();
 
 			for(RecurringCharge charge : charges)
 			{
@@ -59,7 +51,6 @@ public class ProcessReocurringUtil implements Runnable {
 		try {
 			Thread.sleep(interval * 1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -71,21 +62,44 @@ public class ProcessReocurringUtil implements Runnable {
 	
 	private void processChargePrivate(RecurringCharge charge)
 	{
-		Date now = new Date();
-		processCharge(charge, now);	
+		processCharge(charge, LocalDate.now());	
 	}
 	
-	private void processCharge(RecurringCharge charge, Date now)
+	public void processOneTimeCharge(RecurringCharge charge)
 	{
-		Date last = charge.getLastTransactionDate();
-		Date processDate = new Date(last.getTime());
-		processDate.setMonth(processDate.getMonth() + 1);
-		if(processDate.getTime() < now.getTime())
+		LocalDate ld = LocalDate.now();
+		ld.plusYears(100);
+		processCharge(charge, ld);
+	}
+	
+	private void processCharge(RecurringCharge charge, LocalDate now)
+	{
+		if(charge.getLastTransactionDate() == null)
 		{
-//			Budget budget = charge.getBud();
-//TODO			Transaction newTrans = Transaction(charge.getCost());
-			charge.setLastTransactionDate(processDate);
-			rcd.update(charge);
+			charge.setLastTransactionDate(new Date());
+		}
+		
+		LocalDate processDate = new java.sql.Date( new java.util.Date().getTime() ).toLocalDate();
+		processDate = processDate.plusMonths(1);
+		
+		if(processDate.isBefore(now))
+		{
+			Budget b = charge.getBud();
+			double amount = charge.getCost();
+			if(amount > 0)
+			{
+				double total = b.getTotalBudget();
+				b.setTotalBudget(total + amount);
+			}
+			else
+			{
+				double spent = b.getTotalSpent();
+				b.setTotalSpent(spent + amount * -1);
+			}
+			bs.save(b);
+			charge.setLastTransactionDate(java.sql.Date.valueOf(processDate));
+
+			rcs.update(charge);
 		}
 	}
 	

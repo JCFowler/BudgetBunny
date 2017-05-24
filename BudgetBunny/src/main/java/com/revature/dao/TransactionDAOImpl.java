@@ -6,7 +6,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 
-import com.revature.bean.Category;
 import com.revature.bean.Transaction;
 
 @Component
@@ -36,11 +35,12 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Transaction> getAll(Category c) {
-		String hql = "FROM Transaction WHERE cat=:id";
+	public ArrayList<Transaction> getAll(int id) {
+		String hql = "FROM Transaction where cat.bud.budgetId=:id";
 		Query q = session.createQuery(hql);
-		q.setParameter("id", c);
+		q.setParameter("id", id );
 		ArrayList<Transaction> trans = (ArrayList<Transaction>) q.list();
+		System.out.println(q.list());
 		return trans; 
 	}
 
@@ -49,4 +49,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		this.session = session;
 	}
 
+	
+
+	
 }

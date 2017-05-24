@@ -23,19 +23,26 @@
 		<h3 class="no-top" id='totalBudget' hidden>${user.budget.totalBudget}</h3>
 		
 
-		<div id="withdrawFormDiv">
 			<c:set var="headerMsg" value="Add Your Income"></c:set>
 			<c:set var="type" value="deposit"></c:set>
 			<%@ include file = "systematictransactionform.jsp" %>
-			<button class="btn btn-info submission submit-income" style='display: none'>Submit</button>
 			
-		</div>	
 	</div>
+			<button class="btn btn-info submission submit-income" style='display: none'>Submit</button>
+
+
 
 	<script type="text/javascript" src="static/js/jozsef.js"></script>
 	<c:forEach items="${incomeList}" var="elem">
 		<script>createAndFillDeposit('${elem.name}', '${elem.cost}', '${elem.chargeId}')</script>		
 	</c:forEach>
 	
+	<c:set var="total" value="0"/>
+	<c:forEach items="${user.budget.recurringCharge}" var="charge">
+		<c:if test="${charge.cost > 0}">
+		<c:set var="total" value="${total = total + charge.cost}"/>
+		</c:if>
+	</c:forEach>
+	<p hidden id='total' value='${total}'></p>
 </body>
 </html>
