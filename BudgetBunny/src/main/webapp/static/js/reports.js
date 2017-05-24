@@ -10,14 +10,14 @@ function ajaxCall(data, destUrl, type)
 	    cache:false,
 	    url: destUrl,
 	    data: data,    // multiple data sent using ajax
-	    success: function (html, data) {
+	    success: function (html) {
 	    	
 	        var div = $('<div>');
 	        div.html(html);
 	    	var content = div.find('#container');
 
-	        let json = div.find('#json').text();
-	    	let jsonObj = $.parseJSON(json).types
+	        const json = div.find('#json').text();
+	    	const jsonObj = $.parseJSON(json).types
 	    	
 	    	$('#container').html(content.html());
 	    	createGraph(type, jsonObj);
@@ -35,11 +35,15 @@ function createGraph(graphName, jsonObj)
 	case 'pieGraph':
 		renderPieGraph(jsonObj);
 		break;
+	default : 
+		break;
 	}
 }
 
 function renderTieredBarGraph(jsonObj){
-	data = [];
+	var data = [];
+	var category;
+	var month;
 	for(category in jsonObj)
 	{
 	    dataPoints = [];
@@ -71,6 +75,8 @@ function renderTieredBarGraph(jsonObj){
 function renderPieGraph(jsonObj){
 	data = [];
 	dataPoints = [];
+	var category;
+	var month;
 	for(category in jsonObj)
 	{
 	    let total = 0;
