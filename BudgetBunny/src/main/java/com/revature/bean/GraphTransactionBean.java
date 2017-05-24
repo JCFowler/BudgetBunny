@@ -1,7 +1,7 @@
 package com.revature.bean;
 
+import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.Set;
 
 public class GraphTransactionBean {
 
@@ -19,8 +19,9 @@ public class GraphTransactionBean {
 			types.put(typeName, map);
 		}
 		
+		LocalDate ld = trans.getDate().toLocalDate();
 		
-		String date = trans.getDate().getYear() + "-" + trans.getDate().getMonth();
+		String date = ld.getYear() + "-" + ld.getMonthValue();
 		Double val = map.get(date);
 		
 		if(val == null)
