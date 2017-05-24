@@ -14,7 +14,7 @@ let remainingBudget;
  * @param data - Intended to be a Json object.
  * @param url - url for ajax call;
  */
-function ajaxCall(data, destUrl, onSuccess)
+function ajaxCall(data, destUrl)
 {
 	$.ajax({
 	    type:"POST",
@@ -78,15 +78,6 @@ function kirtanPopUp(){
 	}
 }
 
-/*
- * Returns the calling functions name.
- */
-function getFunctionName() {
-    var re = /function (.*?)\(/
-    var s = getFunctionName.caller.toString();
-    var m = re.exec( s )
-    return m[1];
-}
 
 /*************************** SystematicTransactionForm ***********************************/
 
@@ -285,8 +276,8 @@ function addCategory(){
 }
 
 function createAndFillCategories(name, budget, id){
-	let rowId = addCategory();
-	let row = $('#categoryTableRow' + rowId);
+	const rowId = addCategory();
+	const row = $('#categoryTableRow' + rowId);
 	row.find('#name' + rowId).val(name);
 	row.find('#amount' + rowId).val(parseFloat(budget).toFixed(2));
 	row.find('#id').val(id);
@@ -299,14 +290,14 @@ function createAndFillSysTrans(row, name, cost, id){
 }
 
 function createAndFillDeposit(name, cost, id){
-	let rowId = addSystematic($('#adddeposit'));
-	let row = $('#depositTableRow' + rowId);
+	const rowId = addSystematic($('#adddeposit'));
+	const row = $('#depositTableRow' + rowId);
 	createAndFillSysTrans(row, name, cost, id);
 }
 
 function createAndFillWithdraw(name, cost, id){
-	let rowId = addSystematic($('#addwithdraw'));
-	let row = $('#withdrawTableRow' + rowId);
+	const rowId = addSystematic($('#addwithdraw'));
+	const row = $('#withdrawTableRow' + rowId);
 	createAndFillSysTrans(row, name, cost, id);
 }
 
@@ -335,7 +326,7 @@ $('.percentage').click(function(){
 $('.RemoveButton').click(function()
 {
 	var type = $(this).attr('type');
-	let table = $('#' + type + 'Table');
+	const table = $('#' + type + 'Table');
 	
 	const id = $(this).attr('id').replace(type + 'RemoveButton', '');
 	
@@ -382,7 +373,8 @@ function submitBudgetCategories(validData)
 	let arrCount = 0;
 	let deletedCount = 0;
 	let deletedData = {};
-	let data = {};
+	const data = {};
+	let nextIncome;
 	while((nextIncome = $('#categoryTableRow' + count++)).length > 0)
 	{
 		const category = nextIncome.find('#category');
@@ -402,7 +394,6 @@ function submitBudgetCategories(validData)
 			continue;
 		}
 		
-		let varifyAmount;
 		amount = calculateAmount(percent.is(':checked'), amount);
 	
 		const verifyName = verifyNonEmpty(name);
@@ -464,7 +455,7 @@ function displayErrorMessage(validData, data)
 $('#submitSetup').click(function()
 {
 	totalBudget = parseFloat($('#total').val());
-	if(typeof totalBudget == undefined || isNaN(totalBudget))
+	if(isNaN(totalBudget))
 		totalBudget = 0;
 	remainingBudget = parseFloat($('#totalBudget').text()) - parseFloat($('#totalSpent').text());
 	
@@ -507,7 +498,6 @@ $('.submit-income').click(function(){
 			depositData : JSON.stringify(depData.data),
 			deletedList : JSON.stringify(depData.deletedList)
 	}
-	alert(JSON.stringify(setupData.depositData));
 
 	if(depData)
 	{
@@ -564,11 +554,7 @@ $('.submit-budget').click(function(){
 });
 
 function submitAjaxBudgetCheck(data, url){
-		if(remainingBudget < 0)
-		{
-		}
 		ajaxCall(data, url);
-
 }
 
 
@@ -581,7 +567,7 @@ $('#home-div').click(function()
 });
 
 function getEggClass(spent, budget){
-	let ratio = spent/budget;
+	const ratio = spent/budget;
 	let color;
 	if(ratio > 1)
 		color = 'red';
@@ -602,10 +588,10 @@ $(document).ready(function(){
 function readyHtml()
 {
 	$('.category-display').each(function(){
-		let spent = $(this).find('#spent');
-		let budget = $(this).find('#budget');
-		spentVal = parseFloat(spent.text().replace('$', ''));
-		budgetVal = parseFloat(budget.text().replace('$', ''));
+		const spent = $(this).find('#spent');
+		const budget = $(this).find('#budget');
+		const spentVal = parseFloat(spent.text().replace('$', ''));
+		const budgetVal = parseFloat(budget.text().replace('$', ''));
 		
 		budget.text('$' + budgetVal.toFixed(2));
 		spent.text('$' + spentVal.toFixed(2));	
@@ -625,7 +611,7 @@ function readyHtml()
 			const total = (parseFloat(budget.text().replace('$', '')) - parseFloat(spent.text().replace('$', '')));
 
 			$("#home-div").addClass("blur-filter");
-			let popUp = $('#myPopup');
+			const popUp = $('#myPopup');
 			popUp.find('#name').text(name.text());
 			popUp.find('#budget').text(budget.text());
 			popUp.find('#spent').text(spent.text());
@@ -638,7 +624,7 @@ function readyHtml()
 }
 
 $('#purchase').click(function(){
-	let popUp = $('#myPopup');
+	const popUp = $('#myPopup');
 	var transamount = popUp.find("#amount");
 	var item = transamount.val();
 
@@ -647,7 +633,7 @@ $('#purchase').click(function(){
 	{
 		$(this).text('Processing');
 
-		let data = {
+		const data = {
 				name: popUp.find('#name').text(),
 				budget: popUp.find('#budget').text(),
 				spent: popUp.find('#spent').text(),
@@ -665,7 +651,7 @@ function close_div()
 	$("#home-div").removeClass("blur-filter");
 	$('#myPopup').hide();
 	$('#purchase').text('Purchase');
-	let input = $('#myPopup').find('#amount');
+	const input = $('#myPopup').find('#amount');
 	turnOffHighLight(input);
 	input.val("");
 }
