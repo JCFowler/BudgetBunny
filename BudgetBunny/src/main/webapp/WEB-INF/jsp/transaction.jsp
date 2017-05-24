@@ -114,9 +114,6 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="static/js/transaction.js"></script>
 </body>
-
-
-
 </html>
 
 
