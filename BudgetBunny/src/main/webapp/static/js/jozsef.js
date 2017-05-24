@@ -45,7 +45,6 @@ function transactionSuccess(html){
     div.html(html);
     var content = div.find('#eggs');
     	
-	console.log(content.html());
 	$('#eggs').html(content.html());
 	readyHtml();
 }
@@ -154,11 +153,7 @@ function submitSystematicTransactions(numberPrefix, type, validData)
 		
 		if(name.val().length == 0 && cost.val().length == 0)
 		{
-			if(id != "0" && id != "")
-				deletedData[deletedCount++] = {id : id};
-				
-			turnOffHighLight(name);
-			turnOffHighLight(cost);
+			ignore(id, name, cost);
 			continue;
 		}
 		const verifyCost = verifyIncomeValue(cost);
@@ -167,7 +162,7 @@ function submitSystematicTransactions(numberPrefix, type, validData)
 		
 		if(validData)
 		{
-			let costVal = numberPrefix + cost.val();
+			const costVal = numberPrefix + cost.val();
 			remainingBudget += parseFloat(costVal);
 			if(numberPrefix == "")
 				totalBudget += parseFloat(costVal);
@@ -182,6 +177,15 @@ function submitSystematicTransactions(numberPrefix, type, validData)
 	}
 	data = {data : data, deletedList : deletedData};
 	return displayErrorMessage(validData, data);
+}
+
+function ignore(id, name, cost)
+{
+	if(id != "0" && id != "")
+		deletedData[deletedCount++] = {id : id};
+		
+	turnOffHighLight(name);
+	turnOffHighLight(cost);	
 }
 
 
@@ -372,8 +376,8 @@ function submitBudgetCategories(validData)
 	let count = 1;
 	let arrCount = 0;
 	let deletedCount = 0;
-	let deletedData = {};
-	const data = {};
+	const deletedData = {};
+	let data = {};
 	let nextIncome;
 	while((nextIncome = $('#categoryTableRow' + count++)).length > 0)
 	{
@@ -471,7 +475,9 @@ $('#submitSetup').click(function()
 			categoryData : JSON.stringify(catData.data)
 	}
 	
-	if(depData && withData && catData  && !$.isEmptyObject(catData.data) && !$.isEmptyObject(depData.data) && !$.isEmptyObject(withData.data))
+	const emptyData = !$.isEmptyObject(catData.data) && !$.isEmptyObject(depData.data) && !$.isEmptyObject(withData.data);
+	const validData = depData && withData && catData ;
+	if(validData && emptyData)
 	{	
 		$(this).attr("disabled", true);
 		$(this).text("Submitting...");
