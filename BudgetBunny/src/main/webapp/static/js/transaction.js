@@ -1,14 +1,3 @@
-
-$(document).ready(function(){
-    $("#myBtn").click(function(){
-        $("#myModal").modal();
-    });
-});
-
-$('body').on('click','#myBtn',function(){
-	$('#myModal').load('newTransaction.jsp');
-});
-
 $('.tranRemove').click(function(){
 			var id = $(this).attr('id');
 			$('#row' + id).remove();
@@ -17,17 +6,13 @@ $('.tranRemove').click(function(){
 });
 
 
-function ajaxCall(data, destUrl, onSuccess)
+function ajaxCall(data, destUrl)
 {
 	$.ajax({
 	    type:"POST",
 	    cache:false,
 	    url: destUrl,
 	    data: data,    // multiple data sent using ajax
-	    
-	    success: function (html) {
-	    	
-	    }
 	  });
 }
 
@@ -72,5 +57,4 @@ $('input').change(function() {
 		}
 	});
 }
-
 );
