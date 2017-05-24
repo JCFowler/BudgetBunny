@@ -19,8 +19,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 	@Override
 	public Transaction getById(int id) {
-		Transaction t = (Transaction) session.get(Transaction.class, id);
-		return t;
+		return (Transaction) session.get(Transaction.class, id);
 	}
 
 	@Override
@@ -39,9 +38,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		String hql = "FROM Transaction where cat.bud.budgetId=:id";
 		Query q = session.createQuery(hql);
 		q.setParameter("id", id );
-		ArrayList<Transaction> trans = (ArrayList<Transaction>) q.list();
-		System.out.println(q.list());
-		return trans; 
+		return (ArrayList<Transaction>) q.list(); 
 	}
 
 	@Override
