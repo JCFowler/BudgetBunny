@@ -30,25 +30,28 @@ public class ProcessReocurringUtil implements Runnable {
 	@Autowired
 	BudgetService bs;
 	
-	private ProcessReocurringUtil()
-	{
-		super();
-		interval = 60*60*24l;
-	}	
-	
-	@Override
-	public void run() {
-		while(true)
-		{
-			ArrayList<RecurringCharge> charges = rcs.getAll();
-
-			for(RecurringCharge charge : charges)
-			{
-				processCharge(charge);
-			}
-			sleep();
-		}
-	}
+    private ProcessReocurringUtil()
+    {
+        super();
+        interval = 30l;
+    }   
+    
+    @Override
+    public void run() {
+        while(true)
+        {
+            ArrayList<RecurringCharge> charges = rcs.getAll();
+            for(RecurringCharge charge : charges)
+            {
+                String brake = "\n*****************************************\n";
+                System.out.println(brake + "\nProccessing Charge: " + charge  + "\n" + brake);
+                processCharge(charge);
+            }
+            String brake = "\n*****************************************\n";
+            System.out.println(brake + "Proccessing Complete" + brake);
+            sleep();
+        }
+    }
 	
 	private void sleep()
 	{

@@ -45,7 +45,7 @@ $('input').change(function() {
 	}
 	$('#filtertable').find('tr').each(function() {
 		const date = $(this).find('#trandate').text();
-		if (date1 < date && date < date2) {
+		if (date1 <= date && date <= date2) {
 			$(this).show();
 		} else {
 			$(this).hide();

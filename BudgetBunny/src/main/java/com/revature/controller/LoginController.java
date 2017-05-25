@@ -81,7 +81,7 @@ public class LoginController
 			
 			req.getSession().setAttribute("user", authUser);
 			
-//			gd.GenerateTransactions(authUser);
+			//gd.generateTransactions(authUser);
 			return null;
 		}
 	}
